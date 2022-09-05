@@ -58,7 +58,7 @@ shop_stats = "📈 Статистика магазина (BETA)"
 bot_settings = "⚙ Настройки бота"
 
 # FAQ
-contacts = "📞 Контакты"
+contacts = "📞 Связаться"
 refund = "🎫 Политика возврата"
 
 # Profile

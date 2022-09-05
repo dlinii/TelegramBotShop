@@ -75,10 +75,10 @@ class Settings:
         self.__set_setting("shop_settings", "enableimage", value)
 
     def is_catalog_image_enabled(self):
-        return self.__get_config()["shop_settings"]["enableimagecatalog"] == "1"
+        return self.__get_config()["shop_settings"]["enablecatalogimage"] == "1"
 
     def set_catalog_image(self, value):
-        self.__set_setting("shop_settings", "enableimagecatalog", value)
+        self.__set_setting("shop_settings", "enablecatalogimage", value)
 
     def is_phone_number_enabled(self):
         return self.__get_config()["shop_settings"]["enablephonenumber"] == "1"
@@ -146,8 +146,8 @@ name = Название магазина
 greeting = Добро пожаловать!
 refundpolicy = Текст для вкладки "Политика возврата"
 contacts = Текст для вкладки "Контакты"
-enableimage = 1
-enableimagecatalog = 1
+enableimage = 0
+enablecatalogimage= 0
 enablesticker = 0
 enablephonenumber = 0
 enabledelivery = 0

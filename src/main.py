@@ -1674,10 +1674,12 @@ async def process_callback(callback_query: types.CallbackQuery):
             await bot.edit_message_text(
                 chat_id=chat_id,
                 message_id=callback_query.message.message_id,
-                text=f"Введите ваш Email адрес {tt.or_press_back}",
+                # text=f"Введите ваш Email адрес {tt.or_press_back}",
+                text=f"Введите комментарий к заказу {tt.or_press_back}",
                 reply_markup=markups.single_button(markups.btnBackCart),
             )
-            await state_handler.checkoutCart.email.set()
+            # await state_handler.checkoutCart.email.set()
+            await state_handler.checkoutCart.additional_message.set()
             state = Dispatcher.get_current().current_state()
             await state.update_data(state_message=callback_query.message.message_id)
             await state.update_data(user_id=chat_id)
@@ -2156,7 +2158,7 @@ async def checkoutCartSetEmail(message: types.Message, state: FSMContext):
         text=text,
         reply_markup=markups.single_button(markups.btnBackCart),
     )
-    
+
 @dp.message_handler(state=state_handler.checkoutCart.phone_number)
 async def checkoutCartSetPhoneNumber(message: types.Message, state: FSMContext):
     state = Dispatcher.get_current().current_state()
@@ -2177,7 +2179,7 @@ async def checkoutCartSetPhoneNumber(message: types.Message, state: FSMContext):
         text=text,
         reply_markup=markups.single_button(markups.btnBackCart),
     )
-       
+
 @dp.message_handler(state=state_handler.checkoutCart.home_adress)
 async def checkoutCartSetHomeAdress(message: types.Message, state: FSMContext):
     state = Dispatcher.get_current().current_state()
@@ -2188,6 +2190,7 @@ async def checkoutCartSetHomeAdress(message: types.Message, state: FSMContext):
         text=f"Введите комментарий к заказу {tt.or_press_back}",
         reply_markup=markups.single_button(markups.btnBackCart),
     )
+
     await state_handler.checkoutCart.additional_message.set()
         
 @dp.message_handler(state=state_handler.checkoutCart.additional_message)
