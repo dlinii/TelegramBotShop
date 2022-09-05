@@ -1,0 +1,15 @@
+/images
+data.db
+*.pyc
+*.pyd
+sticker.tgs
+config.ini
+src/test.py
+aws.sh
+KP.pem
+ideas.txt
+/tmp
+DOCS/overview.md
+src/modules/
+backups/
+logs/
