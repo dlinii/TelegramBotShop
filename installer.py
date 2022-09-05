@@ -19,6 +19,7 @@ greeting = Добро пожаловать!
 refundpolicy = Текст для вкладки "Политика возврата"
 contacts = Текст для вкладки "Контакты"
 enableimage = 1
+enableimagecatalog = 1
 enablesticker = 0
 enablephonenumber = 0
 enabledelivery = 0
