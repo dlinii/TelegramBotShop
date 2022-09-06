@@ -113,8 +113,8 @@ def get_markup_viewMyOrder(order):
     markup = types.InlineKeyboardMarkup()
     match order.get_status():
         case 0:
-            markup.add(types.InlineKeyboardButton(text=tt.cancel_order, callback_data=f"cancelOrder{order.get_order_id()}"))
-        case -1:
+            markup.add(types.InlineKeyboardButton(text=tt.cancel_order, callback_data=f"cancelUserOrder{order.get_order_id()}"))
+        case -2:
             markup.add(types.InlineKeyboardButton(text=tt.restore_order, callback_data=f"restoreOrder{order.get_order_id()}"))
     markup.add(btnBackMyOrder)
     return markup

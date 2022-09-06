@@ -1613,6 +1613,15 @@ async def process_callback(callback_query: types.CallbackQuery):
                 text=tt.get_order_template(order),
                 reply_markup=markups.get_markup_viewMyOrder(order),
             )
+        elif call_data.startswith("cancelUserOrder"):
+            order = ordr.Order(call_data[15:])
+            order.set_status(-2)
+            await bot.edit_message_text(
+                chat_id=chat_id,
+                message_id=callback_query.message.message_id,
+                text=tt.get_order_template(order),
+                reply_markup=markups.get_markup_viewMyOrder(order),
+            )
         elif call_data.startswith("restoreOrder"):
             order = ordr.Order(call_data[12:])
             order.set_status(0)

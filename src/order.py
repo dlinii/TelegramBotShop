@@ -89,6 +89,7 @@ def get_status_dict():
             1: tt.delivery,
             2: tt.done,
             -1: tt.cancelled,
+            -2: tt.cancelled_user,
         }
 
 def get_order_list(status=None):

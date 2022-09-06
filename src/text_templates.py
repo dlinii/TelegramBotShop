@@ -41,7 +41,8 @@ def get_order_template(order):
     item_list_amount_formatted = '\n'.join([f'\t· {item[0].get_name()} - {item[1]} шт.' for item in order.get_item_list_amount()])
     phone_number = f"Номер телефона: {order.get_phone_number()}\n" if settings.is_phone_number_enabled() else ""
     home_adress = f"Адрес доставки: {order.get_home_adress()}\n" if settings.is_delivery_enabled() else ""
-    return f"{line_separator}\nID заказа: {order.get_order_id()}\nID пользователя: {order.get_user_id()}\nТовары:\n{item_list_amount_formatted}\nСумма: {order.get_item_list_price()}руб.\nПользователь: @{order.get_email_adress()}\n{phone_number}{home_adress}Комментарий к заказу: {order.get_additional_message()}\nСтатус заказа: {order.get_status_string()}\nДата: {order.get_date_string()}\n{line_separator}"
+    additional_message = f"Комментарий к заказу: {order.get_additional_message()}\n" if order.get_additional_message() else ""
+    return f"{line_separator}\nID заказа: {order.get_order_id()}\nID пользователя: {order.get_user_id()}\nТовары:\n{item_list_amount_formatted}\nСумма: {order.get_item_list_price()}руб.\nПользователь: @{order.get_email_adress()}\n{phone_number}{home_adress}Комментарий к заказу: {additional_message}\nСтатус заказа: {order.get_status_string()}\nДата: {order.get_date_string()}\n{line_separator}"
 
 def get_order_send_msg(order, username):
     return f"{line_separator}\nПривет, твой заказ №{order.get_order_id()} уже на рассмотрении, но к сожалению у тебя закрытый аккаунт и наш менеджер не может связаться с тобой. Пожалуйста, отпишись менеждеру @{username} для того чтобы договориться о встрече. Спасибо!\n{line_separator}"
@@ -87,6 +88,7 @@ processing = "Обрабатывается"
 delivery = "Ожидает доставки"
 done = "Готов"
 cancelled = "Отменён"
+cancelled_user = "Отменён пользователем"
 send_msg = "Отправить сообщение"
 
 # Item management
