@@ -1612,6 +1612,21 @@ async def process_callback(callback_query: types.CallbackQuery):
                 text=text,
                 reply_markup=markup,
             )
+        elif call_data == "skipComment":
+            state = Dispatcher.get_current().current_state()
+            data = await state.get_data()
+            user = usr.User(chat_id)
+            await state.update_data(username=user.get_username())
+            await bot.send_message(
+                chat_id=chat_id,
+                text=tt.get_order_confirmation_template(item_amount_dict=user.get_cart_amount(),
+                                                        cart_price=user.get_cart_price(),
+                                                        additional_message=None, phone_number=data[
+                        "phone_number"] if settings.is_phone_number_enabled() else None, home_adress=data[
+                        "home_adress"] if settings.is_delivery_enabled() and user.is_cart_delivery() else None),
+                reply_markup=markups.get_markup_checkoutCartConfirmation(),
+            )
+            await state_handler.checkoutCart.confirmation.set()
 
         elif call_data == "cartDel":
             if user.get_cart():
@@ -1703,8 +1718,9 @@ async def process_callback(callback_query: types.CallbackQuery):
                 message_id=callback_query.message.message_id,
                 # text=f"Введите ваш Email адрес {tt.or_press_back}",
                 text=f"Введите комментарий к заказу {tt.or_press_back}",
-                reply_markup=markups.single_button(markups.btnBackCart),
+                reply_markup=markups.get_markup_comment(),
             )
+
             # await state_handler.checkoutCart.email.set()
             await state_handler.checkoutCart.additional_message.set()
             state = Dispatcher.get_current().current_state()
@@ -2278,7 +2294,7 @@ async def checkoutCartSetAdditionalMessage(message: types.Message, state: FSMCon
     data = await state.get_data()
     user = usr.User(message.chat.id)
     await state.update_data(additional_message=message.text)
-    await state.update_data(username=message.from_user.username)
+    await state.update_data(username=user.get_username())
     if settings.is_captcha_enabled():
         captcha_text = get_captcha_text()
         await state.update_data(captcha=captcha_text)

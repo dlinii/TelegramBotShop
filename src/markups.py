@@ -88,6 +88,12 @@ def get_markup_faq():
     #markup.add(types.InlineKeyboardButton(text=tt.refund, callback_data="refund"))
     return markup
 
+def get_markup_comment():
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton(text=tt.back, callback_data="cart"))
+    markup.add(types.InlineKeyboardButton(text=tt.skip, callback_data="skipComment"))
+    return markup
+
 def get_markup_profile(user):
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton(text=tt.my_orders, callback_data="myOrders"))

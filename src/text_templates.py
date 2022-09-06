@@ -34,7 +34,8 @@ def get_order_confirmation_template(item_amount_dict, cart_price, additional_mes
     item_amount_dict_formatted = '\n'.join([f'\t· {item[0].get_name()} - {item[1]} шт.' for item in item_amount_dict])
     phone_number = f"Номер телефона: {phone_number}\n" if phone_number else ""
     home_adress = f"Адрес доставки: {home_adress}\n" if home_adress else ""
-    return f"{line_separator}\nТовары:\n{item_amount_dict_formatted}\nСумма: {cart_price}руб.\n{phone_number}{home_adress}Комментарий к заказу: {additional_message}\n{line_separator}\nВы уверены, что хотите оформить заказ?"
+    additional_message = f"Комментарий к заказу: {additional_message}\n" if additional_message else ""
+    return f"{line_separator}\nТовары:\n{item_amount_dict_formatted}\nСумма: {cart_price}руб.\n{phone_number}{home_adress}{additional_message} \n{line_separator}\nВы уверены, что хотите оформить заказ?"
     
 def get_order_template(order):
     item_list_amount_formatted = '\n'.join([f'\t· {item[0].get_name()} - {item[1]} шт.' for item in order.get_item_list_amount()])
