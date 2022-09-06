@@ -2190,7 +2190,6 @@ async def checkoutCartSetHomeAdress(message: types.Message, state: FSMContext):
         text=f"Введите комментарий к заказу {tt.or_press_back}",
         reply_markup=markups.single_button(markups.btnBackCart),
     )
-
     await state_handler.checkoutCart.additional_message.set()
         
 @dp.message_handler(state=state_handler.checkoutCart.additional_message)
@@ -2199,6 +2198,7 @@ async def checkoutCartSetAdditionalMessage(message: types.Message, state: FSMCon
     data = await state.get_data()
     user = usr.User(message.chat.id)
     await state.update_data(additional_message=message.text)
+    await state.update_data(username=message.from_user.username)
     if settings.is_captcha_enabled():
         captcha_text = get_captcha_text()
         await state.update_data(captcha=captcha_text)
@@ -2212,7 +2212,7 @@ async def checkoutCartSetAdditionalMessage(message: types.Message, state: FSMCon
     else:
         await bot.send_message(
             chat_id=message.chat.id,
-            text=tt.get_order_confirmation_template(item_amount_dict=user.get_cart_amount(), cart_price=user.get_cart_price(), email_adress=data["email"], additional_message=message.text, phone_number=data["phone_number"] if settings.is_phone_number_enabled() else None, home_adress=data["home_adress"] if settings.is_delivery_enabled() and user.is_cart_delivery() else None),
+            text=tt.get_order_confirmation_template(item_amount_dict=user.get_cart_amount(), cart_price=user.get_cart_price(),  additional_message=message.text, phone_number=data["phone_number"] if settings.is_phone_number_enabled() else None, home_adress=data["home_adress"] if settings.is_delivery_enabled() and user.is_cart_delivery() else None),
             reply_markup=markups.get_markup_checkoutCartConfirmation(),
         )
         await state_handler.checkoutCart.confirmation.set()
@@ -2514,7 +2514,7 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
                     break
             user_id = data["user_id"]
             item_list_comma = user.get_cart_comma()
-            email = data["email"]
+            email = data["username"]
             additional_message = data["additional_message"]
             phone_number = data["phone_number"] if settings.is_phone_number_enabled() else None
             home_adress = data["home_adress"] if settings.is_delivery_enabled() and user.is_cart_delivery() else None

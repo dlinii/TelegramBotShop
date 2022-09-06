@@ -30,11 +30,11 @@ def get_item_card(item=None, name=None, price=None, desc=None, amount=None):
         
     return f"{line_separator}\n{name} - {'{:.2f}'.format(price)} руб.\nВ наличии: {amount} шт.\n{line_separator}\n{desc}"
 
-def get_order_confirmation_template(item_amount_dict, cart_price, email_adress, additional_message, phone_number=None, home_adress=None):
+def get_order_confirmation_template(item_amount_dict, cart_price, additional_message, phone_number=None, home_adress=None):
     item_amount_dict_formatted = '\n'.join([f'\t· {item[0].get_name()} - {item[1]} шт.' for item in item_amount_dict])
     phone_number = f"Номер телефона: {phone_number}\n" if phone_number else ""
     home_adress = f"Адрес доставки: {home_adress}\n" if home_adress else ""
-    return f"{line_separator}\nТовары:\n{item_amount_dict_formatted}\nСумма: {cart_price}руб.\nEmail: {email_adress}\n{phone_number}{home_adress}Комментарий к заказу: {additional_message}\n{line_separator}\nВы уверены, что хотите оформить заказ?"
+    return f"{line_separator}\nТовары:\n{item_amount_dict_formatted}\nСумма: {cart_price}руб.\n{phone_number}{home_adress}Комментарий к заказу: {additional_message}\n{line_separator}\nВы уверены, что хотите оформить заказ?"
     
 def get_order_template(order):
     item_list_amount_formatted = '\n'.join([f'\t· {item[0].get_name()} - {item[1]} шт.' for item in order.get_item_list_amount()])
