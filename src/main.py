@@ -1515,6 +1515,7 @@ async def process_callback(callback_query: types.CallbackQuery):
         elif call_data.startswith("changeOrderStatusProcessing"):
             order = ordr.Order(call_data[27:])
             order.set_status(0)
+            order.set_manager(user.get_username())
             await bot.edit_message_text(
                 text=tt.get_order_template(order),
                 chat_id=chat_id,
@@ -1524,6 +1525,7 @@ async def process_callback(callback_query: types.CallbackQuery):
         elif call_data.startswith("changeOrderStatusDelivery"):
             order = ordr.Order(call_data[25:])
             order.set_status(1)
+            order.set_manager(user.get_username())
             await bot.edit_message_text(
                 text=tt.get_order_template(order),
                 chat_id=chat_id,
@@ -1533,6 +1535,7 @@ async def process_callback(callback_query: types.CallbackQuery):
         elif call_data.startswith("changeOrderStatusDone"):
             order = ordr.Order(call_data[21:])
             order.set_status(2)
+            order.set_manager(user.get_username())
             await bot.edit_message_text(
                 text=tt.get_order_template(order),
                 chat_id=chat_id,
@@ -1542,6 +1545,7 @@ async def process_callback(callback_query: types.CallbackQuery):
         elif call_data.startswith("changeOrderStatusCancel"):
             order = ordr.Order(call_data[23:])
             order.set_status(-1)
+            order.set_manager(user.get_username())
             await bot.edit_message_text(
                 text=tt.get_order_template(order),
                 chat_id=chat_id,

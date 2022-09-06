@@ -42,7 +42,8 @@ def get_order_template(order):
     phone_number = f"Номер телефона: {order.get_phone_number()}\n" if settings.is_phone_number_enabled() else ""
     home_adress = f"Адрес доставки: {order.get_home_adress()}\n" if settings.is_delivery_enabled() else ""
     additional_message = f"Комментарий к заказу: {order.get_additional_message()}\n" if order.get_additional_message() else ""
-    return f"{line_separator}\nID заказа: {order.get_order_id()}\nID пользователя: {order.get_user_id()}\nТовары:\n{item_list_amount_formatted}\nСумма: {order.get_item_list_price()}руб.\nПользователь: @{order.get_email_adress()}\n{phone_number}{home_adress}Комментарий к заказу: {additional_message}\nСтатус заказа: {order.get_status_string()}\nДата: {order.get_date_string()}\n{line_separator}"
+    status = f"Статус заказа: {order.get_status_string()} - @{order.get_manager()}"if order.get_manager() else f"Статус заказа: {order.get_status_string()}"
+    return f"{line_separator}\nID заказа: {order.get_order_id()}\nID пользователя: {order.get_user_id()}\nТовары:\n{item_list_amount_formatted}\nСумма: {order.get_item_list_price()}руб.\nПользователь: @{order.get_email_adress()}\n{phone_number}{home_adress}Комментарий к заказу: {additional_message}\n{status}\nДата: {order.get_date_string()}\n{line_separator}"
 
 def get_order_send_msg(order, username):
     return f"{line_separator}\nПривет, твой заказ №{order.get_order_id()} уже на рассмотрении, но к сожалению у тебя закрытый аккаунт и наш менеджер не может связаться с тобой. Пожалуйста, отпишись менеждеру @{username} для того чтобы договориться о встрече. Спасибо!\n{line_separator}"
@@ -58,7 +59,7 @@ cart = "🛒 Корзина"
 support_menu = "☎ Меню тех. поддержки"
 
 # Admin panel tabs
-item_management = "📦 Управление каталогом"
+item_management = "📦 Управление товаром"
 user_management = "🧍 Управление пользователями"
 shop_stats = "📈 Статистика магазина (BETA)"
 bot_settings = "⚙ Настройки бота"
@@ -88,7 +89,6 @@ processing = "Обрабатывается"
 delivery = "Ожидает доставки"
 done = "Готов"
 cancelled = "Отменён"
-cancelled_user = "Отменён пользователем"
 send_msg = "Отправить сообщение"
 
 # Item management
@@ -96,9 +96,6 @@ add_cat = "🛍️ Добавить категорию"
 add_item = "🗃️ Добавить товар"
 edit_cat = "✏️ Редактировать категорию"
 edit_item = "✏️ Редактировать товар"
-add_image_cat = "📁 Добавить фото каталога"
-delete_image_cat = "🗑️ Удалить фото каталога"
-
 change_name = "📋 Изменить название"
 change_image = "🖼️ Изменить изображение"
 hide_image = "🙈 Скрыть изображение"
