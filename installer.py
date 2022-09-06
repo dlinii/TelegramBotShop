@@ -11,7 +11,7 @@ def create_config(token, main_admin_id, config_path="config.ini"):
     DEFAULT_CONFIG_TEXT = f"""[main_settings]
 token = {token}
 mainadminid = {main_admin_id}
-debug = 0
+debug = 1
 
 [shop_settings]
 name = Название магазина
@@ -21,11 +21,11 @@ contacts = Текст для вкладки "Контакты"
 enableimage = 1
 enableimagecatalog = 1
 enableimagetype = 1
-enablesticker = 0
+enablesticker = 1
 enablephonenumber = 0
 enabledelivery = 0
 delivery_price = 0.0
-enablecaptcha = 1
+enablecaptcha = 0
 
 [stats_settings]
 barcolor = 3299ff
