@@ -24,6 +24,11 @@ class User:
     def get_username(self):
         return self.__clist()[1]
 
+
+    def set_username(self, value):
+        c.execute(f"UPDATE users SET username=? WHERE user_id=?", [value, self.get_id()])
+        conn.commit()
+
     def __clist(self):
         c.execute(f"SELECT * FROM users WHERE user_id=?", [self.get_id()])
         return list(c)[0]

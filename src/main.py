@@ -178,8 +178,10 @@ async def handle_text(message):
             reply_markup=markups.get_markup_catalogue(category.get_cat_list()),
         )
     elif message.text == tt.cart:
+        user.set_username(message.from_user.username)
         if user.get_cart():
             text = tt.cart
+
             markup = markups.get_markup_cart(user)
         else:
             text = tt.cart_is_empty
@@ -1619,21 +1621,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                 text=text,
                 reply_markup=markup,
             )
-        elif call_data == "skipComment":
-            state = Dispatcher.get_current().current_state()
-            data = await state.get_data()
-            user = usr.User(chat_id)
-            await state.update_data(username=user.get_username())
-            await bot.send_message(
-                chat_id=chat_id,
-                text=tt.get_order_confirmation_template(item_amount_dict=user.get_cart_amount(),
-                                                        cart_price=user.get_cart_price(),
-                                                        additional_message=None, phone_number=data[
-                        "phone_number"] if settings.is_phone_number_enabled() else None, home_adress=data[
-                        "home_adress"] if settings.is_delivery_enabled() and user.is_cart_delivery() else None),
-                reply_markup=markups.get_markup_checkoutCartConfirmation(),
-            )
-            await state_handler.checkoutCart.confirmation.set()
+
 
         elif call_data == "cartDel":
             if user.get_cart():
@@ -2600,6 +2588,26 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
                 reply_markup=markups.get_markup_catalogue(category.get_cat_list())
             )
             await state.finish()
+        elif call_data == "skipComment":
+            state = Dispatcher.get_current().current_state()
+            data = await state.get_data()
+            user = usr.User(chat_id)
+            await state.update_data(username=user.get_username())
+            await state.update_data(additional_message="")
+            await bot.delete_message(
+                message_id=callback_query.message.message_id,
+                chat_id=chat_id
+            )
+            await bot.send_message(
+                chat_id=chat_id,
+                text=tt.get_order_confirmation_template(item_amount_dict=user.get_cart_amount(),
+                                                        cart_price=user.get_cart_price(),
+                                                        additional_message=None, phone_number=data[
+                        "phone_number"] if settings.is_phone_number_enabled() else None, home_adress=data[
+                        "home_adress"] if settings.is_delivery_enabled() and user.is_cart_delivery() else None),
+                reply_markup=markups.get_markup_checkoutCartConfirmation(),
+            )
+            await state_handler.checkoutCart.confirmation.set()
         elif call_data == "cart":
             if user.get_cart():
                 text = tt.cart
