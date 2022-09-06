@@ -80,6 +80,12 @@ class Settings:
     def set_catalog_image(self, value):
         self.__set_setting("shop_settings", "enableimagecatalog", value)
 
+    def is_type_image_enabled(self):
+        return self.__get_config()["shop_settings"]["enableimagetype"] == "1"
+
+    def set_type_image(self, value):
+        self.__set_setting("shop_settings", "enableimagetype", value)
+
     def is_phone_number_enabled(self):
         return self.__get_config()["shop_settings"]["enablephonenumber"] == "1"
     
@@ -148,6 +154,7 @@ refundpolicy = Текст для вкладки "Политика возврат
 contacts = Текст для вкладки "Контакты"
 enableimage = 1
 enableimagecatalog = 1
+enableimagetype = 1
 enablesticker = 0
 enablephonenumber = 0
 enabledelivery = 0

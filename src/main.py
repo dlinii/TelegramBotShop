@@ -25,18 +25,20 @@ import order as ordr
 import category
 import text_templates as tt
 from settings import Settings
-import commands 
+import commands
 import search
 
 conn = sqlite3.connect("data.db")
 c = conn.cursor()
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s:%(levelname)s:%(message)s", filename=f"logs/{datetime.date.today().strftime('%d-%m-%Y')}.log")
+logging.basicConfig(level=logging.INFO, format="%(asctime)s:%(levelname)s:%(message)s",
+                    filename=f"logs/{datetime.date.today().strftime('%d-%m-%Y')}.log")
 settings = Settings()
 
 storage = MemoryStorage()
 bot = Bot(token=settings.get_token())
 dp = Dispatcher(bot, storage=storage)
+
 
 # Create a backup folder + copy the needed files there
 def create_backup():
@@ -51,6 +53,7 @@ def create_backup():
     logging.info("backup created")
     print("Backup created!")
 
+
 def clean_backups(days_ago=0):
     longest_date = datetime.date.today() - datetime.timedelta(days=days_ago)
     cleaned_size = 0
@@ -63,6 +66,7 @@ def clean_backups(days_ago=0):
     logging.info(f"backups cleaned ({'{:.2f}'.format(cleaned_size / 1048576)}mb)")
     return cleaned_size / 1048576
 
+
 def clean_logs():
     cleaned_size = 0
     for file in listdir("logs"):
@@ -73,6 +77,7 @@ def clean_logs():
     logging.info(f"logs cleaned ({'{:.2f}'.format(cleaned_size / 1048576)}mb)")
 
     return cleaned_size / 1048576
+
 
 def clean_images():
     cleaned_size = 0
@@ -85,6 +90,7 @@ def clean_images():
 
 
 def get_captcha_text(): return ''.join([choice(ascii_uppercase + digits) for i in range(5)])
+
 
 def generate_captcha(captcha_text):
     image = ImageCaptcha(width=280, height=90)
@@ -127,9 +133,11 @@ async def welcome(message: types.Message):
             else:
                 raise Exception
     except:
-        logging.warning(f"FAILED TO SEND STICKER TO {message.chat.id}. sticker.tgs is probably missing in the bot's root folder.")
+        logging.warning(
+            f"FAILED TO SEND STICKER TO {message.chat.id}. sticker.tgs is probably missing in the bot's root folder.")
         if settings.is_debug():
-            print(f"DEBUG: FAILED TO SEND STICKER TO {message.chat.id}. sticker.tgs is probably missing in the bot's root folder.")
+            print(
+                f"DEBUG: FAILED TO SEND STICKER TO {message.chat.id}. sticker.tgs is probably missing in the bot's root folder.")
     await bot.send_message(
         chat_id=message.chat.id,
         text=settings.get_shop_greeting(),
@@ -143,7 +151,7 @@ async def handle_text(message):
     if settings.is_debug():
         print(f"DEBUG: MESSAGE [{message.chat.id}] {message.text}")
     user = usr.User(message.chat.id)
-    
+
     if message.text == tt.admin_panel:
         if user.is_admin():
             await bot.send_message(
@@ -170,7 +178,7 @@ async def handle_text(message):
             text=tt.get_profile_template(user),
             reply_markup=markups.get_markup_profile(user),
         )
-    elif message.text == tt.catalogue: 
+    elif message.text == tt.catalogue:
         await bot.send_message(
             chat_id=message.chat.id,
             text=tt.catalogue,
@@ -202,15 +210,15 @@ async def process_callback(callback_query: types.CallbackQuery):
     chat_id = callback_query.message.chat.id
     call_data = callback_query.data
     user = usr.User(chat_id)
-    
+
     logging.info(f"CALL [{chat_id}] {call_data}")
     if settings.is_debug():
         print(f"DEBUG: CALL [{chat_id}] {call_data}")
-    
+
     # Admin calls
     if call_data.startswith("admin_") and user.is_admin():
         call_data = call_data[6:]
-        
+
         if call_data == "adminPanel":
             await bot.edit_message_text(
                 chat_id=chat_id,
@@ -262,7 +270,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                 text = f"Категория {cat.get_name()} была успешно удалена."
                 cat.delete()
             except:
-                text = f"Произошла ошибка!"                
+                text = f"Произошла ошибка!"
             await bot.edit_message_text(
                 chat_id=chat_id,
                 message_id=callback_query.message.message_id,
@@ -338,7 +346,7 @@ async def process_callback(callback_query: types.CallbackQuery):
             item = itm.Item(call_data[12:])
             text = f"Введите новое название для \"{item.get_name()}\" {tt.or_press_back}"
             markup = markups.single_button(markups.btnBackEditItem(item.get_id()))
-            
+
             if item.get_image_id() == "None" or not settings.is_item_image_enabled() or await item.is_hide_image():
                 await bot.edit_message_text(
                     chat_id=chat_id,
@@ -365,14 +373,14 @@ async def process_callback(callback_query: types.CallbackQuery):
             item = itm.Item(call_data[12:])
             text = f"Введите новое описание для \"{item.get_name()}\" {tt.or_press_back}"
             markup = markups.single_button(markups.btnBackEditItem(item.get_id()))
-            
+
             if item.get_image_id() == "None" or not settings.is_item_image_enabled():
                 await bot.edit_message_text(
                     chat_id=chat_id,
                     message_id=callback_query.message.message_id,
                     text=text,
                     reply_markup=markup,
-                )   
+                )
             else:
                 await bot.delete_message(
                     message_id=callback_query.message.message_id,
@@ -391,7 +399,7 @@ async def process_callback(callback_query: types.CallbackQuery):
             item = itm.Item(call_data[13:])
             text = f"Введите новую цену для \"{item.get_name()}\" {tt.or_press_back}"
             markup = markups.single_button(markups.btnBackEditItem(item.get_id()))
-            
+
             if item.get_image_id() == "None" or not settings.is_item_image_enabled() or await item.is_hide_image():
                 try:
                     await bot.edit_message_text(
@@ -429,14 +437,14 @@ async def process_callback(callback_query: types.CallbackQuery):
             item = itm.Item(call_data[11:])
             text = f"Выберите новую категорию для \"{item.get_name()}\" {tt.or_press_back}"
             markup = markups.get_markup_editItemCat(item_id=item.get_id(), cat_list=category.get_cat_list())
-            
+
             if item.get_image_id() == "None" or not settings.is_item_image_enabled():
                 await bot.edit_message_text(
                     chat_id=chat_id,
                     message_id=callback_query.message.message_id,
                     text=text,
                     reply_markup=markup,
-                )   
+                )
             else:
                 await bot.delete_message(
                     message_id=callback_query.message.message_id,
@@ -455,14 +463,14 @@ async def process_callback(callback_query: types.CallbackQuery):
             item = itm.Item(call_data[13:])
             text = f"Введите новое количество товара для \"{item.get_name()}\" {tt.or_press_back}"
             markup = markups.single_button(markups.btnBackEditItem(item.get_id()))
-            
+
             if item.get_image_id() == "None" or not settings.is_item_image_enabled():
                 await bot.edit_message_text(
                     chat_id=chat_id,
                     message_id=callback_query.message.message_id,
                     text=text,
                     reply_markup=markup,
-                )   
+                )
             else:
                 await bot.delete_message(
                     message_id=callback_query.message.message_id,
@@ -473,7 +481,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                     text=text,
                     reply_markup=markup
                 )
-                
+
             await state_handler.changeItemStock.stock.set()
             state = Dispatcher.get_current().current_state()
             await state.update_data(item_id=item.get_id())
@@ -490,14 +498,14 @@ async def process_callback(callback_query: types.CallbackQuery):
             markup = await markups.get_markup_editItem(item)
 
             if item.get_image_id() == "None" or not settings.is_item_image_enabled() or await item.is_hide_image():
-                try:                
+                try:
                     await bot.edit_message_text(
                         chat_id=chat_id,
                         message_id=callback_query.message.message_id,
                         text=text,
                         reply_markup=markup,
                     )
-                except: # TODO: make it more compact
+                except:  # TODO: make it more compact
                     await bot.delete_message(
                         message_id=callback_query.message.message_id,
                         chat_id=chat_id
@@ -529,14 +537,14 @@ async def process_callback(callback_query: types.CallbackQuery):
             except:
                 text = tt.error
             markup = await markups.get_markup_editItem(item)
-            
+
             if item.get_image_id() == "None" or not settings.is_item_image_enabled() or await item.is_hide_image():
                 await bot.edit_message_text(
                     chat_id=chat_id,
                     message_id=callback_query.message.message_id,
                     text=text,
                     reply_markup=markup,
-                )   
+                )
             else:
                 await bot.delete_message(
                     message_id=callback_query.message.message_id,
@@ -548,7 +556,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                     photo=item.get_image(),
                     reply_markup=markup
                 )
-                
+
         elif call_data.startswith("editItemDelete"):
             item = itm.Item(call_data[14:])
             cat = category.Category(item.get_cat_id())
@@ -559,14 +567,14 @@ async def process_callback(callback_query: types.CallbackQuery):
             except:
                 text = tt.error
                 markup = markups.single_button(markups.btnBackEditItem(item.get_id()))
-            
+
             try:
                 await bot.edit_message_text(
                     chat_id=chat_id,
                     message_id=callback_query.message.message_id,
                     text=text,
                     reply_markup=markup,
-                )   
+                )
             except:
                 await bot.delete_message(
                     message_id=callback_query.message.message_id,
@@ -578,12 +586,12 @@ async def process_callback(callback_query: types.CallbackQuery):
                     photo=item.get_image(),
                     reply_markup=markup
                 )
-                
+
         elif call_data.startswith("editItemImage"):
             item = itm.Item(call_data[13:])
             text = f"Отправьте изображение для товара {tt.or_press_back}"
             markup = markups.single_button(markups.btnBackEditItem(item.get_id()))
-            
+
             await state_handler.changeItemImage.image.set()
             state = Dispatcher.get_current().current_state()
             await state.update_data(item_id=item.get_id())
@@ -612,14 +620,14 @@ async def process_callback(callback_query: types.CallbackQuery):
             cat = category.Category(item.get_cat_id())
             text = tt.get_item_card(item=item) + f"\nКатегория: {cat.get_name()}"
             markup = await markups.get_markup_editItem(item)
-            
+
             if item.get_image_id() == "None" or not settings.is_item_image_enabled() or await item.is_hide_image():
                 await bot.edit_message_text(
                     chat_id=chat_id,
                     message_id=callback_query.message.message_id,
                     text=text,
                     reply_markup=markup,
-                )   
+                )
             else:
                 await bot.delete_message(
                     message_id=callback_query.message.message_id,
@@ -660,7 +668,7 @@ async def process_callback(callback_query: types.CallbackQuery):
             )
         elif call_data.startswith("seeUserOrders"):
             edit_user = usr.User(call_data[13:])
-            await bot.edit_message_text( 
+            await bot.edit_message_text(
                 chat_id=chat_id,
                 message_id=callback_query.message.message_id,
                 text=f"Заказы пользователя с ID {edit_user.get_id()}.",
@@ -775,7 +783,7 @@ async def process_callback(callback_query: types.CallbackQuery):
         elif call_data.startswith("registrationStats"):
             call_data = call_data[17:]
             charts = stats.RegistrationCharts()
-            
+
             match call_data:
                 case "AllTime":
                     photo = charts.all_time()
@@ -806,7 +814,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                 message_id=callback_query.message.message_id,
                 text=tt.order_stats,
                 reply_markup=markups.get_markup_orderStats(),
-            )    
+            )
         elif call_data == "orderStatsBack":
             await bot.delete_message(
                 message_id=callback_query.message.message_id,
@@ -820,7 +828,7 @@ async def process_callback(callback_query: types.CallbackQuery):
         elif call_data.startswith("orderStats"):
             call_data = call_data[10:]
             charts = stats.OrderCharts()
-            
+
             match call_data:
                 case "AllTime":
                     photo = charts.all_time()
@@ -871,7 +879,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                 message_id=callback_query.message.message_id,
                 text=tt.main_settings,
                 reply_markup=markups.get_markup_mainSettings(),
-            )            
+            )
         elif call_data == "changeShopName":
             await bot.edit_message_text(
                 chat_id=chat_id,
@@ -929,6 +937,14 @@ async def process_callback(callback_query: types.CallbackQuery):
                 reply_markup=markups.get_markup_catalogSettings(),
             )
 
+        elif call_data == "typeSettings":
+            await bot.edit_message_text(
+                chat_id=chat_id,
+                message_id=callback_query.message.message_id,
+                text=tt.item_settings_type,
+                reply_markup=markups.get_markup_typeSettings(),
+            )
+
         elif call_data == "checkoutSettings":
             await bot.edit_message_text(
                 chat_id=chat_id,
@@ -958,7 +974,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                         settings.set_enable_captcha("0" if settings.is_captcha_enabled() else "1")
                 text = tt.checkout_settings
                 markup = markups.get_markup_checkoutSettings()
-                
+
                 if call_data[12:] == "Sticker":
                     await bot.send_message(
                         chat_id=chat_id,
@@ -975,6 +991,10 @@ async def process_callback(callback_query: types.CallbackQuery):
                     settings.set_catalog_image("0" if settings.is_catalog_image_enabled() else "1")
                     text = tt.item_settings_catalog
                     markup = markups.get_markup_catalogSettings()
+                elif call_data[12:] == "TypeImage":
+                    settings.set_type_image("0" if settings.is_type_image_enabled() else "1")
+                    text = tt.item_settings_type
+                    markup = markups.get_markup_typeSettings()
                 elif call_data[12:] == "Debug":
                     settings.set_debug("0" if settings.is_debug() else "1")
                     text = tt.system_settings
@@ -990,6 +1010,8 @@ async def process_callback(callback_query: types.CallbackQuery):
                     markup = markups.single_button(markups.btnBackItemSettings)
                 elif call_data[12:] == "CatalogImage":
                     markup = markups.single_button(markups.btnBackCatalogSettings)
+                elif call_data[12:] == "TypeImage":
+                    markup = markups.single_button(markups.btnBackTypeSettings)
                 elif call_data[12:] == "Debug":
                     markup = markups.single_button(markups.btnBackSystemSettings)
             await bot.edit_message_text(
@@ -998,7 +1020,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                 text=text,
                 reply_markup=markup,
             )
-            
+
         elif call_data == "statsSettings":
             await bot.delete_message(
                 message_id=callback_query.message.message_id,
@@ -1124,7 +1146,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                 photo=stats.get_random_graph(),
                 reply_markup=markups.get_markup_statsSettingsAxisFontSize()
             )
-    
+
         elif call_data.startswith("statsSettingsAxisFontSize"):
             match call_data[25:]:
                 case "Default":
@@ -1144,7 +1166,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                 photo=stats.get_random_graph(),
                 reply_markup=markups.get_markup_statsSettingsAxisFontSize()
             )
-            
+
         elif call_data == "statsSettingsTickFontSize":
             await bot.delete_message(
                 message_id=callback_query.message.message_id,
@@ -1156,7 +1178,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                 photo=stats.get_random_graph(),
                 reply_markup=markups.get_markup_statsSettingsTickFontSize()
             )
-            
+
         elif call_data.startswith("statsSettingsTickFontSize"):
             match call_data[25:]:
                 case "Default":
@@ -1176,7 +1198,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                 photo=stats.get_random_graph(),
                 reply_markup=markups.get_markup_statsSettingsTickFontSize()
             )
-        
+
         elif call_data == "additionalSettings":
             await bot.edit_message_text(
                 chat_id=callback_query.message.chat.id,
@@ -1219,7 +1241,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                 text=f"Логи были успешно удалены!\nОчишено: {'{:.2f}'.format(clean_logs())}мб",
                 reply_markup=markups.single_button(markups.btnBackSystemSettings)
             )
-            
+
         elif call_data == "cleanDatabaseMenu":
             await bot.edit_message_text(
                 chat_id=callback_query.message.chat.id,
@@ -1286,7 +1308,6 @@ async def process_callback(callback_query: types.CallbackQuery):
             else:
                 text = f"{tt.load_backup}\n\n{tt.error} Файла {backup_path} не существует!"
 
-
             await bot.edit_message_text(
                 chat_id=callback_query.message.chat.id,
                 message_id=callback_query.message.message_id,
@@ -1349,7 +1370,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                     reply_markup=markups.single_button(markups.btnBackCustomCommands)
                 )
                 await state_handler.addCustomCommand.command.set()
-            
+
         # Manager tab
         elif call_data.startswith("manageOrder"):
             order = ordr.Order(call_data[11:])
@@ -1521,12 +1542,25 @@ async def process_callback(callback_query: types.CallbackQuery):
         elif call_data.startswith("viewCat"):
             cat = category.Category(call_data[7:])
             try:
-                await bot.edit_message_text(
-                    chat_id=chat_id,
-                    message_id=callback_query.message.message_id,
-                    text=cat.get_name(),
-                    reply_markup=markups.get_markup_viewCat(cat.get_item_list()),
-                )
+                # markup = markups.get_markup_viewItem(item)
+                if cat.get_image_id() == "None" or not settings.is_type_image_enabled():
+                    await bot.edit_message_text(
+                        chat_id=chat_id,
+                        message_id=callback_query.message.message_id,
+                        text=cat.get_name(),
+                        reply_markup=markups.get_markup_viewCat(cat.get_item_list()),
+                    )
+                else:
+                    await bot.delete_message(
+                        message_id=callback_query.message.message_id,
+                        chat_id=chat_id
+                    )
+                    await bot.send_photo(
+                        chat_id=chat_id,
+                        caption=cat.get_name(),
+                        photo=cat.get_image(),
+                        reply_markup=markups.get_markup_viewCat(cat.get_item_list())
+                    )
             except:
                 await bot.delete_message(
                     message_id=callback_query.message.message_id,
@@ -1557,7 +1591,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                     message_id=callback_query.message.message_id,
                     text=text,
                     reply_markup=markup,
-                )   
+                )
             else:
                 await bot.delete_message(
                     message_id=callback_query.message.message_id,
@@ -1569,7 +1603,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                     photo=item.get_image(),
                     reply_markup=markup
                 )
-            
+
         # Cart
         elif call_data == "cart":
             if user.get_cart():
@@ -1578,14 +1612,14 @@ async def process_callback(callback_query: types.CallbackQuery):
             else:
                 text = tt.cart_is_empty
                 markup = types.InlineKeyboardMarkup()
-            
+
             await bot.edit_message_text(
                 chat_id=chat_id,
                 message_id=callback_query.message.message_id,
                 text=text,
                 reply_markup=markup,
             )
-        
+
         elif call_data == "cartDel":
             if user.get_cart():
                 text = tt.cart
@@ -1602,7 +1636,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                 text=text,
                 reply_markup=markup,
             )
-        
+
         elif call_data == "clearCart":
             user.clear_cart()
             await bot.edit_message_text(
@@ -1611,7 +1645,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                 text=tt.cart_is_empty,
                 reply_markup=types.InlineKeyboardMarkup(),
             )
-        
+
         elif call_data.startswith("addToCartFromCart"):
             user.add_to_cart(call_data[17:])
             await bot.edit_message_text(
@@ -1620,7 +1654,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                 text=tt.cart,
                 reply_markup=markups.get_markup_cart(user),
             )
-        
+
         elif call_data.startswith("removeFromCartFromCart"):
             user.remove_from_cart(call_data[22:])
             if user.get_cart():
@@ -1635,7 +1669,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                 text=text,
                 reply_markup=markup,
             )
-        
+
         elif call_data.startswith("addToCart"):
             item = itm.Item(call_data[9:])
             if item.get_amount() == 0:
@@ -1660,7 +1694,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                     text=text,
                     reply_markup=markups.single_button(markups.btnBackViewItem(item.get_id()))
                 )
-                
+
         elif call_data == "changeCartDelivery":
             user.set_cart_delivery(0 if user.is_cart_delivery() else 1)
             await bot.edit_message_text(
@@ -1669,7 +1703,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                 text=tt.cart,
                 reply_markup=markups.get_markup_cart(user),
             )
-            
+
         elif call_data == "checkoutCart":
             await bot.edit_message_text(
                 chat_id=chat_id,
@@ -1683,28 +1717,76 @@ async def process_callback(callback_query: types.CallbackQuery):
             await state.update_data(user_id=chat_id)
             await state.update_data(item_list_comma=user.get_cart_comma())
 
+
 # State handlers
 # Item management
 @dp.message_handler(state=state_handler.addCat.name)
 async def addCat(message: types.Message, state: FSMContext):
+    state = Dispatcher.get_current().current_state()
     data = await state.get_data()
     cat_name = message.text
     try:
-        category.create_cat(cat_name)
-        text = tt.get_category_was_created_successfuly(cat_name)
+        await state.update_data(name=message.text)
+        text_name = tt.get_category_was_created_successfuly(cat_name)
+    except:
+        text_name = tt.error
+    # category.create_cat(cat_name)
+    if settings.is_type_image_enabled():
+        text = "Отправьте изображение для категории или нажмите на кнопку \"Пропустить\"."
+        markup = markups.single_button(markups.btnSkipAddCatSetImage)
+        await state_handler.addCat.image.set()
+        await bot.send_message(
+            chat_id=message.chat.id,
+            text=text,
+            reply_markup=markup,
+        )
+    else:
+        # try:
+        #     # category.create_cat(cat_name)
+        #     text = tt.get_category_was_created_successfuly(cat_name)
+        # except:
+        #     text = tt.error
+
+        await bot.delete_message(
+            message_id=data["state_message"],
+            chat_id=message.chat.id
+        )
+        await bot.send_message(
+            chat_id=message.chat.id,
+            text=text_name,
+            reply_markup=markups.single_button(markups.btnBackItemManagement),
+        )
+        await state.finish()
+
+
+@dp.message_handler(content_types=['photo'], state=state_handler.addCat.image)
+async def addCatSetImage(msg: types.Message, state: FSMContext):
+    while True:
+        image_id = "".join([choice(ascii_lowercase + digits) for _ in range(6)]) + ".png"
+        if image_id not in listdir("images/"):
+            break
+
+    await msg.photo[-1].download(destination_file=f"images/{image_id}")
+    await state.update_data(image=image_id)
+
+    data = await state.get_data()
+    category.create_cat(data["name"], data["image"])
+    try:
+        text = tt.get_category_was_created_successfuly(data["name"])
     except:
         text = tt.error
 
     await bot.delete_message(
         message_id=data["state_message"],
-        chat_id=message.chat.id
+        chat_id=msg.chat.id
     )
     await bot.send_message(
-        chat_id=message.chat.id,
+        chat_id=msg.chat.id,
         text=text,
         reply_markup=markups.single_button(markups.btnBackItemManagement),
     )
     await state.finish()
+
 
 @dp.message_handler(state=state_handler.changeCatName.name)
 async def changeCatName(message: types.Message, state: FSMContext):
@@ -1729,6 +1811,7 @@ async def changeCatName(message: types.Message, state: FSMContext):
     )
     await state.finish()
 
+
 @dp.message_handler(state=state_handler.addItem.name)
 async def addItemSetName(message: types.Message, state: FSMContext):
     data = await state.get_data()
@@ -1741,6 +1824,7 @@ async def addItemSetName(message: types.Message, state: FSMContext):
         reply_markup=markups.single_button(markups.btnBackItemManagement),
     )
     await state_handler.addItem.price.set()
+
 
 @dp.message_handler(state=state_handler.addItem.price)
 async def addItemSetPrice(message: types.Message, state: FSMContext):
@@ -1762,12 +1846,13 @@ async def addItemSetPrice(message: types.Message, state: FSMContext):
         )
         await state.finish()
 
+
 @dp.message_handler(state=state_handler.addItem.desc)
 async def addItemSetDesc(message: types.Message, state: FSMContext):
     state = Dispatcher.get_current().current_state()
     await state.update_data(desc=message.text)
     data = await state.get_data()
-    
+
     if settings.is_item_image_enabled():
         text = "Отправьте изображение для товара или нажмите на кнопку \"Пропустить\"."
         markup = markups.single_button(markups.btnSkipAddItemSetImage)
@@ -1775,7 +1860,8 @@ async def addItemSetDesc(message: types.Message, state: FSMContext):
     else:
         markup = markups.get_markup_addItemConfirmation()
         cat = category.Category(data["cat_id"])
-        text = tt.get_item_card(name=data["name"], price=data["price"], desc=data["desc"], amount=0) + f"\nКатегория: {cat.get_name()}\n\nВы уверены, что хотите добавить \"{data['name']}\" в каталог?"    
+        text = tt.get_item_card(name=data["name"], price=data["price"], desc=data["desc"],
+                                amount=0) + f"\nКатегория: {cat.get_name()}\n\nВы уверены, что хотите добавить \"{data['name']}\" в каталог?"
         await state_handler.addItem.confirmation.set()
     await bot.send_message(
         chat_id=message.chat.id,
@@ -1783,21 +1869,23 @@ async def addItemSetDesc(message: types.Message, state: FSMContext):
         reply_markup=markup,
     )
 
+
 @dp.message_handler(content_types=['photo'], state=state_handler.addItem.image)
 async def addItemSetImage(message: types.Message, state: FSMContext):
     state = Dispatcher.get_current().current_state()
     data = await state.get_data()
-    
+    print(data)
     while True:
         image_id = "".join([choice(ascii_lowercase + digits) for _ in range(6)]) + ".png"
         if image_id not in listdir("images/"):
             break
-    
+
     await message.photo[-1].download(destination_file=f"images/{image_id}")
     await state.update_data(image=image_id)
-    
+
     cat = category.Category(data["cat_id"])
-    text = tt.get_item_card(name=data["name"], price=data["price"], desc=data["desc"], amount=0) + f"\nКатегория: {cat.get_name()}\n\nВы уверены, что хотите добавить \"{data['name']}\" в каталог?"    
+    text = tt.get_item_card(name=data["name"], price=data["price"], desc=data["desc"],
+                            amount=0) + f"\nКатегория: {cat.get_name()}\n\nВы уверены, что хотите добавить \"{data['name']}\" в каталог?"
     await bot.send_photo(
         chat_id=message.chat.id,
         photo=open(f"images/{image_id}", "rb"),
@@ -1805,7 +1893,8 @@ async def addItemSetImage(message: types.Message, state: FSMContext):
         reply_markup=markups.get_markup_addItemConfirmation()
     )
     await state_handler.addItem.confirmation.set()
-    
+
+
 @dp.message_handler(state=state_handler.addItem.image)
 async def addItemSetImageNotImage(message: types.Message, state: FSMContext):
     text = "Отправьте изображение для товара или нажмите на кнопку \"Пропустить\"."
@@ -1817,7 +1906,7 @@ async def addItemSetImageNotImage(message: types.Message, state: FSMContext):
         reply_markup=markup,
     )
     await state_handler.addItem.image.set()
-    
+
 
 @dp.message_handler(state=state_handler.changeItemPrice.price)
 async def editItemSetPrice(message: types.Message, state: FSMContext):
@@ -1829,7 +1918,7 @@ async def editItemSetPrice(message: types.Message, state: FSMContext):
         item.set_price(float(message.text))
     except:
         text = tt.error
-    
+
     try:
         await bot.delete_message(
             message_id=data["state_message"],
@@ -1838,12 +1927,13 @@ async def editItemSetPrice(message: types.Message, state: FSMContext):
     except:
         logging.warning(f"[{message.chat.id}] FAILED TO DELETE MESSAGE WITH ID {data['state_message']}")
         if settings.is_debug():
-            print(f"DEBUG: [{message.chat.id}] FAILED TO DELETE MESSAGE WITH ID {data['state_message']}")    
+            print(f"DEBUG: [{message.chat.id}] FAILED TO DELETE MESSAGE WITH ID {data['state_message']}")
     await bot.send_message(
         chat_id=message.chat.id,
         text=text,
         reply_markup=markups.single_button(markups.btnBackEditItem(item.get_id())),
     )
+
 
 @dp.message_handler(content_types=['photo'], state=state_handler.changeItemImage.image)
 async def editItemSetImage(message: types.Message, state: FSMContext):
@@ -1855,21 +1945,21 @@ async def editItemSetImage(message: types.Message, state: FSMContext):
         image_id = "".join([choice(ascii_lowercase + digits) for _ in range(6)]) + ".png"
         if image_id not in listdir("images/"):
             break
-    
+
     try:
         await message.photo[-1].download(destination_file=f"images/{image_id}")
         item.set_image_id(image_id)
         text = f"Изображение для \"{item.get_name()}\" было обновлено."
     except:
         text = tt.error
-    
+
     await bot.send_message(
         chat_id=message.chat.id,
         text=text,
         reply_markup=markups.single_button(markups.btnBackEditItem(item.get_id()))
     )
     await state.finish()
-    
+
 
 @dp.message_handler(state=state_handler.changeItemImage.image)
 async def editItemSetImage(message: types.Message, state: FSMContext):
@@ -1895,7 +1985,7 @@ async def editItemSetDesc(message: types.Message, state: FSMContext):
         item.set_desc(message.text)
     except:
         text = tt.error
-    
+
     try:
         await bot.delete_message(
             message_id=data["state_message"],
@@ -1904,12 +1994,13 @@ async def editItemSetDesc(message: types.Message, state: FSMContext):
     except:
         logging.warning(f"[{message.chat.id}] FAILED TO DELETE MESSAGE WITH ID {data['state_message']}")
         if settings.is_debug():
-            print(f"DEBUG: [{message.chat.id}] FAILED TO DELETE MESSAGE WITH ID {data['state_message']}")       
+            print(f"DEBUG: [{message.chat.id}] FAILED TO DELETE MESSAGE WITH ID {data['state_message']}")
     await bot.send_message(
         chat_id=message.chat.id,
         text=text,
         reply_markup=markups.single_button(markups.btnBackEditItem(item.get_id())),
     )
+
 
 @dp.message_handler(state=state_handler.changeItemName.name)
 async def editItemSetName(message: types.Message, state: FSMContext):
@@ -1921,7 +2012,7 @@ async def editItemSetName(message: types.Message, state: FSMContext):
         item.set_name(message.text)
     except:
         text = tt.error
-    
+
     try:
         await bot.delete_message(
             message_id=data["state_message"],
@@ -1930,19 +2021,20 @@ async def editItemSetName(message: types.Message, state: FSMContext):
     except:
         logging.warning(f"[{message.chat.id}] FAILED TO DELETE MESSAGE WITH ID {data['state_message']}")
         if settings.is_debug():
-            print(f"DEBUG: [{message.chat.id}] FAILED TO DELETE MESSAGE WITH ID {data['state_message']}")      
+            print(f"DEBUG: [{message.chat.id}] FAILED TO DELETE MESSAGE WITH ID {data['state_message']}")
     await bot.send_message(
         chat_id=message.chat.id,
         text=text,
         reply_markup=markups.single_button(markups.btnBackEditItem(item.get_id())),
     )
-    
+
+
 @dp.message_handler(state=state_handler.changeItemStock.stock)
 async def editItemStockSetStock(message: types.Message, state: FSMContext):
     state = Dispatcher.get_current().current_state()
     data = await state.get_data()
     item = itm.Item(data["item_id"])
-    
+
     try:
         if not message.text.isalnum():
             raise Exception(TypeError)
@@ -1958,7 +2050,7 @@ async def editItemStockSetStock(message: types.Message, state: FSMContext):
     except:
         logging.warning(f"[{message.chat.id}] FAILED TO DELETE MESSAGE WITH ID {data['state_message']}")
         if settings.is_debug():
-            print(f"DEBUG: [{message.chat.id}] FAILED TO DELETE MESSAGE WITH ID {data['state_message']}")  
+            print(f"DEBUG: [{message.chat.id}] FAILED TO DELETE MESSAGE WITH ID {data['state_message']}")
     await bot.send_message(
         chat_id=message.chat.id,
         text=text,
@@ -1984,7 +2076,8 @@ async def notifyEveryoneSetMessage(message: types.Message, state: FSMContext):
         reply_markup=markups.get_markup_notifyEveryoneConfirmation(),
     )
     await state_handler.notifyEveryone.confirmation.set()
-    
+
+
 @dp.message_handler(state=state_handler.seeUserProfile.user_id)
 async def seeUserProfileSetUserID(message: types.Message, state: FSMContext):
     try:
@@ -1994,7 +2087,7 @@ async def seeUserProfileSetUserID(message: types.Message, state: FSMContext):
             markup = markups.get_markup_seeUserProfile(user)
             text = tt.get_profile_template(user)
         else:
-            text = f"Пользователя с ID {message.text} не существует." 
+            text = f"Пользователя с ID {message.text} не существует."
             markup = markups.single_button(markups.btnBackUserManagement)
     except:
         text = tt.error
@@ -2011,6 +2104,7 @@ async def seeUserProfileSetUserID(message: types.Message, state: FSMContext):
         reply_markup=markup,
     )
     await state.finish()
+
 
 # Main settings
 @dp.message_handler(state=state_handler.changeShopName.name)
@@ -2032,7 +2126,8 @@ async def changeShopNameSetName(message: types.Message, state: FSMContext):
         reply_markup=markups.single_button(markups.btnBackMainSettings),
     )
     await state.finish()
-    
+
+
 @dp.message_handler(state=state_handler.changeShopGreeting.greeting)
 async def changeShopGreetingSetGreeting(message: types.Message, state: FSMContext):
     state = Dispatcher.get_current().current_state()
@@ -2052,7 +2147,8 @@ async def changeShopGreetingSetGreeting(message: types.Message, state: FSMContex
         reply_markup=markups.single_button(markups.btnBackMainSettings),
     )
     await state.finish()
-    
+
+
 @dp.message_handler(state=state_handler.changeShopRefundPolicy.refund_policy)
 async def changeShopContactsSetContacts(message: types.Message, state: FSMContext):
     state = Dispatcher.get_current().current_state()
@@ -2072,7 +2168,8 @@ async def changeShopContactsSetContacts(message: types.Message, state: FSMContex
         reply_markup=markups.single_button(markups.btnBackMainSettings),
     )
     await state.finish()
-    
+
+
 @dp.message_handler(state=state_handler.changeShopContacts.contacts)
 async def changeShopContactsSetContacts(message: types.Message, state: FSMContext):
     state = Dispatcher.get_current().current_state()
@@ -2092,6 +2189,7 @@ async def changeShopContactsSetContacts(message: types.Message, state: FSMContex
         reply_markup=markups.single_button(markups.btnBackMainSettings),
     )
     await state.finish()
+
 
 # Checkout Settings
 @dp.message_handler(state=state_handler.changeDeliveryPrice.price)
@@ -2114,6 +2212,7 @@ async def changeDeliveryPriceSetPrice(message: types.Message, state: FSMContext)
     )
     await state.finish()
 
+
 @dp.message_handler(state=state_handler.search.query)
 async def searchSetQuery(message: types.Message, state: FSMContext):
     query = search.search_item(message.text)
@@ -2131,13 +2230,15 @@ async def searchSetQuery(message: types.Message, state: FSMContext):
         )
     await state.finish()
 
+
 # Cart checkout
 # Required
 @dp.message_handler(state=state_handler.checkoutCart.email)
 async def checkoutCartSetEmail(message: types.Message, state: FSMContext):
     state = Dispatcher.get_current().current_state()
     user = usr.User(message.chat.id)
-    if matchre(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", message.text): # I am not familiar with how re package works. Taken from here: https://stackoverflow.com/questions/8022530/how-to-check-for-valid-email-address
+    if matchre(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$",
+               message.text):  # I am not familiar with how re package works. Taken from here: https://stackoverflow.com/questions/8022530/how-to-check-for-valid-email-address
         await state.update_data(email=message.text)
         if settings.is_phone_number_enabled():
             text = f"Введите ваш номер телефона {tt.or_press_back}"
@@ -2156,7 +2257,8 @@ async def checkoutCartSetEmail(message: types.Message, state: FSMContext):
         text=text,
         reply_markup=markups.single_button(markups.btnBackCart),
     )
-    
+
+
 @dp.message_handler(state=state_handler.checkoutCart.phone_number)
 async def checkoutCartSetPhoneNumber(message: types.Message, state: FSMContext):
     state = Dispatcher.get_current().current_state()
@@ -2177,7 +2279,8 @@ async def checkoutCartSetPhoneNumber(message: types.Message, state: FSMContext):
         text=text,
         reply_markup=markups.single_button(markups.btnBackCart),
     )
-       
+
+
 @dp.message_handler(state=state_handler.checkoutCart.home_adress)
 async def checkoutCartSetHomeAdress(message: types.Message, state: FSMContext):
     state = Dispatcher.get_current().current_state()
@@ -2189,7 +2292,8 @@ async def checkoutCartSetHomeAdress(message: types.Message, state: FSMContext):
         reply_markup=markups.single_button(markups.btnBackCart),
     )
     await state_handler.checkoutCart.additional_message.set()
-        
+
+
 @dp.message_handler(state=state_handler.checkoutCart.additional_message)
 async def checkoutCartSetAdditionalMessage(message: types.Message, state: FSMContext):
     state = Dispatcher.get_current().current_state()
@@ -2209,11 +2313,16 @@ async def checkoutCartSetAdditionalMessage(message: types.Message, state: FSMCon
     else:
         await bot.send_message(
             chat_id=message.chat.id,
-            text=tt.get_order_confirmation_template(item_amount_dict=user.get_cart_amount(), cart_price=user.get_cart_price(), email_adress=data["email"], additional_message=message.text, phone_number=data["phone_number"] if settings.is_phone_number_enabled() else None, home_adress=data["home_adress"] if settings.is_delivery_enabled() and user.is_cart_delivery() else None),
+            text=tt.get_order_confirmation_template(item_amount_dict=user.get_cart_amount(),
+                                                    cart_price=user.get_cart_price(), email_adress=data["email"],
+                                                    additional_message=message.text, phone_number=data[
+                    "phone_number"] if settings.is_phone_number_enabled() else None, home_adress=data[
+                    "home_adress"] if settings.is_delivery_enabled() and user.is_cart_delivery() else None),
             reply_markup=markups.get_markup_checkoutCartConfirmation(),
         )
         await state_handler.checkoutCart.confirmation.set()
-        
+
+
 @dp.message_handler(state=state_handler.checkoutCart.captcha)
 async def checkoutCartCheckCaptcha(message: types.Message, state: FSMContext):
     state = Dispatcher.get_current().current_state()
@@ -2222,7 +2331,11 @@ async def checkoutCartCheckCaptcha(message: types.Message, state: FSMContext):
     if message.text.lower() == data["captcha"].lower():
         await bot.send_message(
             chat_id=message.chat.id,
-            text=tt.get_order_confirmation_template(item_amount_dict=user.get_cart_amount(), cart_price=user.get_cart_price(), email_adress=data["email"], additional_message=data["additional_message"], phone_number=data["phone_number"] if settings.is_phone_number_enabled() else None, home_adress=data["home_adress"] if settings.is_delivery_enabled() and user.is_cart_delivery() else None),
+            text=tt.get_order_confirmation_template(item_amount_dict=user.get_cart_amount(),
+                                                    cart_price=user.get_cart_price(), email_adress=data["email"],
+                                                    additional_message=data["additional_message"], phone_number=data[
+                    "phone_number"] if settings.is_phone_number_enabled() else None, home_adress=data[
+                    "home_adress"] if settings.is_delivery_enabled() and user.is_cart_delivery() else None),
             reply_markup=markups.get_markup_checkoutCartConfirmation(),
         )
         await state_handler.checkoutCart.confirmation.set()
@@ -2235,7 +2348,8 @@ async def checkoutCartCheckCaptcha(message: types.Message, state: FSMContext):
             photo=generate_captcha(captcha_text),
             reply_markup=markups.get_markup_captcha()
         )
-        await state_handler.checkoutCart.captcha.set() 
+        await state_handler.checkoutCart.captcha.set()
+
 
 @dp.message_handler(state=state_handler.addCustomCommand.command)
 async def addCustomCommandSetCommand(message: types.Message, state: FSMContext):
@@ -2248,6 +2362,7 @@ async def addCustomCommandSetCommand(message: types.Message, state: FSMContext):
         reply_markup=markups.single_button(markups.btnBackCustomCommands)
     )
     await state_handler.addCustomCommand.response.set()
+
 
 @dp.message_handler(state=state_handler.addCustomCommand.response)
 async def addCustomCommandSetResponse(message: types.Message, state: FSMContext):
@@ -2265,6 +2380,7 @@ async def addCustomCommandSetResponse(message: types.Message, state: FSMContext)
     )
     await state.finish()
 
+
 # State callbacks
 @dp.callback_query_handler(state='*')
 async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
@@ -2280,11 +2396,11 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
 
     if call_data[:6] == "admin_":
         call_data = call_data[6:]
-        
+
         # Callbacks
         if call_data.startswith("addItemSetCat"):
             await state.update_data(cat_id=int(call_data[13:]))
-            
+
             finish = False
             if len(category.Category(call_data[13:]).get_item_list()) > 85:
                 text = tt.error
@@ -2304,7 +2420,8 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
         elif call_data == "skipSetAddItemSetImage":
             await state.update_data(image="None")
             cat = category.Category(data["cat_id"])
-            text = tt.get_item_card(name=data["name"], price=data["price"], desc=data["desc"], amount=0) + f"\nКатегория: {cat.get_name()}\n\nВы уверены, что хотите добавить \"{data['name']}\" в каталог?"    
+            text = tt.get_item_card(name=data["name"], price=data["price"], desc=data["desc"],
+                                    amount=0) + f"\nКатегория: {cat.get_name()}\n\nВы уверены, что хотите добавить \"{data['name']}\" в каталог?"
             await bot.edit_message_text(
                 chat_id=chat_id,
                 message_id=callback_query.message.message_id,
@@ -2312,9 +2429,28 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
                 reply_markup=markups.get_markup_addItemConfirmation()
             )
             await state_handler.addItem.confirmation.set()
+        elif call_data == "skipSetAddCatSetImage":
+            await state.update_data(image="None")
+            try:
+                # category.create_cat(data["name"])
+                text = tt.get_category_was_created_successfuly(data["name"])
+            except:
+                text = tt.error
+
+            await bot.delete_message(
+                message_id=data["state_message"],
+                chat_id=chat_id
+            )
+            await bot.send_message(
+                chat_id=chat_id,
+                text=text,
+                reply_markup=markups.single_button(markups.btnBackItemManagement),
+            )
+            await state.finish()
         elif call_data == "addItemConfirm":
             try:
-                itm.create_item(name=data["name"], price=data["price"], cat_id=data["cat_id"], desc=data["desc"], image_id=data["image"] if settings.is_item_image_enabled() else "None")
+                itm.create_item(name=data["name"], price=data["price"], cat_id=data["cat_id"], desc=data["desc"],
+                                image_id=data["image"] if settings.is_item_image_enabled() else "None")
                 text = f"Товар {data['name']} был создан."
             except:
                 text = tt.error
@@ -2328,7 +2464,7 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
                 reply_markup=markups.single_button(markups.btnBackItemManagement),
             )
             await state.finish()
-        
+
         elif call_data == "notifyEveryoneConfirm":
             total = len(usr.get_user_list())
             fail = 0
@@ -2361,7 +2497,7 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
                 item.set_cat_id(new_cat.get_id())
             except:
                 text = tt.error
-            
+
             await bot.edit_message_text(
                 chat_id=chat_id,
                 message_id=callback_query.message.message_id,
@@ -2404,14 +2540,14 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
             cat = category.Category(item.get_cat_id())
             text = tt.get_item_card(item=item) + f"\nКатегория: {cat.get_name()}"
             markup = await markups.get_markup_editItem(item)
-            
+
             if item.get_image_id() == "None" or not settings.is_item_image_enabled() and await item.is_hide_image():
                 await bot.edit_message_text(
                     chat_id=chat_id,
                     message_id=callback_query.message.message_id,
                     text=text,
                     reply_markup=markup,
-                )   
+                )
             else:
                 await bot.delete_message(
                     message_id=callback_query.message.message_id,
@@ -2503,7 +2639,7 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
                 photo=generate_captcha(captcha_text),
                 reply_markup=markups.get_markup_captcha()
             )
-            await state_handler.checkoutCart.captcha.set() 
+            await state_handler.checkoutCart.captcha.set()
         elif call_data == "checkoutCartConfirm":
             while True:
                 order_id = randint(100000, 999999)
@@ -2515,9 +2651,10 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
             additional_message = data["additional_message"]
             phone_number = data["phone_number"] if settings.is_phone_number_enabled() else None
             home_adress = data["home_adress"] if settings.is_delivery_enabled() and user.is_cart_delivery() else None
-            
+
             try:
-                order = ordr.create_order(order_id, user_id, item_list_comma, email, additional_message, phone_number=phone_number, home_adress=home_adress)
+                order = ordr.create_order(order_id, user_id, item_list_comma, email, additional_message,
+                                          phone_number=phone_number, home_adress=home_adress)
                 user.clear_cart()
                 text = f"Заказ с ID {order.get_order_id()} был успешно создан.\nСпасибо за заказ! Наш менеджер свяжется с вами в ближайшее время."
                 for user in usr.get_notif_list():
@@ -2544,14 +2681,17 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
             )
             await state.finish()
 
+
 async def background_runner():
     while True:
         if not exists("backups/" + datetime.date.today().strftime("%d-%m-%Y")):
             create_backup()
         await asyncio.sleep(60)
 
+
 async def on_startup(dp):
     asyncio.create_task(background_runner())
+
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True, on_startup=on_startup)

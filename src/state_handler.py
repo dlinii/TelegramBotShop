@@ -6,6 +6,9 @@ class addCat(StatesGroup):
     state_message = State()
     name = State()
 
+    # Additional
+    image = State()
+
 class changeCatName(StatesGroup):
     state_message = State()
     cat_id = State()

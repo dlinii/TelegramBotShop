@@ -20,6 +20,7 @@ refundpolicy = Текст для вкладки "Политика возврат
 contacts = Текст для вкладки "Контакты"
 enableimage = 1
 enableimagecatalog = 1
+enableimagetype = 1
 enablesticker = 0
 enablephonenumber = 0
 enabledelivery = 0
@@ -41,6 +42,7 @@ CREATE_CATS_TEXT = """
 CREATE TABLE "cats" (
 	"id" INTEGER,
 	"name" TEXT NOT NULL,
+	"image_id" INTEGER,
 	PRIMARY KEY("id")
 )
 """

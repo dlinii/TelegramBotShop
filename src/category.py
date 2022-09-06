@@ -28,6 +28,15 @@ class Category:
         c.execute(f"UPDATE cats SET name=? WHERE id=?", [value, self.get_id()])
         conn.commit()
 
+    def get_image_id(self):
+        return self.__clist()[2]
+
+    def get_image(self):
+        return open("images/" + self.get_image_id(), "rb")
+
+    def set_image_id(self, value):
+        c.execute(f"UPDATE cats SET image_id=? WHERE id=?", [value, self.get_id()])
+
     def delete(self):
         c.execute(f"DELETE FROM cats WHERE id=?", [self.get_id()])
         conn.commit()
@@ -42,8 +51,8 @@ def get_cat_list():
     return list(map(Category, [cat[0] for cat in list(c)]))
     
 
-def create_cat(cat_name):
-    c.execute(f"INSERT INTO cats(name) VALUES(?)", [cat_name])
+def create_cat(cat_name, image_id):
+    c.execute(f"INSERT INTO cats(name, image_id) VALUES(?, ?)", [cat_name, image_id])
     conn.commit()
 
 

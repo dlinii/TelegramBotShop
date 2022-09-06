@@ -41,6 +41,7 @@ btnBackCustomCommands = types.InlineKeyboardButton(text=tt.back, callback_data="
 btnBackSystemSettings = types.InlineKeyboardButton(text=tt.back, callback_data="admin_systemSettings")
 btnBackItemSettings = types.InlineKeyboardButton(text=tt.back, callback_data="admin_itemSettings")
 btnBackCatalogSettings = types.InlineKeyboardButton(text=tt.back, callback_data="admin_catalogSettings")
+btnBackTypeSettings = types.InlineKeyboardButton(text=tt.back, callback_data="admin_typeSettings")
 btnBackBackups = types.InlineKeyboardButton(text=tt.back, callback_data="admin_backups")
 
 # /start menu
@@ -199,6 +200,7 @@ def get_markup_addItemSetCat(cat_list):
     return markup
 
 btnSkipAddItemSetImage = types.InlineKeyboardButton(text=tt.skip, callback_data="admin_skipSetAddItemSetImage")
+btnSkipAddCatSetImage = types.InlineKeyboardButton(text=tt.skip, callback_data="admin_skipSetAddCatSetImage")
 
 def get_markup_addItemConfirmation():
     markup = types.InlineKeyboardMarkup()
@@ -308,8 +310,9 @@ def get_markup_orderStats():
 def get_markup_shopSettings():
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton(text=tt.main_settings, callback_data="admin_mainSettings"))
-    markup.add(types.InlineKeyboardButton(text=tt.item_settings, callback_data="admin_itemSettings"))
     markup.add(types.InlineKeyboardButton(text=tt.item_settings_catalog, callback_data="admin_catalogSettings"))
+    markup.add(types.InlineKeyboardButton(text=tt.item_settings_type, callback_data="admin_typeSettings"))
+    markup.add(types.InlineKeyboardButton(text=tt.item_settings, callback_data="admin_itemSettings"))
 
     markup.add(types.InlineKeyboardButton(text=tt.checkout_settings, callback_data="admin_checkoutSettings"))
     markup.add(types.InlineKeyboardButton(text=tt.stats_settings, callback_data="admin_statsSettings"))
@@ -336,6 +339,12 @@ def get_markup_itemSettings():
 def get_markup_catalogSettings():
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton(text=tt.disable_catalog_image if settings.is_catalog_image_enabled() else tt.enable_catalog_image, callback_data="admin_changeEnableCatalogImage"))
+    markup.add(btnBackShopSettings)
+    return markup
+
+def get_markup_typeSettings():
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton(text=tt.disable_type_image if settings.is_type_image_enabled() else tt.enable_type_image, callback_data="admin_changeEnableTypeImage"))
     markup.add(btnBackShopSettings)
     return markup
 
