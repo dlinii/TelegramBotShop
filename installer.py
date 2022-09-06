@@ -76,6 +76,7 @@ CREATE TABLE "orders" (
 CREATE_USERS_TEXT = """
 CREATE TABLE "users" (
 	"user_id" INTEGER NOT NULL,
+    "username" TEXT, 
 	"is_admin" INTEGER,
 	"is_manager" INTEGER,
 	"notification" INTEGER,

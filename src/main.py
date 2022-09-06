@@ -111,7 +111,7 @@ async def welcome(message: types.Message):
     logging.info(f"COMMAND [{message.chat.id}] {message.text}")
     if settings.is_debug():
         print(f"DEBUG: COMMAND [{message.chat.id}] {message.text}")
-    user = usr.User(message.chat.id)
+    user = usr.User(message.chat.id, message.from_user.username)
 
     markupMain = markups.get_markup_main()
     if user.is_manager() or user.is_admin():
@@ -153,6 +153,7 @@ async def handle_text(message):
             )
     elif message.text == tt.orders:
         if user.is_manager() or user.is_admin():
+
             await bot.send_message(
                 chat_id=message.chat.id,
                 text=tt.orders,
@@ -1446,6 +1447,12 @@ async def process_callback(callback_query: types.CallbackQuery):
                 chat_id=chat_id,
                 message_id=callback_query.message.message_id,
                 reply_markup=markups.get_markup_seeOrder(order)
+            )
+        elif call_data.startswith("sendMsgForOrder"):
+            order = ordr.Order(call_data[15:])
+            await bot.send_message(
+                chat_id=order.get_user_id(),
+                text=tt.get_order_send_msg(order, user.get_username())
             )
 
     # User calls
