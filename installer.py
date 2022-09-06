@@ -11,7 +11,7 @@ def create_config(token, main_admin_id, config_path="config.ini"):
     DEFAULT_CONFIG_TEXT = f"""[main_settings]
 token = {token}
 mainadminid = {main_admin_id}
-debug = 1
+debug = 0
 
 [shop_settings]
 name = Название магазина
