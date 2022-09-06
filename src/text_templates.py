@@ -39,8 +39,8 @@ def get_order_confirmation_template(item_amount_dict, cart_price, additional_mes
 def get_order_template(order):
     item_list_amount_formatted = '\n'.join([f'\t· {item[0].get_name()} - {item[1]} шт.' for item in order.get_item_list_amount()])
     phone_number = f"Номер телефона: {order.get_phone_number()}\n" if settings.is_phone_number_enabled() else ""
-    home_adress = f"Адрес доставки: {order.get_home_adress()}\n" if settings.is_delivery_enabled() else f"Самовывоз\n"
-    return f"{line_separator}\nID заказа: {order.get_order_id()}\nID пользователя: {order.get_user_id()}\nТовары:\n{item_list_amount_formatted}\nСумма: {order.get_item_list_price()}руб.\nEmail: {order.get_email_adress()}\n{phone_number}{home_adress}Комментарий к заказу: {order.get_additional_message()}\nСтатус заказа: {order.get_status_string()}\nДата: {order.get_date_string()}\n{line_separator}"
+    home_adress = f"Адрес доставки: {order.get_home_adress()}\n" if settings.is_delivery_enabled() else ""
+    return f"{line_separator}\nID заказа: {order.get_order_id()}\nID пользователя: {order.get_user_id()}\nТовары:\n{item_list_amount_formatted}\nСумма: {order.get_item_list_price()}руб.\nПользователь: @{order.get_email_adress()}\n{phone_number}{home_adress}Комментарий к заказу: {order.get_additional_message()}\nСтатус заказа: {order.get_status_string()}\nДата: {order.get_date_string()}\n{line_separator}"
 
 # Single phrases
 # /start
