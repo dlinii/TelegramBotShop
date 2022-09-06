@@ -490,6 +490,7 @@ def get_markup_orders():
     markup.add(types.InlineKeyboardButton(text=tt.delivery, callback_data="manager_ordersDelivery"))
     markup.add(types.InlineKeyboardButton(text=tt.done, callback_data="manager_ordersDone"))
     markup.add(types.InlineKeyboardButton(text=tt.cancelled, callback_data="manager_ordersCancelled"))
+    markup.add(types.InlineKeyboardButton(text=tt.cancelled_user, callback_data="manager_ordersCancelledUser"))
     return markup
 
 def get_markup_ordersByOrderList(order_list):

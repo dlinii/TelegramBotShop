@@ -71,7 +71,8 @@ CREATE TABLE "orders" (
 	"home_adress" TEXT,
 	"additional_message" TEXT,
 	"date" TEXT,
-    "status" INTEGER
+    "status" INTEGER,
+    "manager" INTEGER
     )
 """
 CREATE_USERS_TEXT = """

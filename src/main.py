@@ -1498,6 +1498,9 @@ async def process_callback(callback_query: types.CallbackQuery):
                 case "Cancelled":
                     order_list = ordr.get_order_list(status=-1)
                     text = tt.cancelled
+                case "CancelledUser":
+                    order_list = ordr.get_order_list(status=-2)
+                    text = tt.cancelled_user
             await bot.edit_message_text(
                 chat_id=chat_id,
                 message_id=callback_query.message.message_id,

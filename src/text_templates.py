@@ -9,17 +9,22 @@ line_separator = "➖➖➖➖➖"
 def get_profile_template(user):
     return f"{line_separator}\n📝 id: {user.get_id()}\n📈 Кол-во заказов: {len(user.get_orders())}\n📅 Дата регистрации: {user.get_register_date_string()}\n{line_separator}"
 
+
 def get_faq_template(shop_name):
     return f"{line_separator}\nℹ️ FAQ магазина {shop_name}\n{line_separator}"
+
 
 def get_categories_template():
     return f"{line_separator}\n🛍️ Категории\n{line_separator}"
 
+
 def get_category_was_created_successfuly(cat_name):
     return f"Категория {cat_name} была успешно создана."
 
+
 def get_category_data(cat):
     return f"{line_separator}\nID: {cat.get_id()}\nНазвание: {cat.get_name()}\n{line_separator}"
+
 
 def get_item_card(item=None, name=None, price=None, desc=None, amount=None):
     if item:
@@ -27,23 +32,28 @@ def get_item_card(item=None, name=None, price=None, desc=None, amount=None):
         price = item.get_price()
         desc = item.get_desc()
         amount = item.get_amount()
-        
+
     return f"{line_separator}\n{name} - {'{:.2f}'.format(price)} руб.\nВ наличии: {amount} шт.\n{line_separator}\n{desc}"
 
-def get_order_confirmation_template(item_amount_dict, cart_price, additional_message, phone_number=None, home_adress=None):
+
+def get_order_confirmation_template(item_amount_dict, cart_price, additional_message, phone_number=None,
+                                    home_adress=None):
     item_amount_dict_formatted = '\n'.join([f'\t· {item[0].get_name()} - {item[1]} шт.' for item in item_amount_dict])
     phone_number = f"Номер телефона: {phone_number}\n" if phone_number else ""
     home_adress = f"Адрес доставки: {home_adress}\n" if home_adress else ""
     additional_message = f"Комментарий к заказу: {additional_message}\n" if additional_message else ""
     return f"{line_separator}\nТовары:\n{item_amount_dict_formatted}\nСумма: {cart_price}руб.\n{phone_number}{home_adress}{additional_message} \n{line_separator}\nВы уверены, что хотите оформить заказ?"
-    
+
+
 def get_order_template(order):
-    item_list_amount_formatted = '\n'.join([f'\t· {item[0].get_name()} - {item[1]} шт.' for item in order.get_item_list_amount()])
+    item_list_amount_formatted = '\n'.join(
+        [f'\t· {item[0].get_name()} - {item[1]} шт.' for item in order.get_item_list_amount()])
     phone_number = f"Номер телефона: {order.get_phone_number()}\n" if settings.is_phone_number_enabled() else ""
     home_adress = f"Адрес доставки: {order.get_home_adress()}\n" if settings.is_delivery_enabled() else ""
     additional_message = f"Комментарий к заказу: {order.get_additional_message()}\n" if order.get_additional_message() else ""
-    status = f"Статус заказа: {order.get_status_string()} - @{order.get_manager()}"if order.get_manager() else f"Статус заказа: {order.get_status_string()}"
-    return f"{line_separator}\nID заказа: {order.get_order_id()}\nID пользователя: {order.get_user_id()}\nТовары:\n{item_list_amount_formatted}\nСумма: {order.get_item_list_price()}руб.\nПользователь: @{order.get_email_adress()}\n{phone_number}{home_adress}Комментарий к заказу: {additional_message}\n{status}\nДата: {order.get_date_string()}\n{line_separator}"
+    status = f"Статус заказа: {order.get_status_string()} - @{order.get_manager()}" if order.get_manager() != "None" else f"Статус заказа: {order.get_status_string()}"
+    return f"{line_separator}\nID заказа: {order.get_order_id()}\nID пользователя: {order.get_user_id()}\nТовары:\n{item_list_amount_formatted}\nСумма: {order.get_item_list_price()}руб.\nПользователь: @{order.get_email_adress()}\n{phone_number}{home_adress}{additional_message}\n{status}\nДата: {order.get_date_string()}\n{line_separator}"
+
 
 def get_order_send_msg(order, username):
     return f"{line_separator}\nПривет, твой заказ №{order.get_order_id()} уже на рассмотрении, но к сожалению у тебя закрытый аккаунт и наш менеджер не может связаться с тобой. Пожалуйста, отпишись менеждеру @{username} для того чтобы договориться о встрече. Спасибо!\n{line_separator}"
@@ -81,14 +91,21 @@ search = "🔍 Найти"
 add_to_cart = "🛒 Добавить в корзину"
 cart_is_empty = "Корзина пуста."
 pickup = "✅Самовывоз"
+
+
 def delivery_on(price): return f"✅ Доставка - {price}руб."
+
+
 def delivery_off(price): return f"❌ Доставка - {price}руб."
+
+
 cart_checkout = "Оформить заказ"
 clear_cart = "Очистить корзину"
 processing = "Обрабатывается"
-delivery = "Ожидает доставки"
+delivery = "Принят на рассмотрение"
 done = "Готов"
 cancelled = "Отменён"
+cancelled_user = "Отменён пользователем"
 send_msg = "Отправить сообщение"
 
 # Item management
@@ -96,6 +113,8 @@ add_cat = "🛍️ Добавить категорию"
 add_item = "🗃️ Добавить товар"
 edit_cat = "✏️ Редактировать категорию"
 edit_item = "✏️ Редактировать товар"
+add_image_cat = "📁 Добавить фото каталога"
+delete_image_cat = "🗑️ Удалить фото каталога"
 change_name = "📋 Изменить название"
 change_image = "🖼️ Изменить изображение"
 hide_image = "🙈 Скрыть изображение"
@@ -113,7 +132,10 @@ remove_manager_role = "👨‍💼 Убрать роль менеджера"
 add_manager_role = "👨‍💼 Сделать менеджером"
 remove_admin_role = "🔴 Убрать роль администратора"
 add_admin_role = "🔴 Сделать администратором"
+
+
 def change_order_status(status): return f"Изменить статус на \"{status}\""
+
 
 # Shop stats
 registration_stats = "👥Статистика регистраций"
@@ -166,7 +188,11 @@ enable_phone_number = "❌ Номер телефона при заказе"
 disable_phone_number = "✅ Номер телефона при заказе"
 enable_delivery = "❌ Доставка"
 disable_delivery = "✅ Доставка"
+
+
 def delivery_price(price): return f"🚚 Стоимость доставки: {price}руб."
+
+
 enable_captcha = "❌ CAPTCHA при заказе"
 disable_captcha = "✅ CAPTCHA при заказе"
 enable_debug = "❌ Режим отладки"
