@@ -78,6 +78,13 @@ class Order:
     
     def get_status_string(self):
         return get_status_dict()[self.__clist()[8]]
+
+
+    def get_manager(self):
+        return self.__clist()[9]
+    def set_manager(self, value):
+        c.execute(f"UPDATE orders SET manager=? WHERE order_id=?", [value, self.get_order_id()])
+        conn.commit()
     
     def set_status(self, value):
         c.execute(f"UPDATE orders SET status=? WHERE order_id=?", [value, self.get_order_id()])
@@ -102,7 +109,7 @@ def does_order_exist(order_id):
     c.execute(f"SELECT * FROM orders WHERE order_id=?", [order_id])
     return len(list(c)) == 1
     
-def create_order(order_id, user_id, item_list, email_adress, additional_message, phone_number="None", home_adress="None"):
-    c.execute(f"INSERT INTO orders VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", [order_id, user_id, item_list, email_adress, phone_number, home_adress, additional_message, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 0])
+def create_order(order_id, user_id, item_list, email_adress, additional_message, phone_number="None", home_adress="None", manager="None"):
+    c.execute(f"INSERT INTO orders VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [order_id, user_id, item_list, email_adress, phone_number, home_adress, additional_message, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 0, manager])
     conn.commit()
     return Order(order_id)
