@@ -23,6 +23,7 @@ import stats
 import item as itm
 import order as ordr
 import category
+import catalogue
 import text_templates as tt
 from settings import Settings
 import commands
@@ -172,6 +173,13 @@ async def handle_text(message):
             reply_markup=markups.get_markup_profile(user),
         )
     elif message.text == tt.catalogue:
+        ctg = catalogue.get_images_list()
+
+        if ctg:
+            await bot.send_media_group(
+                chat_id=message.chat.id,
+                media=ctg
+            )
         await bot.send_message(
             chat_id=message.chat.id,
             text=tt.catalogue,
@@ -253,12 +261,65 @@ async def process_callback(callback_query: types.CallbackQuery):
             state = Dispatcher.get_current().current_state()
             await state.update_data(state_message=callback_query.message.message_id)
         elif call_data == "editCatChooseCategory":
-            await bot.edit_message_text(
-                chat_id=chat_id,
+            await bot.delete_message(
                 message_id=callback_query.message.message_id,
+                chat_id=chat_id
+            )
+            await bot.send_message(
+                chat_id=chat_id,
                 text=f"Выберите категорию, которую хотите изменить {tt.or_press_back}",
                 reply_markup=markups.get_markup_editCatChooseCategory(category.get_cat_list()),
             )
+        elif call_data == "deleteImageCtg":
+            ctg_img = catalogue.get_images_list()
+            ctg = catalogue.get_ctg_list()
+            markup = markups.single_button(markups.btnBackItemManagement)
+            text_err = f"Нет изображений у каталога"
+            if ctg_img:
+                await bot.send_media_group(
+                    chat_id=chat_id,
+                    media=ctg_img
+                )
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text="Выбирете номер изображения для удаления",
+                    reply_markup=markups.get_markup_catalogue_img(ctg),
+                )
+            else:
+                await bot.delete_message(
+                    message_id=callback_query.message.message_id,
+                    chat_id=chat_id
+                )
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=text_err,
+                    reply_markup=markup
+                )
+        elif call_data == "addImageCtg":
+            text = f"Отправьте изображение для каталога {tt.or_press_back}"
+            markup = markups.single_button(markups.btnBackItemManagement)
+
+            await state_handler.addCtgImage.image.set()
+            state = Dispatcher.get_current().current_state()
+
+            try:
+                await bot.edit_message_text(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    text=text,
+                    reply_markup=markup,
+                )
+                await state.update_data(state_message=callback_query.message.message_id)
+            except:
+                await bot.delete_message(
+                    message_id=callback_query.message.message_id,
+                    chat_id=chat_id
+                )
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                    reply_markup=markup
+                )
         elif call_data.startswith("editCatDelete"):
             cat = category.Category(call_data[13:])
             try:
@@ -274,22 +335,59 @@ async def process_callback(callback_query: types.CallbackQuery):
             )
         elif call_data.startswith("editCatName"):
             cat = category.Category(call_data[11:])
-            await bot.edit_message_text(
-                chat_id=chat_id,
+
+            await bot.delete_message(
                 message_id=callback_query.message.message_id,
+                chat_id=chat_id
+            )
+            await bot.send_message(
+                chat_id=chat_id,
                 text=f"Введите новое название для категории \"{cat.get_name()}\" {tt.or_press_back}",
-                reply_markup=markups.single_button(markups.btnBackEditCat(cat.get_id())),
+                reply_markup=markups.single_button(markups.btnBackEditCat(cat.get_id()))
             )
             await state_handler.changeCatName.name.set()
             state = Dispatcher.get_current().current_state()
             await state.update_data(cat_id=cat.get_id())
             await state.update_data(state_message=callback_query.message.message_id)
+
+        elif call_data.startswith("editCatImage"):
+            cat = category.Category(call_data[12:])
+            text = f"Отправьте изображение для категории {cat.get_name()} {tt.or_press_back}"
+            markup = markups.single_button(markups.btnBackEditCat(cat.get_id()))
+
+            await state_handler.changeCatImage.image.set()
+            state = Dispatcher.get_current().current_state()
+            await state.update_data(cat_id=cat.get_id())
+            await state.update_data(state_message=callback_query.message.message_id+1)
+
+            try:
+                await bot.edit_message_text(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    text=text,
+                    reply_markup=markup,
+                )
+                await state.update_data(state_message=callback_query.message.message_id)
+            except:
+                await bot.delete_message(
+                    message_id=callback_query.message.message_id,
+                    chat_id=chat_id
+                )
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                    reply_markup=markup
+                )
         elif call_data.startswith("editCat"):
             cat = category.Category(call_data[7:])
-            await bot.edit_message_text(
-                chat_id=chat_id,
+            await bot.delete_message(
                 message_id=callback_query.message.message_id,
-                text=tt.get_category_data(cat),
+                chat_id=chat_id
+            )
+            await bot.send_photo(
+                chat_id=chat_id,
+                photo=cat.get_image(),
+                caption=tt.get_category_data(cat),
                 reply_markup=markups.get_markup_editCat(cat.get_id()),
             )
         elif call_data == "addItem":
@@ -1535,28 +1633,38 @@ async def process_callback(callback_query: types.CallbackQuery):
 
         # Catalogue
         elif call_data == "catalogue":
-            await bot.edit_message_text(
-                chat_id=chat_id,
+            await bot.delete_message(
                 message_id=callback_query.message.message_id,
+                chat_id=chat_id
+            )
+            await bot.send_message(
+                chat_id=callback_query.message.chat.id,
                 text=tt.catalogue,
                 reply_markup=markups.get_markup_catalogue(category.get_cat_list()),
+            )
+        elif call_data.startswith("deleteImgCtg"):
+            catalogue.delete(call_data[12:])
+            await bot.edit_message_text(
+                chat_id=callback_query.message.chat.id,
+                message_id=callback_query.message.message_id,
+                text=f"Изображение каталога удалено",
+                reply_markup=markups.single_button(markups.btnBackItemManagement)
             )
         elif call_data.startswith("viewCat"):
             cat = category.Category(call_data[7:])
             try:
                 # markup = markups.get_markup_viewItem(item)
+                await bot.delete_message(
+                    message_id=callback_query.message.message_id,
+                    chat_id=chat_id
+                )
                 if cat.get_image_id() == "None" or not settings.is_type_image_enabled():
-                    await bot.edit_message_text(
+                    await bot.send_message(
                         chat_id=chat_id,
-                        message_id=callback_query.message.message_id,
                         text=cat.get_name(),
                         reply_markup=markups.get_markup_viewCat(cat.get_item_list()),
                     )
                 else:
-                    await bot.delete_message(
-                        message_id=callback_query.message.message_id,
-                        chat_id=chat_id
-                    )
                     await bot.send_photo(
                         chat_id=chat_id,
                         caption=cat.get_name(),
@@ -1587,18 +1695,17 @@ async def process_callback(callback_query: types.CallbackQuery):
             item = itm.Item(call_data[8:])
             text = tt.get_item_card(item=item)
             markup = markups.get_markup_viewItem(item)
+            await bot.delete_message(
+                message_id=callback_query.message.message_id,
+                chat_id=chat_id
+            )
             if item.get_image_id() == "None" or not settings.is_item_image_enabled() or await item.is_hide_image():
-                await bot.edit_message_text(
+                await bot.send_message(
                     chat_id=chat_id,
-                    message_id=callback_query.message.message_id,
                     text=text,
                     reply_markup=markup,
                 )
             else:
-                await bot.delete_message(
-                    message_id=callback_query.message.message_id,
-                    chat_id=chat_id
-                )
                 await bot.send_photo(
                     chat_id=chat_id,
                     caption=text,
@@ -1815,6 +1922,37 @@ async def changeCatName(message: types.Message, state: FSMContext):
     )
     await state.finish()
 
+
+@dp.message_handler(content_types=['photo'], state=state_handler.changeCatImage.image)
+async def changeCatImage(msg: types.Message, state: FSMContext):
+    data = await state.get_data()
+    cat = category.Category(data["cat_id"])
+    while True:
+        image_id = "".join([choice(ascii_lowercase + digits) for _ in range(6)]) + ".png"
+        if image_id not in listdir("images/"):
+            break
+
+    await msg.photo[-1].download(destination_file=f"images/{image_id}")
+
+    await state.update_data(image=image_id)
+
+    data = await state.get_data()
+    cat.set_image_id(image_id)
+    try:
+        text = f"Изображение для категории {cat.get_name()} было изменено."
+    except:
+        text = tt.error
+
+    await bot.delete_message(
+        message_id=data["state_message"],
+        chat_id=msg.chat.id
+    )
+    await bot.send_message(
+        chat_id=msg.chat.id,
+        text=text,
+        reply_markup=markups.single_button(markups.btnBackEditCat(cat.get_id())),
+    )
+    await state.finish()
 @dp.message_handler(state=state_handler.addItem.name)
 async def addItemSetName(message: types.Message, state: FSMContext):
     data = await state.get_data()
@@ -1932,6 +2070,30 @@ async def editItemSetPrice(message: types.Message, state: FSMContext):
         text=text,
         reply_markup=markups.single_button(markups.btnBackEditItem(item.get_id())),
     )
+
+@dp.message_handler(content_types=['photo'], state=state_handler.addCtgImage.image)
+async def editItemSetImage(message: types.Message, state: FSMContext):
+    state = Dispatcher.get_current().current_state()
+    data = await state.get_data()
+
+    while True:
+        image_id = "".join([choice(ascii_lowercase + digits) for _ in range(6)]) + ".png"
+        if image_id not in listdir("images/"):
+            break
+
+    try:
+        await message.photo[-1].download(destination_file=f"images/{image_id}")
+        text = f"Изображение для каталога было добавлено."
+    except:
+        text = tt.error
+    catalogue.create_ctg(image_id)
+
+    await bot.send_message(
+        chat_id=message.chat.id,
+        text=text,
+        reply_markup=markups.single_button(markups.btnBackItemManagement)
+    )
+    await state.finish()
 
 @dp.message_handler(content_types=['photo'], state=state_handler.changeItemImage.image)
 async def editItemSetImage(message: types.Message, state: FSMContext):
@@ -2504,10 +2666,14 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
             await state.finish()
         elif call_data.startswith("editCat"):
             cat = category.Category(call_data[7:])
-            await bot.edit_message_text(
-                chat_id=chat_id,
+            await bot.delete_message(
                 message_id=callback_query.message.message_id,
-                text=tt.get_category_data(cat),
+                chat_id=chat_id
+            )
+            await bot.send_photo(
+                chat_id=chat_id,
+                photo=cat.get_image(),
+                caption=tt.get_category_data(cat),
                 reply_markup=markups.get_markup_editCat(cat.get_id()),
             )
             await state.finish()

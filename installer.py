@@ -7,6 +7,7 @@ import sqlite3
 def clearConsole():
     system("cls" if name in ("nt", "dos") else "clear")
 
+
 def create_config(token, main_admin_id, config_path="config.ini"):
     DEFAULT_CONFIG_TEXT = f"""[main_settings]
 token = {token}
@@ -93,6 +94,25 @@ CREATE TABLE "commands" (
     PRIMARY KEY("id")
 )
 """
+CREATE_CATALOGUE_TEXT = """
+CREATE TABLE "catalogue" (
+    "id" INTEGER NOT NULL,
+    "image_id" TEXT,
+    PRIMARY KEY("id")
+)
+"""
+CREATE_INDEX_FOR_CATALOGUE = """
+CREATE INDEX "idx_ctg_img" ON "catalogue" (
+	"image_id"	ASC
+);
+"""
+CREATE_INDEX_FOR_CATS = """
+CREATE INDEX "idx_cat" ON "cats" (
+	"name",
+	"image_id"
+);
+"""
+
 
 def create_db():
     conn = sqlite3.connect("data.db")
@@ -102,20 +122,23 @@ def create_db():
     c.execute(CREATE_ORDERS_TEXT)
     c.execute(CREATE_USERS_TEXT)
     c.execute(CREATE_COMMANDS_TEXT)
+    c.execute(CREATE_CATALOGUE_TEXT)
+    c.execute(CREATE_INDEX_FOR_CATALOGUE)
+    c.execute(CREATE_INDEX_FOR_CATS)
     conn.commit()
-    conn.close()    
+    conn.close()
 
 
 if __name__ == "__main__":
     clearConsole()
     if any(list(map(exists, ["config.ini", "images", "data.db"]))):
         while True:
-            confirmation = input("Вы уверены, что хотите повторно запустить процесс установки? Все данные будут утеряны! (y/N) ")
+            confirmation = input(
+                "Вы уверены, что хотите повторно запустить процесс установки? Все данные будут утеряны! (y/N) ")
             if confirmation.lower() in ["y", "yes", "n", "no", ""]:
                 break
     else:
         confirmation = "y"
-
 
     if confirmation.lower() in ["y", "yes"]:
         print("Вы можете узнать как получить токен бота, перейдя по ссылке: https://youtu.be/fyISLEvzIec")
@@ -160,6 +183,5 @@ if __name__ == "__main__":
             print("Неверный ID главного администратора.")
     else:
         print("Установка была отменена.")
-
 
     input("Нажмите ENTER, чтобы продолжить...")

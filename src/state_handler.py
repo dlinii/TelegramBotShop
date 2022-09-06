@@ -14,6 +14,11 @@ class changeCatName(StatesGroup):
     cat_id = State()
     name = State()
 
+class changeCatImage(StatesGroup):
+    state_message = State()
+    cat_id = State()
+    image = State()
+
 class addItem(StatesGroup):
     # Required
     name = State()
@@ -33,6 +38,9 @@ class changeItemPrice(StatesGroup):
 class changeItemImage(StatesGroup):
     state_message = State()
     item_id = State()
+    image = State()
+class addCtgImage(StatesGroup):
+    state_message = State()
     image = State()
 
 class changeItemDesc(StatesGroup):

@@ -153,6 +153,11 @@ def get_markup_catalogue(cat_list):
     # markup.add(types.InlineKeyboardButton(text=tt.search, callback_data="search"))
     return markup
 
+def get_markup_catalogue_img(ctg):
+    markup = types.InlineKeyboardMarkup()
+    for i in range(len(ctg)):
+        markup.add(types.InlineKeyboardButton(text=str(i + 1), callback_data=f"deleteImgCtg{ctg.__getitem__(i).get_id()}"))
+    return markup
 def get_markup_search(query):
     markup = types.InlineKeyboardMarkup()
     for item in query:
@@ -181,6 +186,7 @@ def get_markup_itemManagement():
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton(text=tt.add_cat, callback_data="admin_addCat"), types.InlineKeyboardButton(text=tt.add_item, callback_data="admin_addItem"))
     markup.add(types.InlineKeyboardButton(text=tt.edit_cat, callback_data="admin_editCatChooseCategory"), types.InlineKeyboardButton(text=tt.edit_item, callback_data="admin_editItemChooseCategory"))
+    markup.add(types.InlineKeyboardButton(text=tt.add_image_cat, callback_data="admin_addImageCtg"), types.InlineKeyboardButton(text=tt.delete_image_cat, callback_data="admin_deleteImageCtg"))
     markup.add(btnBackAdmin)
     return markup
 
@@ -194,6 +200,7 @@ def get_markup_editCatChooseCategory(cat_list):
 def get_markup_editCat(cat_id):
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton(text=tt.change_name, callback_data=f"admin_editCatName{cat_id}"))
+    markup.add(types.InlineKeyboardButton(text=tt.change_image, callback_data=f"admin_editCatImage{cat_id}"))
     markup.add(types.InlineKeyboardButton(text=tt.delete, callback_data=f"admin_editCatDelete{cat_id}"))
     markup.add(btnBackEditCatChooseCategory)
     return markup

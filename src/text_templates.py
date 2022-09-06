@@ -57,7 +57,7 @@ cart = "🛒 Корзина"
 support_menu = "☎ Меню тех. поддержки"
 
 # Admin panel tabs
-item_management = "📦 Управление товаром"
+item_management = "📦 Управление каталогом"
 user_management = "🧍 Управление пользователями"
 shop_stats = "📈 Статистика магазина (BETA)"
 bot_settings = "⚙ Настройки бота"
@@ -94,6 +94,9 @@ add_cat = "🛍️ Добавить категорию"
 add_item = "🗃️ Добавить товар"
 edit_cat = "✏️ Редактировать категорию"
 edit_item = "✏️ Редактировать товар"
+add_image_cat = "📁 Добавить фото каталога"
+delete_image_cat = "🗑️ Удалить фото каталога"
+
 change_name = "📋 Изменить название"
 change_image = "🖼️ Изменить изображение"
 hide_image = "🙈 Скрыть изображение"
