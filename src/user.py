@@ -70,6 +70,10 @@ class User:
     def get_cart(self):
         cart = self.get_cart_comma()
         return [] if cart == "None" else list(map(itm.Item, cart.split(",")))
+    def get_count_item_cart_for_id(self, item_id):
+        cart = [item.get_id() for item in self.get_cart()]
+        cnt = cart.count(item_id)
+        return cnt
     
     def get_cart_amount(self):
         cart = [item.get_id() for item in self.get_cart()]

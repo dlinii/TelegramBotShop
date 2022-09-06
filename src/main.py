@@ -1773,7 +1773,12 @@ async def process_callback(callback_query: types.CallbackQuery):
             )
 
         elif call_data.startswith("addToCartFromCart"):
-            user.add_to_cart(call_data[17:])
+            item = itm.Item(call_data[17:])
+            # user.get_count_item_cart_for_id(call_data[17:])
+            if item.get_amount() > user.get_count_item_cart_for_id(call_data[17:]):
+                user.add_to_cart(call_data[17:])
+            else:
+                await bot.answer_callback_query(callback_query_id=callback_query.id, text='Это максимальное количество!')
             await bot.edit_message_text(
                 chat_id=chat_id,
                 message_id=callback_query.message.message_id,
