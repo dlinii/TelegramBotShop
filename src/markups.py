@@ -283,6 +283,7 @@ def get_markup_seeUserOrder(order):
     markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.delivery), callback_data=f"admin_changeOrderStatusDelivery{order.get_order_id()}"))
     markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.done), callback_data=f"admin_changeOrderStatusDone{order.get_order_id()}"))
     markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.cancelled), callback_data=f"admin_changeOrderStatusCancel{order.get_order_id()}"))
+
     markup.add(btnBackSeeUserOrders(order.get_user_id()))
     return markup
 
@@ -472,6 +473,7 @@ def get_markup_seeOrder(order, user_id=None):
     markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.delivery), callback_data=f"manager_changeOrderStatusDelivery{order.get_order_id()}"))
     markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.done), callback_data=f"manager_changeOrderStatusDone{order.get_order_id()}"))
     markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.cancelled), callback_data=f"manager_changeOrderStatusCancel{order.get_order_id()}"))
+    markup.add(types.InlineKeyboardButton(text=tt.send_msg, callback_data=f"manager_sendMsgForOrder{order.get_order_id()}"))
     markup.add(btnBackSeeUserOrders(user_id) if user_id else btnBackOrders)
     return markup
 
