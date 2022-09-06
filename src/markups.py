@@ -200,6 +200,7 @@ def get_markup_addItemSetCat(cat_list):
     return markup
 
 btnSkipAddItemSetImage = types.InlineKeyboardButton(text=tt.skip, callback_data="admin_skipSetAddItemSetImage")
+btnSkipAddCatSetImage = types.InlineKeyboardButton(text=tt.skip, callback_data="admin_skipSetAddCatSetImage")
 
 def get_markup_addItemConfirmation():
     markup = types.InlineKeyboardMarkup()
