@@ -118,10 +118,10 @@ def get_markup_cart(user):
     for item_and_amount in user.get_cart_amount():
         markup.add(types.InlineKeyboardButton(text=f"{item_and_amount[0].get_name()[:30-len(f' - {item_and_amount[1]}шт.')-3]}... - {item_and_amount[1]}шт.", callback_data=f"viewItem{item_and_amount[0].get_id()}"))
         markup.add(types.InlineKeyboardButton(text=f"{item_and_amount[0].get_price() * item_and_amount[1]}руб.", callback_data="None"), types.InlineKeyboardButton(text=tt.plus, callback_data=f"addToCartFromCart{item_and_amount[0].get_id()}"), types.InlineKeyboardButton(text=tt.minus, callback_data=f"removeFromCartFromCart{item_and_amount[0].get_id()}"))
-    if settings.is_delivery_enabled():
-        markup.add(types.InlineKeyboardButton(text=tt.delivery_on(delivery_price) if user.is_cart_delivery() else tt.delivery_off(delivery_price), callback_data="changeCartDelivery"))
-    else:
-         markup.add(types.InlineKeyboardButton(text=tt.pickup, callback_data="None"))
+    # if settings.is_delivery_enabled():
+    #     markup.add(types.InlineKeyboardButton(text=tt.delivery_on(delivery_price) if user.is_cart_delivery() else tt.delivery_off(delivery_price), callback_data="changeCartDelivery"))
+    # else:
+    #     markup.add(types.InlineKeyboardButton(text=tt.pickup, callback_data="None"))
         
     markup.add(types.InlineKeyboardButton(text=tt.clear_cart, callback_data="clearCart"))
     markup.add(types.InlineKeyboardButton(text=f"Всего: {'{:.2f}'.format(user.get_cart_price())}руб.", callback_data="None"))
@@ -200,7 +200,6 @@ def get_markup_addItemSetCat(cat_list):
     return markup
 
 btnSkipAddItemSetImage = types.InlineKeyboardButton(text=tt.skip, callback_data="admin_skipSetAddItemSetImage")
-btnSkipAddCatSetImage = types.InlineKeyboardButton(text=tt.skip, callback_data="admin_skipSetAddCatSetImage")
 
 def get_markup_addItemConfirmation():
     markup = types.InlineKeyboardMarkup()

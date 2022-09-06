@@ -31,14 +31,12 @@ import search
 conn = sqlite3.connect("data.db")
 c = conn.cursor()
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s:%(levelname)s:%(message)s",
-                    filename=f"logs/{datetime.date.today().strftime('%d-%m-%Y')}.log")
+logging.basicConfig(level=logging.INFO, format="%(asctime)s:%(levelname)s:%(message)s", filename=f"logs/{datetime.date.today().strftime('%d-%m-%Y')}.log")
 settings = Settings()
 
 storage = MemoryStorage()
 bot = Bot(token=settings.get_token())
 dp = Dispatcher(bot, storage=storage)
-
 
 # Create a backup folder + copy the needed files there
 def create_backup():
@@ -53,7 +51,6 @@ def create_backup():
     logging.info("backup created")
     print("Backup created!")
 
-
 def clean_backups(days_ago=0):
     longest_date = datetime.date.today() - datetime.timedelta(days=days_ago)
     cleaned_size = 0
@@ -66,7 +63,6 @@ def clean_backups(days_ago=0):
     logging.info(f"backups cleaned ({'{:.2f}'.format(cleaned_size / 1048576)}mb)")
     return cleaned_size / 1048576
 
-
 def clean_logs():
     cleaned_size = 0
     for file in listdir("logs"):
@@ -77,7 +73,6 @@ def clean_logs():
     logging.info(f"logs cleaned ({'{:.2f}'.format(cleaned_size / 1048576)}mb)")
 
     return cleaned_size / 1048576
-
 
 def clean_images():
     cleaned_size = 0
@@ -90,7 +85,6 @@ def clean_images():
 
 
 def get_captcha_text(): return ''.join([choice(ascii_uppercase + digits) for i in range(5)])
-
 
 def generate_captcha(captcha_text):
     image = ImageCaptcha(width=280, height=90)
@@ -133,11 +127,9 @@ async def welcome(message: types.Message):
             else:
                 raise Exception
     except:
-        logging.warning(
-            f"FAILED TO SEND STICKER TO {message.chat.id}. sticker.tgs is probably missing in the bot's root folder.")
+        logging.warning(f"FAILED TO SEND STICKER TO {message.chat.id}. sticker.tgs is probably missing in the bot's root folder.")
         if settings.is_debug():
-            print(
-                f"DEBUG: FAILED TO SEND STICKER TO {message.chat.id}. sticker.tgs is probably missing in the bot's root folder.")
+            print(f"DEBUG: FAILED TO SEND STICKER TO {message.chat.id}. sticker.tgs is probably missing in the bot's root folder.")
     await bot.send_message(
         chat_id=message.chat.id,
         text=settings.get_shop_greeting(),
@@ -505,7 +497,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                         text=text,
                         reply_markup=markup,
                     )
-                except:  # TODO: make it more compact
+                except: # TODO: make it more compact
                     await bot.delete_message(
                         message_id=callback_query.message.message_id,
                         chat_id=chat_id
@@ -1308,6 +1300,7 @@ async def process_callback(callback_query: types.CallbackQuery):
             else:
                 text = f"{tt.load_backup}\n\n{tt.error} Файла {backup_path} не существует!"
 
+
             await bot.edit_message_text(
                 chat_id=callback_query.message.chat.id,
                 message_id=callback_query.message.message_id,
@@ -1708,15 +1701,16 @@ async def process_callback(callback_query: types.CallbackQuery):
             await bot.edit_message_text(
                 chat_id=chat_id,
                 message_id=callback_query.message.message_id,
-                text=f"Введите ваш Email адрес {tt.or_press_back}",
+                # text=f"Введите ваш Email адрес {tt.or_press_back}",
+                text=f"Введите комментарий к заказу {tt.or_press_back}",
                 reply_markup=markups.single_button(markups.btnBackCart),
             )
-            await state_handler.checkoutCart.email.set()
+            # await state_handler.checkoutCart.email.set()
+            await state_handler.checkoutCart.additional_message.set()
             state = Dispatcher.get_current().current_state()
             await state.update_data(state_message=callback_query.message.message_id)
             await state.update_data(user_id=chat_id)
             await state.update_data(item_list_comma=user.get_cart_comma())
-
 
 # State handlers
 # Item management
@@ -1787,7 +1781,6 @@ async def addCatSetImage(msg: types.Message, state: FSMContext):
     )
     await state.finish()
 
-
 @dp.message_handler(state=state_handler.changeCatName.name)
 async def changeCatName(message: types.Message, state: FSMContext):
     data = await state.get_data()
@@ -1811,7 +1804,6 @@ async def changeCatName(message: types.Message, state: FSMContext):
     )
     await state.finish()
 
-
 @dp.message_handler(state=state_handler.addItem.name)
 async def addItemSetName(message: types.Message, state: FSMContext):
     data = await state.get_data()
@@ -1824,7 +1816,6 @@ async def addItemSetName(message: types.Message, state: FSMContext):
         reply_markup=markups.single_button(markups.btnBackItemManagement),
     )
     await state_handler.addItem.price.set()
-
 
 @dp.message_handler(state=state_handler.addItem.price)
 async def addItemSetPrice(message: types.Message, state: FSMContext):
@@ -1845,7 +1836,6 @@ async def addItemSetPrice(message: types.Message, state: FSMContext):
             reply_markup=markups.single_button(markups.btnBackItemManagement),
         )
         await state.finish()
-
 
 @dp.message_handler(state=state_handler.addItem.desc)
 async def addItemSetDesc(message: types.Message, state: FSMContext):
@@ -1869,12 +1859,11 @@ async def addItemSetDesc(message: types.Message, state: FSMContext):
         reply_markup=markup,
     )
 
-
 @dp.message_handler(content_types=['photo'], state=state_handler.addItem.image)
 async def addItemSetImage(message: types.Message, state: FSMContext):
     state = Dispatcher.get_current().current_state()
     data = await state.get_data()
-    print(data)
+
     while True:
         image_id = "".join([choice(ascii_lowercase + digits) for _ in range(6)]) + ".png"
         if image_id not in listdir("images/"):
@@ -1893,7 +1882,6 @@ async def addItemSetImage(message: types.Message, state: FSMContext):
         reply_markup=markups.get_markup_addItemConfirmation()
     )
     await state_handler.addItem.confirmation.set()
-
 
 @dp.message_handler(state=state_handler.addItem.image)
 async def addItemSetImageNotImage(message: types.Message, state: FSMContext):
@@ -1933,7 +1921,6 @@ async def editItemSetPrice(message: types.Message, state: FSMContext):
         text=text,
         reply_markup=markups.single_button(markups.btnBackEditItem(item.get_id())),
     )
-
 
 @dp.message_handler(content_types=['photo'], state=state_handler.changeItemImage.image)
 async def editItemSetImage(message: types.Message, state: FSMContext):
@@ -2028,7 +2015,6 @@ async def editItemSetName(message: types.Message, state: FSMContext):
         reply_markup=markups.single_button(markups.btnBackEditItem(item.get_id())),
     )
 
-
 @dp.message_handler(state=state_handler.changeItemStock.stock)
 async def editItemStockSetStock(message: types.Message, state: FSMContext):
     state = Dispatcher.get_current().current_state()
@@ -2077,7 +2063,6 @@ async def notifyEveryoneSetMessage(message: types.Message, state: FSMContext):
     )
     await state_handler.notifyEveryone.confirmation.set()
 
-
 @dp.message_handler(state=state_handler.seeUserProfile.user_id)
 async def seeUserProfileSetUserID(message: types.Message, state: FSMContext):
     try:
@@ -2105,7 +2090,6 @@ async def seeUserProfileSetUserID(message: types.Message, state: FSMContext):
     )
     await state.finish()
 
-
 # Main settings
 @dp.message_handler(state=state_handler.changeShopName.name)
 async def changeShopNameSetName(message: types.Message, state: FSMContext):
@@ -2127,7 +2111,6 @@ async def changeShopNameSetName(message: types.Message, state: FSMContext):
     )
     await state.finish()
 
-
 @dp.message_handler(state=state_handler.changeShopGreeting.greeting)
 async def changeShopGreetingSetGreeting(message: types.Message, state: FSMContext):
     state = Dispatcher.get_current().current_state()
@@ -2147,7 +2130,6 @@ async def changeShopGreetingSetGreeting(message: types.Message, state: FSMContex
         reply_markup=markups.single_button(markups.btnBackMainSettings),
     )
     await state.finish()
-
 
 @dp.message_handler(state=state_handler.changeShopRefundPolicy.refund_policy)
 async def changeShopContactsSetContacts(message: types.Message, state: FSMContext):
@@ -2169,7 +2151,6 @@ async def changeShopContactsSetContacts(message: types.Message, state: FSMContex
     )
     await state.finish()
 
-
 @dp.message_handler(state=state_handler.changeShopContacts.contacts)
 async def changeShopContactsSetContacts(message: types.Message, state: FSMContext):
     state = Dispatcher.get_current().current_state()
@@ -2189,7 +2170,6 @@ async def changeShopContactsSetContacts(message: types.Message, state: FSMContex
         reply_markup=markups.single_button(markups.btnBackMainSettings),
     )
     await state.finish()
-
 
 # Checkout Settings
 @dp.message_handler(state=state_handler.changeDeliveryPrice.price)
@@ -2212,7 +2192,6 @@ async def changeDeliveryPriceSetPrice(message: types.Message, state: FSMContext)
     )
     await state.finish()
 
-
 @dp.message_handler(state=state_handler.search.query)
 async def searchSetQuery(message: types.Message, state: FSMContext):
     query = search.search_item(message.text)
@@ -2230,15 +2209,13 @@ async def searchSetQuery(message: types.Message, state: FSMContext):
         )
     await state.finish()
 
-
 # Cart checkout
 # Required
 @dp.message_handler(state=state_handler.checkoutCart.email)
 async def checkoutCartSetEmail(message: types.Message, state: FSMContext):
     state = Dispatcher.get_current().current_state()
     user = usr.User(message.chat.id)
-    if matchre(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$",
-               message.text):  # I am not familiar with how re package works. Taken from here: https://stackoverflow.com/questions/8022530/how-to-check-for-valid-email-address
+    if matchre(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", message.text): # I am not familiar with how re package works. Taken from here: https://stackoverflow.com/questions/8022530/how-to-check-for-valid-email-address
         await state.update_data(email=message.text)
         if settings.is_phone_number_enabled():
             text = f"Введите ваш номер телефона {tt.or_press_back}"
@@ -2257,6 +2234,7 @@ async def checkoutCartSetEmail(message: types.Message, state: FSMContext):
         text=text,
         reply_markup=markups.single_button(markups.btnBackCart),
     )
+
 
 
 @dp.message_handler(state=state_handler.checkoutCart.phone_number)
@@ -2281,6 +2259,7 @@ async def checkoutCartSetPhoneNumber(message: types.Message, state: FSMContext):
     )
 
 
+
 @dp.message_handler(state=state_handler.checkoutCart.home_adress)
 async def checkoutCartSetHomeAdress(message: types.Message, state: FSMContext):
     state = Dispatcher.get_current().current_state()
@@ -2293,13 +2272,13 @@ async def checkoutCartSetHomeAdress(message: types.Message, state: FSMContext):
     )
     await state_handler.checkoutCart.additional_message.set()
 
-
 @dp.message_handler(state=state_handler.checkoutCart.additional_message)
 async def checkoutCartSetAdditionalMessage(message: types.Message, state: FSMContext):
     state = Dispatcher.get_current().current_state()
     data = await state.get_data()
     user = usr.User(message.chat.id)
     await state.update_data(additional_message=message.text)
+    await state.update_data(username=message.from_user.username)
     if settings.is_captcha_enabled():
         captcha_text = get_captcha_text()
         await state.update_data(captcha=captcha_text)
@@ -2313,15 +2292,10 @@ async def checkoutCartSetAdditionalMessage(message: types.Message, state: FSMCon
     else:
         await bot.send_message(
             chat_id=message.chat.id,
-            text=tt.get_order_confirmation_template(item_amount_dict=user.get_cart_amount(),
-                                                    cart_price=user.get_cart_price(), email_adress=data["email"],
-                                                    additional_message=message.text, phone_number=data[
-                    "phone_number"] if settings.is_phone_number_enabled() else None, home_adress=data[
-                    "home_adress"] if settings.is_delivery_enabled() and user.is_cart_delivery() else None),
+            text=tt.get_order_confirmation_template(item_amount_dict=user.get_cart_amount(), cart_price=user.get_cart_price(),  additional_message=message.text, phone_number=data["phone_number"] if settings.is_phone_number_enabled() else None, home_adress=data["home_adress"] if settings.is_delivery_enabled() and user.is_cart_delivery() else None),
             reply_markup=markups.get_markup_checkoutCartConfirmation(),
         )
         await state_handler.checkoutCart.confirmation.set()
-
 
 @dp.message_handler(state=state_handler.checkoutCart.captcha)
 async def checkoutCartCheckCaptcha(message: types.Message, state: FSMContext):
@@ -2331,11 +2305,7 @@ async def checkoutCartCheckCaptcha(message: types.Message, state: FSMContext):
     if message.text.lower() == data["captcha"].lower():
         await bot.send_message(
             chat_id=message.chat.id,
-            text=tt.get_order_confirmation_template(item_amount_dict=user.get_cart_amount(),
-                                                    cart_price=user.get_cart_price(), email_adress=data["email"],
-                                                    additional_message=data["additional_message"], phone_number=data[
-                    "phone_number"] if settings.is_phone_number_enabled() else None, home_adress=data[
-                    "home_adress"] if settings.is_delivery_enabled() and user.is_cart_delivery() else None),
+            text=tt.get_order_confirmation_template(item_amount_dict=user.get_cart_amount(), cart_price=user.get_cart_price(), email_adress=data["email"], additional_message=data["additional_message"], phone_number=data["phone_number"] if settings.is_phone_number_enabled() else None, home_adress=data["home_adress"] if settings.is_delivery_enabled() and user.is_cart_delivery() else None),
             reply_markup=markups.get_markup_checkoutCartConfirmation(),
         )
         await state_handler.checkoutCart.confirmation.set()
@@ -2350,7 +2320,6 @@ async def checkoutCartCheckCaptcha(message: types.Message, state: FSMContext):
         )
         await state_handler.checkoutCart.captcha.set()
 
-
 @dp.message_handler(state=state_handler.addCustomCommand.command)
 async def addCustomCommandSetCommand(message: types.Message, state: FSMContext):
     state = Dispatcher.get_current().current_state()
@@ -2362,7 +2331,6 @@ async def addCustomCommandSetCommand(message: types.Message, state: FSMContext):
         reply_markup=markups.single_button(markups.btnBackCustomCommands)
     )
     await state_handler.addCustomCommand.response.set()
-
 
 @dp.message_handler(state=state_handler.addCustomCommand.response)
 async def addCustomCommandSetResponse(message: types.Message, state: FSMContext):
@@ -2379,7 +2347,6 @@ async def addCustomCommandSetResponse(message: types.Message, state: FSMContext)
         reply_markup=markups.single_button(markups.btnBackCustomCommands)
     )
     await state.finish()
-
 
 # State callbacks
 @dp.callback_query_handler(state='*')
@@ -2420,8 +2387,7 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
         elif call_data == "skipSetAddItemSetImage":
             await state.update_data(image="None")
             cat = category.Category(data["cat_id"])
-            text = tt.get_item_card(name=data["name"], price=data["price"], desc=data["desc"],
-                                    amount=0) + f"\nКатегория: {cat.get_name()}\n\nВы уверены, что хотите добавить \"{data['name']}\" в каталог?"
+            text = tt.get_item_card(name=data["name"], price=data["price"], desc=data["desc"], amount=0) + f"\nКатегория: {cat.get_name()}\n\nВы уверены, что хотите добавить \"{data['name']}\" в каталог?"
             await bot.edit_message_text(
                 chat_id=chat_id,
                 message_id=callback_query.message.message_id,
@@ -2449,8 +2415,7 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
             await state.finish()
         elif call_data == "addItemConfirm":
             try:
-                itm.create_item(name=data["name"], price=data["price"], cat_id=data["cat_id"], desc=data["desc"],
-                                image_id=data["image"] if settings.is_item_image_enabled() else "None")
+                itm.create_item(name=data["name"], price=data["price"], cat_id=data["cat_id"], desc=data["desc"], image_id=data["image"] if settings.is_item_image_enabled() else "None")
                 text = f"Товар {data['name']} был создан."
             except:
                 text = tt.error
@@ -2647,14 +2612,13 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
                     break
             user_id = data["user_id"]
             item_list_comma = user.get_cart_comma()
-            email = data["email"]
+            email = data["username"]
             additional_message = data["additional_message"]
             phone_number = data["phone_number"] if settings.is_phone_number_enabled() else None
             home_adress = data["home_adress"] if settings.is_delivery_enabled() and user.is_cart_delivery() else None
 
             try:
-                order = ordr.create_order(order_id, user_id, item_list_comma, email, additional_message,
-                                          phone_number=phone_number, home_adress=home_adress)
+                order = ordr.create_order(order_id, user_id, item_list_comma, email, additional_message, phone_number=phone_number, home_adress=home_adress)
                 user.clear_cart()
                 text = f"Заказ с ID {order.get_order_id()} был успешно создан.\nСпасибо за заказ! Наш менеджер свяжется с вами в ближайшее время."
                 for user in usr.get_notif_list():
@@ -2681,17 +2645,14 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
             )
             await state.finish()
 
-
 async def background_runner():
     while True:
         if not exists("backups/" + datetime.date.today().strftime("%d-%m-%Y")):
             create_backup()
         await asyncio.sleep(60)
 
-
 async def on_startup(dp):
     asyncio.create_task(background_runner())
-
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True, on_startup=on_startup)
