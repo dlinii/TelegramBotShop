@@ -114,28 +114,44 @@ async def welcome(message: types.Message):
         print(f"DEBUG: COMMAND [{message.chat.id}] {message.text}")
     user = usr.User(message.chat.id, message.from_user.username)
 
-    markupMain = markups.get_markup_main()
-    if user.is_manager() or user.is_admin():
-        markupMain.row(markups.btnOrders)
-    if user.is_admin():
-        markupMain.row(markups.btnAdminPanel)
+    if user.is_cart_delivery():
+        markupMain = markups.get_markup_main()
+        if user.is_manager() or user.is_admin():
+            markupMain.row(markups.btnOrders)
+        if user.is_admin():
+            markupMain.row(markups.btnAdminPanel)
 
-    try:
-        if settings.is_sticker_enabled():
-            if exists("sticker.tgs"):
-                with open("sticker.tgs", "rb") as sti:
-                    await bot.send_sticker(message.chat.id, sti)
-            else:
-                raise Exception
-    except:
-        logging.warning(f"FAILED TO SEND STICKER TO {message.chat.id}. sticker.tgs is probably missing in the bot's root folder.")
-        if settings.is_debug():
-            print(f"DEBUG: FAILED TO SEND STICKER TO {message.chat.id}. sticker.tgs is probably missing in the bot's root folder.")
-    await bot.send_message(
-        chat_id=message.chat.id,
-        text=settings.get_shop_greeting(),
-        reply_markup=markupMain,
-    )
+        try:
+            if settings.is_sticker_enabled():
+                if exists("sticker.tgs"):
+                    with open("sticker.tgs", "rb") as sti:
+                        await bot.send_sticker(message.chat.id, sti)
+                else:
+                    raise Exception
+        except:
+            logging.warning(f"FAILED TO SEND STICKER TO {message.chat.id}. sticker.tgs is probably missing in the bot's root folder.")
+            if settings.is_debug():
+                print(f"DEBUG: FAILED TO SEND STICKER TO {message.chat.id}. sticker.tgs is probably missing in the bot's root folder.")
+        await bot.send_message(
+            chat_id=message.chat.id,
+            text=settings.get_shop_greeting(),
+            reply_markup=markupMain,
+        )
+    # else:
+        # new_message_id = message.message_id
+        # markupMain = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        # markupMain.add(types.KeyboardButton(tt.faq))
+        # await bot.send_message(
+        #     chat_id=message.chat.id,
+        #     text="Вы были добавлены в черный список!",
+        #     reply_markup=markupMain,
+        # )
+        # while new_message_id > 1:
+        #     try:
+        #         await bot.delete_message(chat_id=message.chat.id, message_id=new_message_id)
+        #     except Exception as error:
+        #         print(f'Message_id does not exist: {new_message_id} - {error}')
+        #     new_message_id = new_message_id - 1
 
 
 @dp.message_handler()
@@ -144,68 +160,91 @@ async def handle_text(message):
     if settings.is_debug():
         print(f"DEBUG: MESSAGE [{message.chat.id}] {message.text}")
     user = usr.User(message.chat.id)
-
-    if message.text == tt.admin_panel:
-        if user.is_admin():
+    if user.is_cart_delivery() != 1:
+        # new_message_id = message.message_id
+        # print(message.message_id)
+        # markupMain = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        # markupMain.add(types.KeyboardButton(tt.faq))
+        if message.text == tt.faq:
             await bot.send_message(
                 chat_id=message.chat.id,
-                text=tt.admin_panel,
-                reply_markup=markups.get_markup_admin(),
+                text=tt.get_faq_template(settings.get_shop_name()),
+                reply_markup=markups.get_markup_faq(),
             )
-    elif message.text == tt.orders:
-        if user.is_manager() or user.is_admin():
-
-            await bot.send_message(
-                chat_id=message.chat.id,
-                text=tt.orders,
-                reply_markup=markups.get_markup_orders()
-            )
-    elif message.text == tt.faq:
-        await bot.send_message(
-            chat_id=message.chat.id,
-            text=tt.get_faq_template(settings.get_shop_name()),
-            reply_markup=markups.get_markup_faq(),
-        )
-    elif message.text == tt.profile:
-        await bot.send_message(
-            chat_id=message.chat.id,
-            text=tt.get_profile_template(user),
-            reply_markup=markups.get_markup_profile(user),
-        )
-    elif message.text == tt.catalogue:
-        ctg = catalogue.get_images_list()
-
-        if ctg:
-            await bot.send_media_group(
-                chat_id=message.chat.id,
-                media=ctg
-            )
-        await bot.send_message(
-            chat_id=message.chat.id,
-            text=tt.catalogue,
-            reply_markup=markups.get_markup_catalogue(category.get_cat_list()),
-        )
-    elif message.text == tt.cart:
-        user.set_username(message.from_user.username)
-        if user.get_cart():
-            text = tt.cart
-
-            markup = markups.get_markup_cart(user)
-        else:
-            text = tt.cart_is_empty
-            markup = types.InlineKeyboardMarkup()
-        await bot.send_message(
-            chat_id=message.chat.id,
-            text=text,
-            reply_markup=markup
-        )
-    elif commands.does_command_exist(command=message.text):
-        await bot.send_message(
-            chat_id=message.chat.id,
-            text=commands.get_command_by_command(message.text).get_response()
-        )
+        # else:
+            # await bot.send_message(
+            #     chat_id=message.chat.id,
+            #     text="Вы были добавлены в черный список!",
+            #     reply_markup=markupMain,
+            # )
+            # while new_message_id > 1:
+            #     try:
+            #         await bot.delete_message(chat_id=message.chat.id, message_id=new_message_id)
+            #     except Exception as error:
+            #         print(f'Message_id does not exist: {new_message_id} - {error}')
+            #     new_message_id = new_message_id - 1
     else:
-        await bot.send_message(message.chat.id, 'Не могу понять команду :(')
+        if message.text == tt.admin_panel:
+            if user.is_admin():
+                await bot.send_message(
+                    chat_id=message.chat.id,
+                    text=tt.admin_panel,
+                    reply_markup=markups.get_markup_admin(),
+                )
+        elif message.text == tt.orders:
+            if user.is_manager() or user.is_admin():
+
+                await bot.send_message(
+                    chat_id=message.chat.id,
+                    text=tt.orders,
+                    reply_markup=markups.get_markup_orders()
+                )
+        elif message.text == tt.faq:
+            await bot.send_message(
+                chat_id=message.chat.id,
+                text=tt.get_faq_template(settings.get_shop_name()),
+                reply_markup=markups.get_markup_faq(),
+            )
+        elif message.text == tt.profile:
+            await bot.send_message(
+                chat_id=message.chat.id,
+                text=tt.get_profile_template(user),
+                reply_markup=markups.get_markup_profile(user),
+            )
+        elif message.text == tt.catalogue:
+            ctg = catalogue.get_images_list()
+
+            if ctg:
+                await bot.send_media_group(
+                    chat_id=message.chat.id,
+                    media=ctg
+                )
+            await bot.send_message(
+                chat_id=message.chat.id,
+                text=tt.catalogue,
+                reply_markup=markups.get_markup_catalogue(category.get_cat_list()),
+            )
+        elif message.text == tt.cart:
+            user.set_username(message.from_user.username)
+            if user.get_cart():
+                text = tt.cart
+
+                markup = markups.get_markup_cart(user)
+            else:
+                text = tt.cart_is_empty
+                markup = types.InlineKeyboardMarkup()
+            await bot.send_message(
+                chat_id=message.chat.id,
+                text=text,
+                reply_markup=markup
+            )
+        elif commands.does_command_exist(command=message.text):
+            await bot.send_message(
+                chat_id=message.chat.id,
+                text=commands.get_command_by_command(message.text).get_response()
+            )
+        else:
+            await bot.send_message(message.chat.id, 'Не могу понять команду :(')
 
 
 @dp.callback_query_handler()
@@ -384,12 +423,19 @@ async def process_callback(callback_query: types.CallbackQuery):
                 message_id=callback_query.message.message_id,
                 chat_id=chat_id
             )
-            await bot.send_photo(
-                chat_id=chat_id,
-                photo=cat.get_image(),
-                caption=tt.get_category_data(cat),
-                reply_markup=markups.get_markup_editCat(cat.get_id()),
-            )
+            if cat.get_image() == "None":
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=tt.get_category_data(cat),
+                    reply_markup=markups.get_markup_editCat(cat.get_id()),
+                )
+            else:
+                await bot.send_photo(
+                    chat_id=chat_id,
+                    photo=cat.get_image(),
+                    caption=tt.get_category_data(cat),
+                    reply_markup=markups.get_markup_editCat(cat.get_id()),
+                )
         elif call_data == "addItem":
             if not category.get_cat_list():
                 await bot.edit_message_text(
@@ -775,16 +821,57 @@ async def process_callback(callback_query: types.CallbackQuery):
                 message_id=callback_query.message.message_id,
                 reply_markup=markups.get_markup_seeOrder(order, user_id=order.get_user_id())
             )
+        elif call_data.startswith("changeIsActiveUser"):
+            editUser = usr.User(call_data[18:])
+            editUser.set_cart_delivery(0 if editUser.is_cart_delivery() else 1)
+            try:
+                if editUser.is_cart_delivery():
+                    markupMain = markups.get_markup_main()
+                    if editUser.is_manager() or editUser.is_admin():
+                        markupMain.row(markups.btnOrders)
+                    if editUser.is_admin():
+                        markupMain.row(markups.btnAdminPanel)
+                    text = f"Вас убрали из черного списка."
+                else:
+                    markupMain = types.ReplyKeyboardMarkup(resize_keyboard=True)
+                    markupMain.add(types.KeyboardButton(tt.faq))
+                    text = f"Вы были добавлены в черный список."
+                await bot.send_message(
+                    chat_id=editUser.get_id(),
+                    text=text,
+                    reply_markup=markupMain
+                )
+                # new_message_id = callback_query.message.message_id
+                # while new_message_id > 1:
+                #     try:
+                #         await bot.delete_message(chat_id=message.chat.id, message_id=new_message_id)
+                #     except Exception as error:
+                #         print(f'Message_id does not exist: {new_message_id} - {error}')
+                #     new_message_id = new_message_id - 1
+            except:
+                if settings.is_debug():
+                    logging.warning(f"[{user.get_id()}] FAILED TO SEND MESSAGE TO [{editUser.get_id()}]")
+                    print(f"DEBUG [{user.get_id()}] FAILED TO SEND MESSAGE TO [{editUser.get_id()}]")
+            await bot.edit_message_text(
+                chat_id=chat_id,
+                message_id=callback_query.message.message_id,
+                text=tt.get_profile_template(editUser),
+                reply_markup=markups.get_markup_seeUserProfile(editUser),
+            )
         elif call_data.startswith("changeUserManager"):
             editUser = usr.User(call_data[17:])
             editUser.set_manager(0 if editUser.is_manager() else 1)
 
             try:
-                markupMain = markups.get_markup_main()
-                if editUser.is_manager() or editUser.is_admin():
-                    markupMain.row(markups.btnOrders)
-                if editUser.is_admin():
-                    markupMain.row(markups.btnAdminPanel)
+                if editUser.is_cart_delivery():
+                    markupMain = markups.get_markup_main()
+                    if editUser.is_manager() or editUser.is_admin():
+                        markupMain.row(markups.btnOrders)
+                    if editUser.is_admin():
+                        markupMain.row(markups.btnAdminPanel)
+                else:
+                    markupMain = types.ReplyKeyboardMarkup(resize_keyboard=True)
+                    markupMain.add(types.KeyboardButton(tt.faq))
                 await bot.send_message(
                     chat_id=editUser.get_id(),
                     text=f"Ваша роль менеджера была обновлена.",
@@ -813,11 +900,15 @@ async def process_callback(callback_query: types.CallbackQuery):
                     text = tt.get_profile_template(editUser)
 
                     try:
-                        markupMain = markups.get_markup_main()
-                        if editUser.is_manager() or editUser.is_admin():
-                            markupMain.row(markups.btnOrders)
-                        if editUser.is_admin():
-                            markupMain.row(markups.btnAdminPanel)
+                        if editUser.is_cart_delivery():
+                            markupMain = markups.get_markup_main()
+                            if editUser.is_manager() or editUser.is_admin():
+                                markupMain.row(markups.btnOrders)
+                            if editUser.is_admin():
+                                markupMain.row(markups.btnAdminPanel)
+                        else:
+                            markupMain = types.ReplyKeyboardMarkup(resize_keyboard=True)
+                            markupMain.add(types.KeyboardButton(tt.faq))
                         await bot.send_message(
                             chat_id=editUser.get_id(),
                             text=f"Ваша роль администратора была обновлена.",
@@ -1568,7 +1659,7 @@ async def process_callback(callback_query: types.CallbackQuery):
             )
         elif call_data.startswith("changeOrderStatusCancel"):
             order = ordr.Order(call_data[23:])
-            if order.get_status() != -2 or order.get_status() != -1:
+            if order.get_status() != -2 and order.get_status() != -1:
                 item_list = order.get_item_list_raw()
                 for item in itm.get_item_list():
                     count = item_list.count(str(item.get_id()))
@@ -1755,7 +1846,8 @@ async def process_callback(callback_query: types.CallbackQuery):
             await state.update_data(state_message=callback_query.message.message_id)
         elif call_data.startswith("viewItem"):
             item = itm.Item(call_data[8:])
-            text = tt.get_item_card(item=item)
+            cat = category.Category(item.get_cat_id())
+            text = f"\nКатегория: {cat.get_name()}\n" + tt.get_item_card(item=item)
             markup = markups.get_markup_viewItem(item)
             await bot.delete_message(
                 message_id=callback_query.message.message_id,
@@ -1810,9 +1902,9 @@ async def process_callback(callback_query: types.CallbackQuery):
             )
 
         elif call_data == "clearCart":
-            cart = user.get_cart_str()
-            for item in itm.get_item_list():
-                item.set_amount(item.get_amount() + cart.count(str(item.get_id())))
+            # cart = user.get_cart_str()
+            # for item in itm.get_item_list():
+            #     item.set_amount(item.get_amount() + cart.count(str(item.get_id())))
             user.clear_cart()
             await bot.edit_message_text(
                 chat_id=chat_id,
@@ -1824,8 +1916,8 @@ async def process_callback(callback_query: types.CallbackQuery):
         elif call_data.startswith("addToCartFromCart"):
             item = itm.Item(call_data[17:])
             # user.get_count_item_cart_for_id(call_data[17:])
-            if item.get_amount() > 0:
-                item.set_amount(item.get_amount() - 1)
+            if item.get_amount() > user.get_count_item_cart_for_id(call_data[17:]):
+                # item.set_amount(item.get_amount() - 1)
                 user.add_to_cart(call_data[17:])
             else:
                 await bot.answer_callback_query(callback_query_id=callback_query.id, text='Это максимальное количество!')
@@ -1839,7 +1931,7 @@ async def process_callback(callback_query: types.CallbackQuery):
         elif call_data.startswith("removeFromCartFromCart"):
             item = itm.Item(call_data[22:])
             user.remove_from_cart(call_data[22:])
-            item.set_amount(item.get_amount() + 1)
+            # item.set_amount(item.get_amount() + 1)
             if user.get_cart():
                 text = tt.cart
                 markup = markups.get_markup_cart(user)
@@ -1859,7 +1951,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                 text = f"Товара \"{item.get_name()}\" нет в наличии."
             else:
                 user.add_to_cart(item.get_id())
-                item.set_amount(item.get_amount()-1)
+                # item.set_amount(item.get_amount()-1)
                 text = f"Товар \"{item.get_name()}\" был добавлен в корзину."
             if item.get_image_id() == "None" or not settings.is_item_image_enabled() or await item.is_hide_image():
                 await bot.edit_message_text(
@@ -1889,20 +1981,35 @@ async def process_callback(callback_query: types.CallbackQuery):
             )
 
         elif call_data == "checkoutCart":
-            await bot.edit_message_text(
-                chat_id=chat_id,
-                message_id=callback_query.message.message_id,
-                # text=f"Введите ваш Email адрес {tt.or_press_back}",
-                text=f"Введите комментарий к заказу {tt.or_press_back}",
-                reply_markup=markups.get_markup_comment(),
-            )
+            cart = user.get_cart_str()
+            text = f"{tt.line_separator}\nНе удалось оформить заказ!\n"
+            is_check_order = 1
+            for item in itm.get_item_list():
+                if item.get_amount() - cart.count(str(item.get_id())) < 0:
+                    is_check_order = 0
+                    text = text.__add__(f"\n· {item.get_name()} осталось {item.get_amount()} шт.")
+                    # text = text.join()
+            text = text.__add__(f"\n\n Пожалуйста измените количество выбранного товара или замените товар.\n{tt.line_separator}")
+            if is_check_order:
+                await bot.edit_message_text(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    # text=f"Введите ваш Email адрес {tt.or_press_back}",
+                    text=f"Введите комментарий к заказу {tt.or_press_back}",
+                    reply_markup=markups.get_markup_comment(),
+                )
 
-            # await state_handler.checkoutCart.email.set()
-            await state_handler.checkoutCart.additional_message.set()
-            state = Dispatcher.get_current().current_state()
-            await state.update_data(state_message=callback_query.message.message_id)
-            await state.update_data(user_id=chat_id)
-            await state.update_data(item_list_comma=user.get_cart_comma())
+                # await state_handler.checkoutCart.email.set()
+                await state_handler.checkoutCart.additional_message.set()
+                state = Dispatcher.get_current().current_state()
+                await state.update_data(state_message=callback_query.message.message_id)
+                await state.update_data(user_id=chat_id)
+                await state.update_data(item_list_comma=user.get_cart_comma())
+            else:
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                )
 
 # State handlers
 # Item management
@@ -2608,6 +2715,14 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
     if settings.is_debug():
         print(f"DEBUG: CALL [{chat_id}] {call_data} (STATE)")
 
+    if user.is_cart_delivery() != 1:
+        new_message_id = callback_query.message.message_id
+        while new_message_id > 1:
+            try:
+                await bot.delete_message(chat_id=callback_query.message.chat.id, message_id=new_message_id)
+            except Exception as error:
+                print(f'Message_id does not exist: {new_message_id} - {error}')
+            new_message_id = new_message_id - 1
     if call_data[:6] == "admin_":
         call_data = call_data[6:]
 
@@ -2884,36 +2999,70 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
             user_id = data["user_id"]
             item_list_comma = user.get_cart_comma()
             email = data["username"]
+            is_check_order = 1
+            text = f"{tt.line_separator}\nНе удалось оформить заказ!\n"
             additional_message = data["additional_message"]
             phone_number = data["phone_number"] if settings.is_phone_number_enabled() else None
             home_adress = data["home_adress"] if settings.is_delivery_enabled() and user.is_cart_delivery() else None
+            for item in itm.get_item_list():
+                if item.get_amount() - item_list_comma.count(str(item.get_id())) >= 0:
+                    item.set_amount(item.get_amount() - item_list_comma.count(str(item.get_id())))
+                    if item.is_active() and item.get_amount() - item_list_comma.count(str(item.get_id())) == 0:
+                        item.set_active(0)
+                else:
+                    is_check_order = 0
+                    text = text.__add__(f"\n· {item.get_name()} осталось {item.get_amount()} шт.")
 
-            try:
-                order = ordr.create_order(order_id, user_id, item_list_comma, email, additional_message, phone_number=phone_number, home_adress=home_adress)
-                user.clear_cart()
-                text = f"Заказ с ID {order.get_order_id()} был успешно создан.\nСпасибо за заказ! Наш менеджер свяжется с вами в ближайшее время."
-                for user in usr.get_notif_list():
-                    try:
-                        await bot.send_message(
-                            chat_id=user.get_id(),
-                            text=f"Новый заказ:\n{tt.get_order_template(order)}",
-                            reply_markup=markups.get_markup_seeOrder(order)
-                        )
-                    except:
-                        logging.warning(f"FAIL MESSAGE TO [{user.get_id()}]")
-                        if settings.is_debug():
-                            print(f"DEBUG: FAIL MESSAGE TO [{user.get_id()}]")
-            except:
-                text = tt.error
-            await bot.delete_message(
-                message_id=callback_query.message.message_id,
-                chat_id=chat_id
-            )
-            await bot.send_message(
-                chat_id=chat_id,
-                text=text,
-                reply_markup=markups.single_button(markups.btnBackCart),
-            )
+            text = text.__add__(f"\n\n Пожалуйста измените количество выбранного товара или замените товар.\n{tt.line_separator}")
+            if is_check_order:
+                try:
+
+                    order = ordr.create_order(order_id, user_id, item_list_comma, email, additional_message, phone_number=phone_number, home_adress=home_adress)
+                    user.clear_cart()
+                    text = f"Заказ с ID {order.get_order_id()} был успешно создан.\nСпасибо за заказ! Наш менеджер свяжется с вами в ближайшее время."
+                    for user in usr.get_notif_list():
+                        try:
+                            await bot.send_message(
+                                chat_id=user.get_id(),
+                                text=f"Новый заказ:\n{tt.get_order_template(order)}",
+                                reply_markup=markups.get_markup_seeOrder(order)
+                            )
+                        except:
+                            logging.warning(f"FAIL MESSAGE TO [{user.get_id()}]")
+                            if settings.is_debug():
+                                print(f"DEBUG: FAIL MESSAGE TO [{user.get_id()}]")
+                except:
+                    text = tt.error
+                await bot.delete_message(
+                    message_id=callback_query.message.message_id,
+                    chat_id=chat_id
+                )
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                    reply_markup=markups.single_button(markups.btnBackCart),
+                )
+            else:
+                await bot.delete_message(
+                    message_id=callback_query.message.message_id,
+                    chat_id=chat_id
+                )
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                )
+                if user.get_cart():
+                    text = tt.cart
+
+                    markup = markups.get_markup_cart(user)
+                else:
+                    text = tt.cart_is_empty
+                    markup = types.InlineKeyboardMarkup()
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                    reply_markup=markup
+                )
             await state.finish()
 
 async def background_runner():

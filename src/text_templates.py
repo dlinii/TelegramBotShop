@@ -11,7 +11,7 @@ def get_profile_template(user):
 
 
 def get_faq_template(shop_name):
-    return f"{line_separator}\nℹ️ FAQ магазина {shop_name}\n{line_separator}"
+    return f"{line_separator}{line_separator}\n                      {shop_name}\n{line_separator}{line_separator}"
 
 
 def get_categories_template():
@@ -128,6 +128,8 @@ change_stock = "📦 Изменить кол-во"
 user_profile = "📁Профиль пользователя"
 notify_everyone = "🔔Оповещение всем пользователям"
 orders = "📁 Заказы"
+remove_black_list = "👮‍♂️ Убрать из черного списка"
+add_black_list = "👮🏿‍♂️ Добавить в черный список"
 remove_manager_role = "👨‍💼 Убрать роль менеджера"
 add_manager_role = "👨‍💼 Сделать менеджером"
 remove_admin_role = "🔴 Убрать роль администратора"

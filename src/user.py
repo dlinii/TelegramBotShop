@@ -103,7 +103,11 @@ class User:
     def set_cart_delivery(self, value):
         c.execute(f"UPDATE users SET cart_delivery=? WHERE user_id=?", [value, self.get_id()])
         conn.commit()
-        
+
+    def get_count_item_cart_for_id(self, item_id):
+        cart = self.get_cart_str()
+        return cart.count(item_id)
+
 
 def does_user_exist(user_id):
     c.execute(f"SELECT * FROM users WHERE user_id=?", [user_id])

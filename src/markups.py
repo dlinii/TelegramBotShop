@@ -272,6 +272,7 @@ def get_markup_notifyEveryoneConfirmation():
 def get_markup_seeUserProfile(user):
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton(text=tt.orders, callback_data=f"admin_seeUserOrders{user.get_id()}"))
+    markup.add(types.InlineKeyboardButton(text=tt.add_black_list if user.is_cart_delivery() else tt.remove_black_list, callback_data=f"admin_changeIsActiveUser{user.get_id()}"))
     markup.add(types.InlineKeyboardButton(text=tt.remove_manager_role if user.is_manager() else tt.add_manager_role, callback_data=f"admin_changeUserManager{user.get_id()}"))
     markup.add(types.InlineKeyboardButton(text=tt.remove_admin_role if user.is_admin() else tt.add_admin_role, callback_data=f"admin_changeUserAdmin{user.get_id()}"))    
     markup.add(btnBackUserManagement)

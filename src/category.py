@@ -32,6 +32,8 @@ class Category:
         return self.__clist()[2]
 
     def get_image(self):
+        if self.get_image_id() == "None":
+            return "None"
         return open("images/" + self.get_image_id(), "rb")
 
     def set_image_id(self, value):
