@@ -1811,6 +1811,11 @@ async def process_callback(callback_query: types.CallbackQuery):
             )
         elif call_data.startswith("viewCat"):
             cat = category.Category(call_data[7:])
+            is_active_itm = 0
+            for item in cat.get_item_list():
+                if item.is_active():
+                    is_active_itm = 1
+                    break
             try:
                 # markup = markups.get_markup_viewItem(item)
                 await bot.delete_message(
@@ -1820,13 +1825,13 @@ async def process_callback(callback_query: types.CallbackQuery):
                 if cat.get_image_id() == "None" or not settings.is_type_image_enabled():
                     await bot.send_message(
                         chat_id=chat_id,
-                        text=cat.get_name() if len(cat.get_item_list()) > 0 else (cat.get_name() + f"\n{tt.line_separator}\nНет в наличии."),
+                        text=cat.get_name() if is_active_itm else (cat.get_name() + f"\n{tt.line_separator}\nНет в наличии."),
                         reply_markup=markups.get_markup_viewCat(cat.get_item_list()),
                     )
                 else:
                     await bot.send_photo(
                         chat_id=chat_id,
-                        caption=cat.get_name() if len(cat.get_item_list()) > 0 else (cat.get_name() + f"\n{tt.line_separator}\nНет в наличии."),
+                        caption=cat.get_name() if is_active_itm else (cat.get_name() + f"\n{tt.line_separator}\nНет в наличии."),
                         photo=cat.get_image(),
                         reply_markup=markups.get_markup_viewCat(cat.get_item_list())
                     )
@@ -1837,7 +1842,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                 )
                 await bot.send_message(
                     chat_id=callback_query.message.chat.id,
-                    text=cat.get_name() if len(cat.get_item_list()) > 0 else (cat.get_name() + f"\n{tt.line_separator}\nНет в наличии."),
+                    text=cat.get_name() if is_active_itm else (cat.get_name() + f"\n{tt.line_separator}\nНет в наличии."),
                     reply_markup=markups.get_markup_viewCat(cat.get_item_list()),
                 )
         elif call_data == "search":
