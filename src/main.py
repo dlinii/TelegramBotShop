@@ -1520,7 +1520,10 @@ async def process_callback(callback_query: types.CallbackQuery):
             if order.get_status() == -1 or order.get_status() == -2:
                 item_list = order.get_item_list_raw()
                 for item in itm.get_item_list():
-                    item.set_amount(item.get_amount() - item_list.count(str(item.get_id())))
+                    count = item_list.count(str(item.get_id()))
+                    if item.is_active() and item.get_amount() - count == 0:
+                        item.set_active(0)
+                    item.set_amount(item.get_amount() - count)
             order.set_status(0)
             order.set_manager(user.get_username())
             await bot.edit_message_text(
@@ -1534,7 +1537,10 @@ async def process_callback(callback_query: types.CallbackQuery):
             if order.get_status() == -1 or order.get_status() == -2:
                 item_list = order.get_item_list_raw()
                 for item in itm.get_item_list():
-                    item.set_amount(item.get_amount() - item_list.count(str(item.get_id())))
+                    count = item_list.count(str(item.get_id()))
+                    if item.is_active() and item.get_amount() - count == 0:
+                        item.set_active(0)
+                    item.set_amount(item.get_amount() - count)
             order.set_status(1)
             order.set_manager(user.get_username())
             await bot.edit_message_text(
@@ -1548,7 +1554,10 @@ async def process_callback(callback_query: types.CallbackQuery):
             if order.get_status() == -1 or order.get_status() == -2:
                 item_list = order.get_item_list_raw()
                 for item in itm.get_item_list():
-                    item.set_amount(item.get_amount() - item_list.count(str(item.get_id())))
+                    count = item_list.count(str(item.get_id()))
+                    if item.is_active() and item.get_amount() - count == 0:
+                        item.set_active(0)
+                    item.set_amount(item.get_amount() - count)
             order.set_status(2)
             order.set_manager(user.get_username())
             await bot.edit_message_text(
@@ -1562,7 +1571,10 @@ async def process_callback(callback_query: types.CallbackQuery):
             if order.get_status() != -2 or order.get_status() != -1:
                 item_list = order.get_item_list_raw()
                 for item in itm.get_item_list():
-                    item.set_amount(item.get_amount() + item_list.count(str(item.get_id())))
+                    count = item_list.count(str(item.get_id()))
+                    if item.is_active() != 1 and item.get_amount() == 0 and count > 0:
+                        item.set_active(1)
+                    item.set_amount(item.get_amount() + count)
             order.set_status(-1)
             order.set_manager(user.get_username())
             await bot.edit_message_text(
@@ -1631,7 +1643,10 @@ async def process_callback(callback_query: types.CallbackQuery):
             order = ordr.Order(call_data[11:])
             item_list = order.get_item_list_raw()
             for item in itm.get_item_list():
-                item.set_amount(item.get_amount() + item_list.count(str(item.get_id())))
+                count = item_list.count(str(item.get_id()))
+                if item.is_active() != 1 and item.get_amount() == 0 and count > 0:
+                    item.set_active(1)
+                item.set_amount(item.get_amount() + count)
             order.set_status(-1)
             await bot.edit_message_text(
                 chat_id=chat_id,
@@ -1643,7 +1658,10 @@ async def process_callback(callback_query: types.CallbackQuery):
             order = ordr.Order(call_data[15:])
             item_list = order.get_item_list_raw()
             for item in itm.get_item_list():
-                item.set_amount(item.get_amount() + item_list.count(str(item.get_id())))
+                count = item_list.count(str(item.get_id()))
+                if item.is_active() != 1 and item.get_amount() == 0 and count > 0:
+                    item.set_active(1)
+                item.set_amount(item.get_amount() + count)
             order.set_status(-2)
             await bot.edit_message_text(
                 chat_id=chat_id,
@@ -1655,7 +1673,10 @@ async def process_callback(callback_query: types.CallbackQuery):
             order = ordr.Order(call_data[12:])
             item_list = order.get_item_list_raw()
             for item in itm.get_item_list():
-                item.set_amount(item.get_amount() - item_list.count(str(item.get_id())))
+                count = item_list.count(str(item.get_id()))
+                if item.is_active() and item.get_amount() - count == 0:
+                    item.set_active(0)
+                item.set_amount(item.get_amount() - count)
             order.set_status(0)
             await bot.edit_message_text(
                 chat_id=chat_id,
