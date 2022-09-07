@@ -1471,6 +1471,12 @@ async def process_callback(callback_query: types.CallbackQuery):
                 text="Резервная копия была обновлена!",
                 reply_markup=markups.single_button(markups.btnBackBackups)
             )
+            folder_path = "backups/" + datetime.date.today().strftime("%d-%m-%Y") + "/data.db"
+            await bot.send_document(
+                chat_id=callback_query.message.chat.id,
+                document=open(folder_path, 'rb'),
+                caption="Лови, пупсик😘!"
+            )
         elif call_data == "loadBackupMenu":
             await bot.edit_message_text(
                 chat_id=callback_query.message.chat.id,
