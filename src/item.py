@@ -16,10 +16,7 @@ def does_item_exist(item_id):
 class Item:
     def __init__(self, item_id):
         self.__item_id = item_id
-        
-    def __eq__(self, __o: object):
-        return self.get_id() == __o.get_id()
-    
+
     def __repr__(self):
         return f"[{self.get_id()}] {self.get_name()}"
 
@@ -102,7 +99,8 @@ def get_item_list():
     c.execute("SELECT * FROM items")
     return list(map(Item, [item[0] for item in list(c)]))
 
-
+def get_len_item():
+    return len(get_item_list())
 def create_item(name, price, cat_id, desc, image_id="None", active=True):
     c.execute(f"INSERT INTO items(name, price, cat_id, desc, active, amount, image_id, hide_image) VALUES(?, ?, ?, ?, ?, 0, ?, 0)", [name, price, cat_id, desc, 1 if active else 0, image_id])
     conn.commit()

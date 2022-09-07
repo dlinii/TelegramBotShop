@@ -1764,6 +1764,10 @@ async def process_callback(callback_query: types.CallbackQuery):
             )
 
         elif call_data == "clearCart":
+            cart = user.get_cart_str()
+            for item in itm.get_item_list():
+                for count in range(cart.count(str(item.get_id()))):
+                    item.set_amount(item.get_amount() + count + 1)
             user.clear_cart()
             await bot.edit_message_text(
                 chat_id=chat_id,
@@ -1775,7 +1779,8 @@ async def process_callback(callback_query: types.CallbackQuery):
         elif call_data.startswith("addToCartFromCart"):
             item = itm.Item(call_data[17:])
             # user.get_count_item_cart_for_id(call_data[17:])
-            if item.get_amount() > user.get_count_item_cart_for_id(call_data[17:]):
+            if item.get_amount() > 0:
+                item.set_amount(item.get_amount() - 1)
                 user.add_to_cart(call_data[17:])
             else:
                 await bot.answer_callback_query(callback_query_id=callback_query.id, text='Это максимальное количество!')
@@ -1787,7 +1792,9 @@ async def process_callback(callback_query: types.CallbackQuery):
             )
 
         elif call_data.startswith("removeFromCartFromCart"):
+            item = itm.Item(call_data[22:])
             user.remove_from_cart(call_data[22:])
+            item.set_amount(item.get_amount() + 1)
             if user.get_cart():
                 text = tt.cart
                 markup = markups.get_markup_cart(user)
@@ -1807,6 +1814,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                 text = f"Товара \"{item.get_name()}\" нет в наличии."
             else:
                 user.add_to_cart(item.get_id())
+                item.set_amount(item.get_amount()-1)
                 text = f"Товар \"{item.get_name()}\" был добавлен в корзину."
             if item.get_image_id() == "None" or not settings.is_item_image_enabled() or await item.is_hide_image():
                 await bot.edit_message_text(
