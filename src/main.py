@@ -1517,6 +1517,10 @@ async def process_callback(callback_query: types.CallbackQuery):
             )
         elif call_data.startswith("changeOrderStatusProcessing"):
             order = ordr.Order(call_data[27:])
+            if order.get_status() == -1 or order.get_status() == -2:
+                item_list = order.get_item_list_raw()
+                for item in itm.get_item_list():
+                    item.set_amount(item.get_amount() - item_list.count(str(item.get_id())))
             order.set_status(0)
             order.set_manager(user.get_username())
             await bot.edit_message_text(
@@ -1527,6 +1531,10 @@ async def process_callback(callback_query: types.CallbackQuery):
             )
         elif call_data.startswith("changeOrderStatusDelivery"):
             order = ordr.Order(call_data[25:])
+            if order.get_status() == -1 or order.get_status() == -2:
+                item_list = order.get_item_list_raw()
+                for item in itm.get_item_list():
+                    item.set_amount(item.get_amount() - item_list.count(str(item.get_id())))
             order.set_status(1)
             order.set_manager(user.get_username())
             await bot.edit_message_text(
@@ -1537,6 +1545,10 @@ async def process_callback(callback_query: types.CallbackQuery):
             )
         elif call_data.startswith("changeOrderStatusDone"):
             order = ordr.Order(call_data[21:])
+            if order.get_status() == -1 or order.get_status() == -2:
+                item_list = order.get_item_list_raw()
+                for item in itm.get_item_list():
+                    item.set_amount(item.get_amount() - item_list.count(str(item.get_id())))
             order.set_status(2)
             order.set_manager(user.get_username())
             await bot.edit_message_text(
@@ -1547,6 +1559,10 @@ async def process_callback(callback_query: types.CallbackQuery):
             )
         elif call_data.startswith("changeOrderStatusCancel"):
             order = ordr.Order(call_data[23:])
+            if order.get_status() != -2 or order.get_status() != -1:
+                item_list = order.get_item_list_raw()
+                for item in itm.get_item_list():
+                    item.set_amount(item.get_amount() + item_list.count(str(item.get_id())))
             order.set_status(-1)
             order.set_manager(user.get_username())
             await bot.edit_message_text(
@@ -1613,6 +1629,9 @@ async def process_callback(callback_query: types.CallbackQuery):
             )
         elif call_data.startswith("cancelOrder"):
             order = ordr.Order(call_data[11:])
+            item_list = order.get_item_list_raw()
+            for item in itm.get_item_list():
+                item.set_amount(item.get_amount() + item_list.count(str(item.get_id())))
             order.set_status(-1)
             await bot.edit_message_text(
                 chat_id=chat_id,
@@ -1622,6 +1641,9 @@ async def process_callback(callback_query: types.CallbackQuery):
             )
         elif call_data.startswith("cancelUserOrder"):
             order = ordr.Order(call_data[15:])
+            item_list = order.get_item_list_raw()
+            for item in itm.get_item_list():
+                item.set_amount(item.get_amount() + item_list.count(str(item.get_id())))
             order.set_status(-2)
             await bot.edit_message_text(
                 chat_id=chat_id,
@@ -1631,6 +1653,9 @@ async def process_callback(callback_query: types.CallbackQuery):
             )
         elif call_data.startswith("restoreOrder"):
             order = ordr.Order(call_data[12:])
+            item_list = order.get_item_list_raw()
+            for item in itm.get_item_list():
+                item.set_amount(item.get_amount() - item_list.count(str(item.get_id())))
             order.set_status(0)
             await bot.edit_message_text(
                 chat_id=chat_id,
@@ -1766,8 +1791,7 @@ async def process_callback(callback_query: types.CallbackQuery):
         elif call_data == "clearCart":
             cart = user.get_cart_str()
             for item in itm.get_item_list():
-                for count in range(cart.count(str(item.get_id()))):
-                    item.set_amount(item.get_amount() + count + 1)
+                item.set_amount(item.get_amount() + cart.count(str(item.get_id())))
             user.clear_cart()
             await bot.edit_message_text(
                 chat_id=chat_id,
