@@ -24,6 +24,7 @@ import item as itm
 import order as ordr
 import category
 import catalogue
+import feedback
 import text_templates as tt
 from settings import Settings
 import commands
@@ -1704,13 +1705,20 @@ async def process_callback(callback_query: types.CallbackQuery):
                 text=settings.get_shop_contacts(),
                 reply_markup=markups.single_button(markups.btnBackFaq),
             )
-        elif call_data == "refund":
+        elif call_data == "feedback":
             await bot.edit_message_text(
                 chat_id=chat_id,
                 message_id=callback_query.message.message_id,
-                text=settings.get_refund_policy(),
+                # text=f"Введите ваш Email адрес {tt.or_press_back}",
+                text=f"Оставьте свой отзыв {tt.or_press_back}",
                 reply_markup=markups.single_button(markups.btnBackFaq),
             )
+
+            # await state_handler.checkoutCart.email.set()
+            await state_handler.createFeedback.additional_message.set()
+            state = Dispatcher.get_current().current_state()
+            await state.update_data(state_message=callback_query.message.message_id)
+            await state.update_data(user_id=chat_id)
 
         # Profile
         elif call_data == "profile":
@@ -2006,7 +2014,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                     chat_id=chat_id,
                     message_id=callback_query.message.message_id,
                     # text=f"Введите ваш Email адрес {tt.or_press_back}",
-                    text=f"Введите комментарий к заказу {tt.or_press_back}",
+                    text=f"Введите комментарий к заказу",
                     reply_markup=markups.get_markup_comment(),
                 )
 
@@ -2636,6 +2644,37 @@ async def checkoutCartSetHomeAdress(message: types.Message, state: FSMContext):
         reply_markup=markups.single_button(markups.btnBackCart),
     )
     await state_handler.checkoutCart.additional_message.set()
+
+@dp.message_handler(state=state_handler.createFeedback.additional_message)
+async def create_feedback(message: types.Message, state: FSMContext):
+    state = Dispatcher.get_current().current_state()
+    data = await state.get_data()
+    user_id = data["user_id"]
+    # try:
+    feedback.create_feedback(data["user_id"], message.text)
+    text = f"Отзыв успешно отправлен"
+    for user in usr.get_notif_list():
+        try:
+            await bot.send_message(
+                chat_id=user.get_id(),
+                text=f"⚡Новый отзыв!⚡️\n{tt.line_separator}\n ID Пользователя: {user_id}\n\n \t {message.text}\n{tt.line_separator}\n"
+            )
+        except:
+            logging.warning(f"FAIL MESSAGE TO [{user.get_id()}]")
+            if settings.is_debug():
+                print(f"DEBUG: FAIL MESSAGE TO [{user.get_id()}]")
+    # except:
+    #     text = tt.error
+    await bot.delete_message(
+        chat_id=data["user_id"],
+        message_id=data["state_message"]
+    )
+    await bot.send_message(
+        chat_id=message.chat.id,
+        text=text,
+        reply_markup=markups.single_button(markups.btnBackFaq),
+    )
+    await state.finish()
 
 @dp.message_handler(state=state_handler.checkoutCart.additional_message)
 async def checkoutCartSetAdditionalMessage(message: types.Message, state: FSMContext):

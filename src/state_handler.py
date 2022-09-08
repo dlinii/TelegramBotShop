@@ -106,6 +106,10 @@ class changeShopRefundPolicy(StatesGroup):
 class changeShopContacts(StatesGroup):
     state_message = State()
     contacts = State()
+
+class changeShopFeedback(StatesGroup):
+        state_message = State()
+        feedback = State()
     
 class changeDeliveryPrice(StatesGroup):
     state_message = State()
@@ -119,3 +123,13 @@ class addCustomCommand(StatesGroup):
 class search(StatesGroup):
     state_message = State()
     query = State()
+
+
+class createFeedback(StatesGroup):
+    # Data
+    state_message = State()
+    user_id = State()
+
+    # Required
+    additional_message = State()
+

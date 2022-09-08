@@ -95,6 +95,15 @@ CREATE TABLE "commands" (
     PRIMARY KEY("id")
 )
 """
+CREATE_FEEDBACK_TEXT = """
+CREATE TABLE "feedback" (
+    "id" INTEGER NOT NULL,
+    "user_id" INTEGER,
+	"additional_message" TEXT,
+	"date" TEXT,
+    PRIMARY KEY("id")
+)
+"""
 CREATE_CATALOGUE_TEXT = """
 CREATE TABLE "catalogue" (
     "id" INTEGER NOT NULL,
@@ -123,6 +132,7 @@ def create_db():
     c.execute(CREATE_ORDERS_TEXT)
     c.execute(CREATE_USERS_TEXT)
     c.execute(CREATE_COMMANDS_TEXT)
+    c.execute(CREATE_FEEDBACK_TEXT)
     c.execute(CREATE_CATALOGUE_TEXT)
     c.execute(CREATE_INDEX_FOR_CATALOGUE)
     c.execute(CREATE_INDEX_FOR_CATS)
