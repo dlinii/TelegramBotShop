@@ -85,6 +85,7 @@ def get_markup_admin():
 def get_markup_faq():
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton(text=tt.contacts, callback_data="contacts"))
+    markup.add(types.InlineKeyboardButton(text=tt.feedback, callback_data="feedback"))
     #markup.add(types.InlineKeyboardButton(text=tt.refund, callback_data="refund"))
     return markup
 

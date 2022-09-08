@@ -93,6 +93,15 @@ CREATE TABLE "commands" (
     PRIMARY KEY("id")
 )
 """
+CREATE_FEEDBACK_TEXT = """
+CREATE TABLE "feedback" (
+    "id" INTEGER NOT NULL,
+    "user_id" INTEGER,
+	"additional_message" TEXT,
+	"date" TEXT,
+    PRIMARY KEY("id")
+)
+"""
 
 def create_db():
     conn = sqlite3.connect("data.db")
@@ -102,6 +111,7 @@ def create_db():
     c.execute(CREATE_ORDERS_TEXT)
     c.execute(CREATE_USERS_TEXT)
     c.execute(CREATE_COMMANDS_TEXT)
+    c.execute(CREATE_FEEDBACK_TEXT)
     conn.commit()
     conn.close()    
 

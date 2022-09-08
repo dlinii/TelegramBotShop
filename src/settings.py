@@ -68,6 +68,12 @@ class Settings:
     def set_shop_contacts(self, value):
         self.__set_setting("shop_settings", "contacts", value)
 
+    def get_shop_feedback(self):
+        return self.__get_config()["shop_settings"]["feedback"]
+
+    def set_shop_feedback(self, value):
+        self.__set_setting("shop_settings", "feedback", value)
+
     def is_item_image_enabled(self):
         return self.__get_config()["shop_settings"]["enableimage"] == "1"
 

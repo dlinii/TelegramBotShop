@@ -43,6 +43,8 @@ def get_order_template(order):
     home_adress = f"Адрес доставки: {order.get_home_adress()}\n" if settings.is_delivery_enabled() else ""
     return f"{line_separator}\nID заказа: {order.get_order_id()}\nID пользователя: {order.get_user_id()}\nТовары:\n{item_list_amount_formatted}\nСумма: {order.get_item_list_price()}руб.\nПользователь: @{order.get_email_adress()}\n{phone_number}{home_adress}Комментарий к заказу: {order.get_additional_message()}\nСтатус заказа: {order.get_status_string()} - @{order.get_manager()}\nДата: {order.get_date_string()}\n{line_separator}"
 
+def get_feedback_template(feedback):
+    return f"{line_separator}\nID пользователя: {feedback.get_user_id()}\n{feedback.get_additional_message()}\nДата: {feedback.get_date_string()}\n{line_separator}"
 def get_order_send_msg(order, username):
     return f"{line_separator}\nПривет, твой заказ №{order.get_order_id()} уже на рассмотрении, но к сожалению у тебя закрытый аккаунт и наш менеджер не может связаться с тобой. Пожалуйста, отпишись менеждеру @{username} для того чтобы договориться о встрече. Спасибо!\n{line_separator}"
 
@@ -63,6 +65,7 @@ shop_stats = "📈 Статистика магазина (BETA)"
 bot_settings = "⚙ Настройки бота"
 
 # FAQ
+feedback = "💌 Оставить отзыв"
 contacts = "📞 Связаться"
 refund = "🎫 Политика возврата"
 
@@ -180,6 +183,7 @@ confirm = "✅ Да"
 deny = "❌ Нет"
 error = "Произошла ошибка!"
 or_press_back = "или нажмите на кнопку \"Назад\"."
+or_press_skip = "или нажмите на кнопку \"Пропустить\"."
 hide = "🙈 Скрыть"
 show = "🐵 Показать"
 delete = "❌ Удалить"
