@@ -80,6 +80,7 @@ def get_markup_admin():
     markup.add(types.InlineKeyboardButton(text=tt.item_management, callback_data="admin_itemManagement"))
     markup.add(types.InlineKeyboardButton(text=tt.user_management, callback_data="admin_userManagement"))
     markup.add(types.InlineKeyboardButton(text=tt.shop_stats, callback_data="admin_shopStats"))
+    markup.add(types.InlineKeyboardButton(text="admin_checkUser", callback_data="admin_checkUser"))
     markup.add(types.InlineKeyboardButton(text=tt.bot_settings, callback_data="admin_shopSettings"))
     return markup
 

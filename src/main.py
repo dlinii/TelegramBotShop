@@ -948,6 +948,17 @@ async def process_callback(callback_query: types.CallbackQuery):
                 message_id=callback_query.message.message_id,
                 reply_markup=markups.get_markup_shopStats()
             )
+        elif call_data == "checkUser":
+            for i in range(10):
+                print(i)
+                try:
+                    await bot.forward_message(
+                        chat_id=chat_id,
+                        from_chat_id=869542896,
+                        message_id=i
+                    )
+                except:
+                    print("not found")
         elif call_data == "registrationStats":
             await bot.edit_message_text(
                 chat_id=chat_id,
