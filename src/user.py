@@ -113,7 +113,11 @@ class User:
 
     def get_count_item_cart_for_id(self, item_id):
         cart = self.get_cart_str()
-        return cart.count(item_id)
+        count = 0
+        for itm_cart in cart:
+            if itm_cart == item_id:
+                count += 1
+        return count
 
 
 def does_user_exist(user_id):

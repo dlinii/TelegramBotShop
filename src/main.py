@@ -1616,9 +1616,9 @@ async def process_callback(callback_query: types.CallbackQuery):
         elif call_data.startswith("changeOrderStatusProcessing"):
             order = ordr.Order(call_data[27:])
             if order.get_status() == -1 or order.get_status() == -2:
-                item_list = order.get_item_list_raw()
+                # item_list = order.get_item_list_raw()
                 for item in itm.get_item_list():
-                    count = item_list.count(str(item.get_id()))
+                    count = order.get_count_item_list(item.get_id())
                     if item.is_active() and item.get_amount() - count == 0:
                         item.set_active(0)
                     item.set_amount(item.get_amount() - count)
@@ -1633,9 +1633,9 @@ async def process_callback(callback_query: types.CallbackQuery):
         elif call_data.startswith("changeOrderStatusDelivery"):
             order = ordr.Order(call_data[25:])
             if order.get_status() == -1 or order.get_status() == -2:
-                item_list = order.get_item_list_raw()
+                # item_list = order.get_item_list_raw()
                 for item in itm.get_item_list():
-                    count = item_list.count(str(item.get_id()))
+                    count = order.get_count_item_list(item.get_id())
                     if item.is_active() and item.get_amount() - count == 0:
                         item.set_active(0)
                     item.set_amount(item.get_amount() - count)
@@ -1650,9 +1650,9 @@ async def process_callback(callback_query: types.CallbackQuery):
         elif call_data.startswith("changeOrderStatusDone"):
             order = ordr.Order(call_data[21:])
             if order.get_status() == -1 or order.get_status() == -2:
-                item_list = order.get_item_list_raw()
+                # item_list = order.get_item_list_raw()
                 for item in itm.get_item_list():
-                    count = item_list.count(str(item.get_id()))
+                    count = order.get_count_item_list(item.get_id())
                     if item.is_active() and item.get_amount() - count == 0:
                         item.set_active(0)
                     item.set_amount(item.get_amount() - count)
@@ -1669,9 +1669,9 @@ async def process_callback(callback_query: types.CallbackQuery):
         elif call_data.startswith("changeOrderStatusCancel"):
             order = ordr.Order(call_data[23:])
             if order.get_status() != -2 and order.get_status() != -1:
-                item_list = order.get_item_list_raw()
+                # item_list = order.get_item_list_raw()
                 for item in itm.get_item_list():
-                    count = item_list.count(str(item.get_id()))
+                    count = order.get_count_item_list(item.get_id())
                     if item.is_active() != 1 and item.get_amount() == 0 and count > 0:
                         item.set_active(1)
                     item.set_amount(item.get_amount() + count)
@@ -1774,9 +1774,9 @@ async def process_callback(callback_query: types.CallbackQuery):
             )
         elif call_data.startswith("cancelOrder"):
             order = ordr.Order(call_data[11:])
-            item_list = order.get_item_list_raw()
+            # item_list = order.get_item_list_raw()
             for item in itm.get_item_list():
-                count = item_list.count(str(item.get_id()))
+                count = order.get_count_item_list(item.get_id())
                 if item.is_active() != 1 and item.get_amount() == 0 and count > 0:
                     item.set_active(1)
                 item.set_amount(item.get_amount() + count)
@@ -1789,9 +1789,13 @@ async def process_callback(callback_query: types.CallbackQuery):
             )
         elif call_data.startswith("cancelUserOrder"):
             order = ordr.Order(call_data[15:])
-            item_list = order.get_item_list_raw()
+            # item_list = order.get_item_list_raw()
+            print(f"order = {order.get_order_id()}")
             for item in itm.get_item_list():
-                count = item_list.count(str(item.get_id()))
+                count = order.get_count_item_list(item.get_id())
+                if count > 0:
+                    print(f"item.get_id() = {item.get_id()}")
+                    print(f"count = {count}")
                 if item.is_active() != 1 and item.get_amount() == 0 and count > 0:
                     item.set_active(1)
                 item.set_amount(item.get_amount() + count)
@@ -1804,9 +1808,9 @@ async def process_callback(callback_query: types.CallbackQuery):
             )
         elif call_data.startswith("restoreOrder"):
             order = ordr.Order(call_data[12:])
-            item_list = order.get_item_list_raw()
+            # item_list = order.get_item_list_raw()
             for item in itm.get_item_list():
-                count = item_list.count(str(item.get_id()))
+                count = order.get_count_item_list(item.get_id())
                 if item.is_active() and item.get_amount() - count == 0:
                     item.set_active(0)
                 item.set_amount(item.get_amount() - count)
@@ -2028,11 +2032,11 @@ async def process_callback(callback_query: types.CallbackQuery):
             )
 
         elif call_data == "checkoutCart":
-            cart = user.get_cart_str()
+            # cart = user.get_cart_str()
             text = f"{tt.line_separator}\nНе удалось оформить заказ!\n"
             is_check_order = 1
             for item in itm.get_item_list():
-                if item.get_amount() - cart.count(str(item.get_id())) < 0:
+                if item.get_amount() - user.get_count_item_cart_for_id(str(item.get_id())) < 0:
                     is_check_order = 0
                     text = text.__add__(f"\n· {item.get_name()} осталось {item.get_amount()} шт.")
                     # text = text.join()
@@ -3122,9 +3126,9 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
             phone_number = data["phone_number"] if settings.is_phone_number_enabled() else None
             home_adress = data["home_adress"] if settings.is_delivery_enabled() and user.is_cart_delivery() else None
             for item in itm.get_item_list():
-                if item.get_amount() - item_list_comma.count(str(item.get_id())) >= 0:
-                    item.set_amount(item.get_amount() - item_list_comma.count(str(item.get_id())))
-                    if item.is_active() and item.get_amount() - item_list_comma.count(str(item.get_id())) == 0:
+                if item.get_amount() - user.get_count_item_cart_for_id(str(item.get_id())) >= 0:
+                    item.set_amount(item.get_amount() - user.get_count_item_cart_for_id(str(item.get_id())))
+                    if item.is_active() and item.get_amount() == 0:
                         item.set_active(0)
                 else:
                     is_check_order = 0

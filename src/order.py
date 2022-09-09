@@ -31,7 +31,16 @@ class Order:
     
     def get_item_list(self):
         return list(map(itm.Item, [item_id for item_id in self.get_item_list_raw().split(",")]))
-    
+
+    def get_count_item_list(self, item_id):
+        items = self.get_item_list()
+        count = 0
+        for itm_cart in items:
+            if str(itm_cart.get_id()) == str(item_id):
+                count += 1
+        return count
+
+
     def get_item_list_amount(self):
         cart = [item.get_id() for item in self.get_item_list()]
         return [[itm.Item(item_id), cart.count(item_id)] for item_id in set(cart)]

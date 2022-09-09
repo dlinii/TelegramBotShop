@@ -99,8 +99,8 @@ def get_markup_comment():
 def get_markup_profile(user):
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton(text=tt.my_orders, callback_data="myOrders"))
-    markup.add(types.InlineKeyboardButton(text=tt.change_price_manager, callback_data="changePriceManager"))
     if user.is_admin() or user.is_manager():
+        markup.add(types.InlineKeyboardButton(text=tt.change_price_manager, callback_data="changePriceManager"))
         markup.add(types.InlineKeyboardButton(text=tt.disable_notif if user.notif_on() else tt.enable_notif, callback_data="changeEnableNotif"))
     return markup
 
