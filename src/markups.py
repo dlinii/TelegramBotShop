@@ -46,6 +46,7 @@ btnBackBackups = types.InlineKeyboardButton(text=tt.back, callback_data="admin_b
 
 # /start menu
 btnBackFaq = types.InlineKeyboardButton(text=tt.back, callback_data="faq")
+btnBackFaqFeedback = types.InlineKeyboardButton(text=tt.back, callback_data="faq_back")
 btnBackProfile = types.InlineKeyboardButton(text=tt.back, callback_data="profile")
 btnBackMyOrder = types.InlineKeyboardButton(text=tt.back, callback_data="myOrders")
 btnBackCatalogue = types.InlineKeyboardButton(text=tt.back, callback_data="catalogue")
