@@ -7,7 +7,9 @@ line_separator = "➖➖➖➖➖"
 
 # Multiple lines
 def get_profile_template(user):
-    return f"{line_separator}\n📝 id: {user.get_id()}\n📈 Кол-во заказов: {len(user.get_orders())}\n📅 Дата регистрации: {user.get_register_date_string()}\n{line_separator}"
+    username = f"\n🔖 Никнейм: @{user.get_username()}" if user.get_username() else ""
+    price = f"\n💵 Сумма на руках: {0.0 if user.get_price() is None else user.get_price()}р." if (user.is_admin() or user.is_manager()) else ""
+    return f"{line_separator}\n📝 id: {user.get_id()}{username}{price}\n📈 Кол-во заказов: {len(user.get_orders())}\n📅 Дата регистрации: {user.get_register_date_string()}\n{line_separator}"
 
 
 def get_faq_template(shop_name):
@@ -85,7 +87,7 @@ refund = "🎫 Политика возврата"
 my_orders = "📂 Мои заказы"
 cancel_order = "❌ Отменить заказ"
 restore_order = "✅ Восстановить заказ"
-my_support_tickets = "🙋 Мои тикеты в тех. поддержку"
+change_price_manager = "💸 Изменить сумму"
 enable_notif = "🔔Включить оповещения о заказах"
 disable_notif = "🔕Выключить оповещения о заказах"
 

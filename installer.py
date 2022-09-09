@@ -84,7 +84,8 @@ CREATE TABLE "users" (
 	"notification" INTEGER,
 	"date_created" TEXT,
     "cart" TEXT, 
-    "cart_delivery" INTEGER
+    "cart_delivery" INTEGER,
+	"price" FLOAT NOT NULL
 )
 """
 CREATE_COMMANDS_TEXT = """

@@ -1656,6 +1656,8 @@ async def process_callback(callback_query: types.CallbackQuery):
                     if item.is_active() and item.get_amount() - count == 0:
                         item.set_active(0)
                     item.set_amount(item.get_amount() - count)
+            if order.get_status() != 2:
+                user.set_price((0.0 if user.get_price() is None else user.get_price()) + order.get_item_list_price())
             order.set_status(2)
             order.set_manager(user.get_username())
             await bot.edit_message_text(
@@ -1730,6 +1732,15 @@ async def process_callback(callback_query: types.CallbackQuery):
             )
         elif call_data == "myOrders":
             user = usr.User(chat_id)
+            await bot.edit_message_text(
+                chat_id=chat_id,
+                message_id=callback_query.message.message_id,
+                text=tt.my_orders,
+                reply_markup=markups.get_markup_myOrders(user.get_orders()),
+            )
+        elif call_data == "changePriceManager":
+            user = usr.User(chat_id)
+
             await bot.edit_message_text(
                 chat_id=chat_id,
                 message_id=callback_query.message.message_id,

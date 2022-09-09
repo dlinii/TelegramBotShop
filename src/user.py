@@ -14,7 +14,7 @@ class User:
         self.username = username
 
         if not does_user_exist(self.get_id()):
-            c.execute(f"INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?, ?)", [self.get_id(), self.__username() ,1 if str(self.get_id()) == settings.get_main_admin_id() else 0, 0, 0, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "None", 1])
+            c.execute(f"INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", [self.get_id(), self.__username() ,1 if str(self.get_id()) == settings.get_main_admin_id() else 0, 0, 0, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "None", 1, 0.0])
             conn.commit()
 
     def get_id(self):
@@ -63,7 +63,14 @@ class User:
     def get_orders(self):
         c.execute(f"SELECT * FROM orders WHERE user_id=?", [self.get_id()])
         return list(map(Order, [order[0] for order in list(c)]))[::-1]
-    
+
+    def get_price(self):
+        return self.__clist()[8]
+
+    def set_price(self, value):
+        c.execute(f"UPDATE users SET price=? WHERE user_id=?", [value, self.get_id()])
+        conn.commit()
+
     def get_cart_comma(self):
         return self.__clist()[6]
     
