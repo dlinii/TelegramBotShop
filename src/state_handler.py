@@ -133,3 +133,11 @@ class createFeedback(StatesGroup):
     # Required
     additional_message = State()
 
+class changeProfilePrice(StatesGroup):
+    # Data
+    state_message = State()
+    user_id = State()
+
+    # Required
+    price = State()
+

@@ -19,7 +19,6 @@ def btnBackEditCat(cat_id): return types.InlineKeyboardButton(text=tt.back, call
 btnBackEditItemChooseCategory = types.InlineKeyboardButton(text=tt.back, callback_data="admin_editItemChooseCategory")
 def btnBackEditItemChooseItem(cat_id): return types.InlineKeyboardButton(text=tt.back, callback_data=f"admin_editItemChooseItem{cat_id}")
 def btnBackEditItem(item_id): return types.InlineKeyboardButton(text=tt.back, callback_data=f"admin_editItem{item_id}")
-
 # User management
 btnBackUserManagement = types.InlineKeyboardButton(text=tt.back, callback_data="admin_userManagement")
 def btnBackSeeUserProfile(user_id): return types.InlineKeyboardButton(text=tt.back, callback_data=f"admin_seeUserProfile{user_id}")
@@ -48,6 +47,7 @@ btnBackBackups = types.InlineKeyboardButton(text=tt.back, callback_data="admin_b
 btnBackFaq = types.InlineKeyboardButton(text=tt.back, callback_data="faq")
 btnBackFaqFeedback = types.InlineKeyboardButton(text=tt.back, callback_data="faq_back")
 btnBackProfile = types.InlineKeyboardButton(text=tt.back, callback_data="profile")
+btnBackProfileState = types.InlineKeyboardButton(text=tt.back, callback_data="profile_back")
 btnBackMyOrder = types.InlineKeyboardButton(text=tt.back, callback_data="myOrders")
 btnBackCatalogue = types.InlineKeyboardButton(text=tt.back, callback_data="catalogue")
 def btnBackViewCat(cat_id): return types.InlineKeyboardButton(text=tt.back, callback_data=f"viewCat{cat_id}")

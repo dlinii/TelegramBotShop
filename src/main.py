@@ -1740,13 +1740,30 @@ async def process_callback(callback_query: types.CallbackQuery):
             )
         elif call_data == "changePriceManager":
             user = usr.User(chat_id)
+            text = f"Введите новую сумму на руках {tt.or_press_back}"
+            markup = markups.single_button(markups.btnBackProfileState)
 
-            await bot.edit_message_text(
-                chat_id=chat_id,
-                message_id=callback_query.message.message_id,
-                text=tt.my_orders,
-                reply_markup=markups.get_markup_myOrders(user.get_orders()),
-            )
+            try:
+                await bot.edit_message_text(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    text=text,
+                    reply_markup=markup,
+                )
+            except:
+                await bot.delete_message(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id
+                )
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                    reply_markup=markup
+                )
+            await state_handler.changeProfilePrice.price.set()
+            state = Dispatcher.get_current().current_state()
+            await state.update_data(user_id=user.get_id())
+            await state.update_data(state_message=callback_query.message.message_id)
         elif call_data.startswith("viewMyOrder"):
             order = ordr.Order(call_data[11:])
             await bot.edit_message_text(
@@ -2130,6 +2147,29 @@ async def changeCatName(message: types.Message, state: FSMContext):
         chat_id=message.chat.id,
         text=text,
         reply_markup=markups.single_button(markups.btnBackEditCat(cat.get_id())),
+    )
+    await state.finish()
+
+@dp.message_handler(state=state_handler.changeProfilePrice.price)
+async def changeCatName(message: types.Message, state: FSMContext):
+    data = await state.get_data()
+    user = usr.User(data["user_id"])
+    price = float(message.text)
+
+    try:
+        text = f"Сумма на руках была изменена с \"{user.get_price()}р.\" на \"{price}р.\"."
+        user.set_price(price)
+    except:
+        text = tt.error
+
+    await bot.delete_message(
+        message_id=data["state_message"],
+        chat_id=message.chat.id
+    )
+    await bot.send_message(
+        chat_id=message.chat.id,
+        text=text,
+        reply_markup=markups.single_button(markups.btnBackProfile),
     )
     await state.finish()
 
@@ -3010,6 +3050,14 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
                 message_id=callback_query.message.message_id,
                 text=tt.get_faq_template(settings.get_shop_name()),
                 reply_markup=markups.get_markup_faq(),
+            )
+            await state.finish()
+        elif call_data == "profile_back":
+            await bot.edit_message_text(
+                chat_id=chat_id,
+                message_id=callback_query.message.message_id,
+                text=tt.get_profile_template(user),
+                reply_markup=markups.get_markup_profile(user),
             )
             await state.finish()
         elif call_data == "skipComment":
