@@ -1772,55 +1772,53 @@ async def process_callback(callback_query: types.CallbackQuery):
                 text=tt.get_order_template(order),
                 reply_markup=markups.get_markup_viewMyOrder(order),
             )
-        elif call_data.startswith("cancelOrder"):
-            order = ordr.Order(call_data[11:])
-            # item_list = order.get_item_list_raw()
-            for item in itm.get_item_list():
-                count = order.get_count_item_list(item.get_id())
-                if item.is_active() != 1 and item.get_amount() == 0 and count > 0:
-                    item.set_active(1)
-                item.set_amount(item.get_amount() + count)
-            order.set_status(-1)
-            await bot.edit_message_text(
-                chat_id=chat_id,
-                message_id=callback_query.message.message_id,
-                text=tt.get_order_template(order),
-                reply_markup=markups.get_markup_viewMyOrder(order),
-            )
+        # elif call_data.startswith("cancelOrder"):
+        #     order = ordr.Order(call_data[11:])
+        #     # item_list = order.get_item_list_raw()
+        #     for item in itm.get_item_list():
+        #         count = order.get_count_item_list(item.get_id())
+        #         if item.is_active() != 1 and item.get_amount() == 0 and count > 0:
+        #             item.set_active(1)
+        #         item.set_amount(item.get_amount() + count)
+        #     order.set_status(-1)
+        #     await bot.edit_message_text(
+        #         chat_id=chat_id,
+        #         message_id=callback_query.message.message_id,
+        #         text=tt.get_order_template(order),
+        #         reply_markup=markups.get_markup_viewMyOrder(order),
+        #     )
         elif call_data.startswith("cancelUserOrder"):
             order = ordr.Order(call_data[15:])
             # item_list = order.get_item_list_raw()
-            print(f"order = {order.get_order_id()}")
-            for item in itm.get_item_list():
-                count = order.get_count_item_list(item.get_id())
-                if count > 0:
-                    print(f"item.get_id() = {item.get_id()}")
-                    print(f"count = {count}")
-                if item.is_active() != 1 and item.get_amount() == 0 and count > 0:
-                    item.set_active(1)
-                item.set_amount(item.get_amount() + count)
-            order.set_status(-2)
-            await bot.edit_message_text(
-                chat_id=chat_id,
-                message_id=callback_query.message.message_id,
-                text=tt.get_order_template(order),
-                reply_markup=markups.get_markup_viewMyOrder(order),
-            )
+            if order.get_status() != -2 :
+                for item in itm.get_item_list():
+                    count = order.get_count_item_list(item.get_id())
+                    if item.is_active() != 1 and item.get_amount() == 0 and count > 0:
+                        item.set_active(1)
+                    item.set_amount(item.get_amount() + count)
+                order.set_status(-2)
+                await bot.edit_message_text(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    text=tt.get_order_template(order),
+                    reply_markup=markups.get_markup_viewMyOrder(order),
+                )
         elif call_data.startswith("restoreOrder"):
             order = ordr.Order(call_data[12:])
             # item_list = order.get_item_list_raw()
-            for item in itm.get_item_list():
-                count = order.get_count_item_list(item.get_id())
-                if item.is_active() and item.get_amount() - count == 0:
-                    item.set_active(0)
-                item.set_amount(item.get_amount() - count)
-            order.set_status(0)
-            await bot.edit_message_text(
-                chat_id=chat_id,
-                message_id=callback_query.message.message_id,
-                text=tt.get_order_template(order),
-                reply_markup=markups.get_markup_viewMyOrder(order),
-            )
+            if order.get_status() != 0:
+                for item in itm.get_item_list():
+                    count = order.get_count_item_list(item.get_id())
+                    if item.is_active() and item.get_amount() - count == 0:
+                        item.set_active(0)
+                    item.set_amount(item.get_amount() - count)
+                order.set_status(0)
+                await bot.edit_message_text(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    text=tt.get_order_template(order),
+                    reply_markup=markups.get_markup_viewMyOrder(order),
+                )
         elif call_data == "changeEnableNotif":
             user.set_notif_enable(0 if user.notif_on() else 1)
             await bot.edit_message_text(
