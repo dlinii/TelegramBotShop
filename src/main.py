@@ -1713,7 +1713,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                 message_id=callback_query.message.message_id,
                 # text=f"Введите ваш Email адрес {tt.or_press_back}",
                 text=f"Оставьте свой отзыв {tt.or_press_back}",
-                reply_markup=markups.single_button(markups.btnBackFaq),
+                reply_markup=markups.single_button(markups.btnBackFaqFeedback),
             )
 
             # await state_handler.checkoutCart.email.set()
@@ -3002,6 +3002,14 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
                 message_id=callback_query.message.message_id,
                 text=tt.catalogue,
                 reply_markup=markups.get_markup_catalogue(category.get_cat_list())
+            )
+            await state.finish()
+        elif call_data == "faq_back":
+            await bot.edit_message_text(
+                chat_id=chat_id,
+                message_id=callback_query.message.message_id,
+                text=tt.get_faq_template(settings.get_shop_name()),
+                reply_markup=markups.get_markup_faq(),
             )
             await state.finish()
         elif call_data == "skipComment":
