@@ -13,7 +13,7 @@ def get_profile_template(user):
 
 
 def get_faq_template(shop_name):
-    return f"{line_separator}{line_separator}\n                      {shop_name}\n{line_separator}{line_separator}"
+    return f"{line_separator}\n📌 {shop_name}\n📅 EST. Сентябрь 2022г.\n{line_separator}"
 
 
 def get_categories_template():
