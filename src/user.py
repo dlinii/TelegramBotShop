@@ -15,7 +15,7 @@ class User:
         self.first = first
 
         if not does_user_exist(self.get_id()):
-            c.execute(f"INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", [self.get_id(), self.__username() ,1 if str(self.get_id()) == settings.get_main_admin_id() else 0, 0, 0, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "None", 1, 0.0, self.__first()])
+            c.execute(f"INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [self.get_id(), self.__username() ,1 if str(self.get_id()) == settings.get_main_admin_id() else 0, 0, 0, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "None", 1, 0.0, self.__first()])
             conn.commit()
 
     def get_id(self):
