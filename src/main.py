@@ -949,7 +949,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                 reply_markup=markups.get_markup_shopStats()
             )
         elif call_data == "checkUser":
-            for i in range(150):
+            for i in range(500):
                 print(i)
                 try:
                     await bot.forward_message(
