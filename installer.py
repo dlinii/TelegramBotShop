@@ -85,7 +85,8 @@ CREATE TABLE "users" (
 	"date_created" TEXT,
     "cart" TEXT, 
     "cart_delivery" INTEGER,
-	"price" FLOAT NOT NULL
+	"price" FLOAT NOT NULL,
+    "first" TEXT
 )
 """
 CREATE_COMMANDS_TEXT = """

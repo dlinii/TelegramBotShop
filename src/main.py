@@ -113,8 +113,8 @@ async def welcome(message: types.Message):
     logging.info(f"COMMAND [{message.chat.id}] {message.text}")
     if settings.is_debug():
         print(f"DEBUG: COMMAND [{message.chat.id}] {message.text}")
-    user = usr.User(message.chat.id, message.from_user.username)
-
+    user = usr.User(message.chat.id, message.from_user.username, message.from_user.first_name)
+    user.set_first(message.from_user.first_name)
     if user.is_cart_delivery():
         markupMain = markups.get_markup_main()
         if user.is_manager() or user.is_admin():
@@ -161,6 +161,7 @@ async def handle_text(message):
     if settings.is_debug():
         print(f"DEBUG: MESSAGE [{message.chat.id}] {message.text}")
     user = usr.User(message.chat.id)
+    user.set_first(message.from_user.first_name)
     if user.is_cart_delivery() != 1:
         # new_message_id = message.message_id
         # print(message.message_id)
@@ -227,6 +228,7 @@ async def handle_text(message):
             )
         elif message.text == tt.cart:
             user.set_username(message.from_user.username)
+            user.set_first(message.from_user.first_name)
             if user.get_cart():
                 text = tt.cart
 
@@ -948,17 +950,6 @@ async def process_callback(callback_query: types.CallbackQuery):
                 message_id=callback_query.message.message_id,
                 reply_markup=markups.get_markup_shopStats()
             )
-        elif call_data == "checkUser":
-            for i in range(500):
-                print(i)
-                try:
-                    await bot.forward_message(
-                        chat_id=chat_id,
-                        from_chat_id=869542896,
-                        message_id=i
-                    )
-                except:
-                    print("not found")
         elif call_data == "registrationStats":
             await bot.edit_message_text(
                 chat_id=chat_id,

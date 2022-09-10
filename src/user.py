@@ -9,12 +9,13 @@ c = conn.cursor()
 settings = Settings()
 
 class User:
-    def __init__(self, user_id, username="None"):
+    def __init__(self, user_id, username="None", first="None"):
         self.__user_id = user_id
         self.username = username
+        self.first = first
 
         if not does_user_exist(self.get_id()):
-            c.execute(f"INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", [self.get_id(), self.__username() ,1 if str(self.get_id()) == settings.get_main_admin_id() else 0, 0, 0, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "None", 1, 0.0])
+            c.execute(f"INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", [self.get_id(), self.__username() ,1 if str(self.get_id()) == settings.get_main_admin_id() else 0, 0, 0, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "None", 1, 0.0, self.__first()])
             conn.commit()
 
     def get_id(self):
@@ -23,6 +24,13 @@ class User:
         return self.username
     def get_username(self):
         return self.__clist()[1]
+    def __first(self):
+        return self.username
+    def get_first(self):
+        return self.__clist()[9]
+    def set_first(self, value):
+        c.execute(f"UPDATE users SET first=? WHERE user_id=?", [value, self.get_id()])
+        conn.commit()
 
 
     def set_username(self, value):
