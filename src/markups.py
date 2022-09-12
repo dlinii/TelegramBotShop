@@ -5,6 +5,7 @@ from datetime import datetime
 import text_templates as tt
 from settings import Settings
 import commands
+import category
 
 settings = Settings()
 
@@ -124,7 +125,16 @@ def get_markup_cart(user):
     markup = types.InlineKeyboardMarkup()
     delivery_price = '{:.2f}'.format(float(settings.get_delivery_price()))
     for item_and_amount in user.get_cart_amount():
-        markup.add(types.InlineKeyboardButton(text=f"{item_and_amount[0].get_name()[:30-len(f' - {item_and_amount[1]}шт.')-3]}... - {item_and_amount[1]}шт.", callback_data=f"viewItem{item_and_amount[0].get_id()}"))
+        cat = category.Category(item_and_amount[0].get_cat_id())
+        cat_name = cat.get_name() if len(cat.get_name()) < 15 else (cat.get_name()[:12] + "...")
+        item_name = item_and_amount[0].get_name() if len(item_and_amount[0].get_name()) < 24 else (item_and_amount[0].get_name()[:21] + "...")
+        text = f"{cat_name} - {item_and_amount[0].get_name()} ({item_and_amount[1]}шт.)"
+        if len(text) > 47:
+            text = f"{cat_name} - {item_name} ({item_and_amount[1]}шт.)"
+        markup.add(types.InlineKeyboardButton(
+            text=text,
+            callback_data=f"viewItem{item_and_amount[0].get_id()}"))
+
         markup.add(types.InlineKeyboardButton(text=f"{item_and_amount[0].get_price() * item_and_amount[1]}руб.", callback_data="None"), types.InlineKeyboardButton(text=tt.plus, callback_data=f"addToCartFromCart{item_and_amount[0].get_id()}"), types.InlineKeyboardButton(text=tt.minus, callback_data=f"removeFromCartFromCart{item_and_amount[0].get_id()}"))
     # if settings.is_delivery_enabled():
     #     markup.add(types.InlineKeyboardButton(text=tt.delivery_on(delivery_price) if user.is_cart_delivery() else tt.delivery_off(delivery_price), callback_data="changeCartDelivery"))
@@ -134,6 +144,24 @@ def get_markup_cart(user):
     markup.add(types.InlineKeyboardButton(text=tt.clear_cart, callback_data="clearCart"))
     markup.add(types.InlineKeyboardButton(text=f"Всего: {'{:.2f}'.format(user.get_cart_price())}руб.", callback_data="None"))
     markup.add(types.InlineKeyboardButton(text=tt.cart_checkout, callback_data="checkoutCart"))   
+    return markup
+def get_markup_change_order_item(order):
+    markup = types.InlineKeyboardMarkup()
+    for item_and_amount in order.get_item_list_amount():
+        order_id_and_item_id = f"{order.get_order_id()}_{str(item_and_amount[0].get_id())}"
+        cat = category.Category(item_and_amount[0].get_cat_id())
+        cat_name = cat.get_name() if len(cat.get_name()) < 15 else (cat.get_name()[:12] + "...")
+        item_name = item_and_amount[0].get_name() if len(item_and_amount[0].get_name()) < 24 else (
+                    item_and_amount[0].get_name()[:21] + "...")
+        text = f"{cat_name} - {item_and_amount[0].get_name()} ({item_and_amount[1]}шт.)"
+        if len(text) > 47:
+            text = f"{cat_name} - {item_name} ({item_and_amount[1]}шт.)"
+        markup.add(types.InlineKeyboardButton(text=text, callback_data=f"viewItem{item_and_amount[0].get_id()}"))
+        markup.add(types.InlineKeyboardButton(text=f"{item_and_amount[0].get_price() * item_and_amount[1]}руб.", callback_data="None"), types.InlineKeyboardButton(text=tt.plus, callback_data=f"manager_addToOrderFromOrder{order_id_and_item_id}"), types.InlineKeyboardButton(text=tt.minus, callback_data=f"manager_removeFromOrderFromOrder{order_id_and_item_id}"))
+
+    markup.add(types.InlineKeyboardButton(text=tt.add_item_from_order, callback_data=f"manager_addItemFromOrder{order.get_order_id()}"))
+    markup.add(types.InlineKeyboardButton(text=f"Всего: {'{:.2f}'.format(order.get_item_list_price())}руб.", callback_data="None"))
+    markup.add(types.InlineKeyboardButton(text=tt.back, callback_data=f"manager_orderChanged{order.get_order_id()}"))
     return markup
 
 def get_markup_captcha():
@@ -180,6 +208,12 @@ def get_markup_viewItem(item):
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton(text=tt.add_to_cart, callback_data=f"addToCart{item.get_id()}"))
     markup.add(btnBackViewCat(item.get_cat_id()))
+    return markup
+
+def get_markup_addItemFromAddItemToOrder(order_id, item):
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton(text=tt.add_to_order, callback_data=f"manager_addItemFromAddItemToOrder{order_id}_{item.get_id()}"))
+    markup.add(types.InlineKeyboardButton(text=tt.back, callback_data=f"manager_changeOrderItem{order_id}"))
     return markup
 
 # Admin panel tabs
@@ -229,11 +263,28 @@ def get_markup_editItemChooseCategory(cat_list):
     markup.add(btnBackItemManagement)
     return markup
 
+def get_markup_addItemToOrderChooseCategory(order_id, cat_list):
+    markup = types.InlineKeyboardMarkup()
+    for cat in cat_list:
+        markup.add(types.InlineKeyboardButton(text=f"[{cat.get_id()}] {cat.get_name()}", callback_data=f"manager_addItemToOrderChooseItem{order_id}_{cat.get_id()}"))
+    # markup.add(btnBackItemManagement)
+    markup.add(types.InlineKeyboardButton(text=tt.back, callback_data=f"manager_changeOrderItem{order_id}"))
+
+    return markup
+
 def get_markup_editItemChooseItem(item_list):
     markup = types.InlineKeyboardMarkup()
     for item in item_list:
         markup.add(types.InlineKeyboardButton(text=f"[{item.get_id()}] {item.get_name()}", callback_data=f"admin_editItem{item.get_id()}"))
     markup.add(btnBackEditItemChooseCategory)
+    return markup
+
+def get_markup_addItemToOrderChooseItem(order_id, item_list):
+    markup = types.InlineKeyboardMarkup()
+    for item in item_list:
+        if item.is_active():
+            markup.add(types.InlineKeyboardButton(text=f"[{item.get_id()}] {item.get_name()}", callback_data=f"manager_viewItemFromAddItemToOrder{order_id}_{item.get_id()}"))
+    markup.add(types.InlineKeyboardButton(text=tt.back, callback_data=f"manager_changeOrderItem{order_id}"))
     return markup
 
 async def get_markup_editItem(item):
@@ -479,12 +530,32 @@ def get_markup_cleanDatabaseMenu():
 # Manager tab
 def get_markup_seeOrder(order, user_id=None):
     markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.processing), callback_data=f"manager_changeOrderStatusProcessing{order.get_order_id()}"))
-    markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.delivery), callback_data=f"manager_changeOrderStatusDelivery{order.get_order_id()}"))
-    markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.done), callback_data=f"manager_changeOrderStatusDone{order.get_order_id()}"))
-    markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.cancelled), callback_data=f"manager_changeOrderStatusCancel{order.get_order_id()}"))
+    if order.get_status() != 0:
+        markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.processing), callback_data=f"manager_changeOrderStatusProcessing{order.get_order_id()}"))
+    if order.get_status() != 1:
+        markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.delivery), callback_data=f"manager_changeOrderStatusDelivery{order.get_order_id()}"))
+    if order.get_status() != 2:
+        markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.done), callback_data=f"manager_changeOrderStatusDone{order.get_order_id()}"))
+    if order.get_status() != -1:
+        markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.cancelled), callback_data=f"manager_changeOrderStatusCancel{order.get_order_id()}"))
     markup.add(types.InlineKeyboardButton(text=tt.send_msg, callback_data=f"manager_sendMsgForOrder{order.get_order_id()}"))
+    if order.get_status() == 1:
+        markup.add(types.InlineKeyboardButton(text=tt.change_order_item, callback_data=f"manager_changeOrderItem{order.get_order_id()}"))
     markup.add(btnBackSeeUserOrders(user_id) if user_id else btnBackOrders)
+    return markup
+
+def get_markup_seeNewOrder(order, user_id=None):
+    markup = types.InlineKeyboardMarkup()
+    if order.get_status() != 0:
+        markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.processing), callback_data=f"manager_changeOrderStatusProcessing{order.get_order_id()}"))
+    if order.get_status() != 1:
+        markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.delivery), callback_data=f"manager_changeOrderStatusDelivery{order.get_order_id()}"))
+    if order.get_status() != 2:
+        markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.done), callback_data=f"manager_changeOrderStatusDone{order.get_order_id()}"))
+    if order.get_status() != -1:
+        markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.cancelled), callback_data=f"manager_changeOrderStatusCancel{order.get_order_id()}"))
+
+    markup.add(types.InlineKeyboardButton(text=tt.send_msg, callback_data=f"manager_sendMsgForOrder{order.get_order_id()}"))
     return markup
 
 def get_markup_orders():

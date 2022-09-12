@@ -1615,6 +1615,161 @@ async def process_callback(callback_query: types.CallbackQuery):
                 message_id=callback_query.message.message_id,
                 reply_markup=markups.get_markup_seeOrder(order)
             )
+        elif call_data.startswith("addItemFromOrder"):
+            order = ordr.Order(call_data[16:])
+            await bot.edit_message_text(
+                chat_id=chat_id,
+                message_id=callback_query.message.message_id,
+                text="Выберите категорию товара, который вы хотите добавить в заказ: ",
+                reply_markup=markups.get_markup_addItemToOrderChooseCategory(order.get_order_id(), category.get_cat_list()),
+            )
+        elif call_data.startswith("viewItemFromAddItemToOrder"):
+
+            order_id_and_item_id = call_data[26:]
+            order = ordr.Order(order_id_and_item_id.split("_")[0])
+            item = itm.Item(order_id_and_item_id.split("_")[1])
+            cat = category.Category(item.get_cat_id())
+            text = f"\nКатегория: {cat.get_name()}\n" + tt.get_item_card(item=item)
+            markup = markups.get_markup_addItemFromAddItemToOrder(order.get_order_id(), item)
+            await bot.delete_message(
+                message_id=callback_query.message.message_id,
+                chat_id=chat_id
+            )
+            if item.get_image_id() == "None" or not settings.is_item_image_enabled() or await item.is_hide_image():
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                    reply_markup=markup,
+                )
+            else:
+                await bot.send_photo(
+                    chat_id=chat_id,
+                    caption=text,
+                    photo=item.get_image(),
+                    reply_markup=markup
+                )
+
+        elif call_data.startswith("addItemFromAddItemToOrder"):
+
+            order_id_and_item_id = call_data[25:]
+            order = ordr.Order(order_id_and_item_id.split("_")[0])
+            item = itm.Item(order_id_and_item_id.split("_")[1])
+            text = tt.change_order_item
+            if item.get_amount() > 0:
+                order.add_to_order(item.get_id())
+                count = order.get_count_item_list(item.get_id())
+                if item.is_active() and item.get_amount() - count == 0:
+                    item.set_active(0)
+                item.set_amount(item.get_amount() - 1)
+            else:
+                await bot.answer_callback_query(callback_query_id=callback_query.id,
+                                                text='Это максимальное количество!')
+
+            markup = markups.get_markup_change_order_item(order)
+
+            await bot.delete_message(
+                message_id=callback_query.message.message_id,
+                chat_id=chat_id
+            )
+            await bot.send_message(
+                chat_id=chat_id,
+                text=text,
+                reply_markup=markup
+            )
+        elif call_data.startswith("addItemToOrderChooseItem"):
+            order_id_and_cat_id = call_data[24:]
+            order = ordr.Order(order_id_and_cat_id.split("_")[0])
+            cat = category.Category(order_id_and_cat_id.split("_")[1])
+            text = f"Выберите товар, который вы хотите добавить в заказ: "
+            markup = markups.get_markup_addItemToOrderChooseItem(order.get_order_id(), cat.get_item_list())
+            try:
+                await bot.edit_message_text(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    text=text,
+                    reply_markup=markup,
+                )
+            except:
+                await bot.delete_message(
+                    message_id=callback_query.message.message_id,
+                    chat_id=chat_id
+                )
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                    reply_markup=markup
+                )
+
+        elif call_data.startswith("orderChanged"):
+            order = ordr.Order(call_data[12:])
+            await bot.edit_message_text(
+                text=tt.get_order_template(order),
+                chat_id=chat_id,
+                message_id=callback_query.message.message_id,
+                reply_markup=markups.get_markup_seeOrder(order)
+            )
+        elif call_data.startswith("addToOrderFromOrder"):
+            order_id_and_item_id = call_data[19:]
+            order = ordr.Order(order_id_and_item_id.split("_")[0])
+            item = itm.Item(order_id_and_item_id.split("_")[1])
+
+            text = tt.change_order_item
+            if item.get_amount() > 0:
+                order.add_to_order(item.get_id())
+                count = order.get_count_item_list(item.get_id())
+                if item.is_active() and item.get_amount() - count == 0:
+                    item.set_active(0)
+                item.set_amount(item.get_amount() - 1)
+            else:
+                await bot.answer_callback_query(callback_query_id=callback_query.id,
+                                                text='Это максимальное количество!')
+
+            markup = markups.get_markup_change_order_item(order)
+            await bot.edit_message_text(
+                chat_id=chat_id,
+                message_id=callback_query.message.message_id,
+                text=text,
+                reply_markup=markup
+            )
+            for adm_msg in order.get_notif_adm_msg_list():
+                adm_id = adm_msg.split(":")[0]
+                msg_id = adm_msg.split(":")[1]
+                if str(chat_id) == str(adm_id):
+                    continue
+                await bot.edit_message_text(
+                    text=f"Новый заказ:\n{tt.get_order_template(order)}",
+                    chat_id=adm_id,
+                    message_id=msg_id,
+                    reply_markup=markups.get_markup_seeNewOrder(order)
+                )
+        elif call_data.startswith("removeFromOrderFromOrder"):
+            order_id_and_item_id = call_data[24:]
+            order = ordr.Order(order_id_and_item_id.split("_")[0])
+            item = itm.Item(order_id_and_item_id.split("_")[1])
+            text = tt.change_order_item
+            count = order.get_count_item_list(item.get_id())
+            if item.is_active() != 1 and item.get_amount() == 0 and count > 0:
+                item.set_active(1)
+            item.set_amount(item.get_amount() + 1)
+            order.remove_from_order(item.get_id())
+            markup = markups.get_markup_change_order_item(order)
+            await bot.edit_message_text(
+                chat_id=chat_id,
+                message_id=callback_query.message.message_id,
+                text=text,
+                reply_markup=markup
+            )
+            for adm_msg in order.get_notif_adm_msg_list():
+                adm_id = adm_msg.split(":")[0]
+                msg_id = adm_msg.split(":")[1]
+                if str(chat_id) == str(adm_id):
+                    continue
+                await bot.edit_message_text(
+                    text=f"Новый заказ:\n{tt.get_order_template(order)}",
+                    chat_id=adm_id,
+                    message_id=msg_id,
+                    reply_markup=markups.get_markup_seeNewOrder(order)
+                )
         elif call_data.startswith("changeOrderStatusProcessing"):
             order = ordr.Order(call_data[27:])
             if order.get_status() == -1 or order.get_status() == -2:
@@ -1641,7 +1796,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                     text=f"Новый заказ:\n{tt.get_order_template(order)}",
                     chat_id=adm_id,
                     message_id=msg_id,
-                    reply_markup=markups.get_markup_seeOrder(order)
+                    reply_markup=markups.get_markup_seeNewOrder(order)
                 )
         elif call_data.startswith("changeOrderStatusDelivery"):
             order = ordr.Order(call_data[25:])
@@ -1669,7 +1824,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                     text=f"Новый заказ:\n{tt.get_order_template(order)}",
                     chat_id=adm_id,
                     message_id=msg_id,
-                    reply_markup=markups.get_markup_seeOrder(order)
+                    reply_markup=markups.get_markup_seeNewOrder(order)
                 )
         elif call_data.startswith("changeOrderStatusDone"):
             order = ordr.Order(call_data[21:])
@@ -1699,7 +1854,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                     text=f"Новый заказ:\n{tt.get_order_template(order)}",
                     chat_id=adm_id,
                     message_id=msg_id,
-                    reply_markup=markups.get_markup_seeOrder(order)
+                    reply_markup=markups.get_markup_seeNewOrder(order)
                 )
         elif call_data.startswith("changeOrderStatusCancel"):
             order = ordr.Order(call_data[23:])
@@ -1727,7 +1882,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                     text=f"Новый заказ:\n{tt.get_order_template(order)}",
                     chat_id=adm_id,
                     message_id=msg_id,
-                    reply_markup=markups.get_markup_seeOrder(order)
+                    reply_markup=markups.get_markup_seeNewOrder(order)
                 )
         elif call_data.startswith("sendMsgForOrder"):
             order = ordr.Order(call_data[15:])
@@ -1735,6 +1890,35 @@ async def process_callback(callback_query: types.CallbackQuery):
                 chat_id=order.get_user_id(),
                 text=tt.get_order_send_msg(order, user.get_username())
             )
+
+        elif call_data.startswith("changeOrderItem"):
+            order = ordr.Order(call_data[15:])
+            text = tt.change_order_item
+
+            markup = markups.get_markup_change_order_item(order)
+            try:
+                await bot.edit_message_text(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    text=text,
+                    reply_markup=markup
+                )
+            except:
+                await bot.delete_message(
+                    message_id=callback_query.message.message_id,
+                    chat_id=chat_id
+                )
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                    reply_markup=markup
+                )
+            # await bot.edit_message_text(
+            #     text=tt.get_order_template(order),
+            #     chat_id=chat_id,
+            #     message_id=callback_query.message.message_id,
+            #     reply_markup=markups.get_markup_seeOrder(order)
+            # )
 
     # User calls
     else:
@@ -1859,7 +2043,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                         text=f"Новый заказ:\n{tt.get_order_template(order)}",
                         chat_id=adm_id,
                         message_id=msg_id,
-                        reply_markup=markups.get_markup_seeOrder(order)
+                        reply_markup=markups.get_markup_seeNewOrder(order)
                     )
         elif call_data.startswith("restoreOrder"):
             order = ordr.Order(call_data[12:])
@@ -1886,7 +2070,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                         text=f"Новый заказ:\n{tt.get_order_template(order)}",
                         chat_id=adm_id,
                         message_id=msg_id,
-                        reply_markup=markups.get_markup_seeOrder(order)
+                        reply_markup=markups.get_markup_seeNewOrder(order)
                     )
         elif call_data == "changeEnableNotif":
             user.set_notif_enable(0 if user.notif_on() else 1)
@@ -3214,14 +3398,14 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
                             result = await bot.send_message(
                                 chat_id=user.get_id(),
                                 text=f"Новый заказ:\n{tt.get_order_template(order)}",
-                                reply_markup=markups.get_markup_seeOrder(order)
+                                reply_markup=markups.get_markup_seeNewOrder(order)
                             )
                             notif_adm_msg = notif_adm_msg.__add__(f"{user.get_id()}:{result.message_id}" if notif_adm_msg == "" else f",{user.get_id()}:{result.message_id}")
                         except:
                             logging.warning(f"FAIL MESSAGE TO [{user.get_id()}]")
                             if settings.is_debug():
                                 print(f"DEBUG: FAIL MESSAGE TO [{user.get_id()}]")
-                    print(notif_adm_msg)
+                    # print(notif_adm_msg)
                     order.set_notif_adm_msg_str(notif_adm_msg)
                 except:
                     text = tt.error

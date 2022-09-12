@@ -40,6 +40,29 @@ class Order:
                 count += 1
         return count
 
+    def get_item_id_list(self):
+        cart = [item.get_id() for item in self.get_item_list()]
+        return cart
+    def add_to_order(self, item_id):
+        item_list = self.get_item_list()
+        c.execute(f"UPDATE orders SET item_list=? WHERE order_id=?",
+                  [",".join([str(item.get_id()) for item in item_list + [itm.Item(item_id)]]) if item_list else item_id,
+                   self.get_order_id()])
+        conn.commit()
+
+    def get_count_item_order_for_id(self, item_id):
+        cart = self.get_item_id_list()
+        count = 0
+        for itm_cart in cart:
+            if itm_cart == item_id:
+                count += 1
+        return count
+
+    def remove_from_order(self, item_id):
+        item_list = [item.get_id() for item in self.get_item_list()]
+        item_list.remove(str(item_id))
+        c.execute(f"UPDATE orders SET item_list=? WHERE order_id=?", [",".join(item_list) if item_list else "None", self.get_order_id()])
+        conn.commit()
 
     def get_item_list_amount(self):
         cart = [item.get_id() for item in self.get_item_list()]

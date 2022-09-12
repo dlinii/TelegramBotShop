@@ -85,6 +85,7 @@ class User:
     def get_cart(self):
         cart = self.get_cart_comma()
         return [] if cart == "None" else list(map(itm.Item, cart.split(",")))
+
     def get_cart_str(self):
         cart = [item.get_id() for item in self.get_cart()]
         return cart
