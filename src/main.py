@@ -3387,28 +3387,28 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
 
             text = text.__add__(f"\n\n Пожалуйста измените количество выбранного товара или замените товар.\n{tt.line_separator}")
             if is_check_order:
-                # try:
+                try:
 
-                order = ordr.create_order(order_id, user_id, item_list_comma, email, additional_message, phone_number=phone_number, home_adress=home_adress)
-                user.clear_cart()
-                text = f"Заказ с ID {order.get_order_id()} был успешно создан.\nСпасибо за заказ! Наш менеджер свяжется с вами в ближайшее время."
-                notif_adm_msg = ""
-                for user in usr.get_notif_list():
-                    # try:
-                    result = await bot.send_message(
-                        chat_id=user.get_id(),
-                        text=f"Новый заказ:\n{tt.get_order_template(order)}",
-                        reply_markup=markups.get_markup_seeNewOrder(order)
-                    )
-                    notif_adm_msg = notif_adm_msg.__add__(f"{user.get_id()}:{result.message_id}" if notif_adm_msg == "" else f",{user.get_id()}:{result.message_id}")
-                    # except:
-                    #     logging.warning(f"FAIL MESSAGE TO [{user.get_id()}]")
-                    #     if settings.is_debug():
-                    #         print(f"DEBUG: FAIL MESSAGE TO [{user.get_id()}]")
-                # print(notif_adm_msg)
-                order.set_notif_adm_msg_str(notif_adm_msg)
-                # except:
-                #     text = tt.error
+                    order = ordr.create_order(order_id, user_id, item_list_comma, email, additional_message, phone_number=phone_number, home_adress=home_adress)
+                    user.clear_cart()
+                    text = f"Заказ с ID {order.get_order_id()} был успешно создан.\nСпасибо за заказ! Наш менеджер свяжется с вами в ближайшее время."
+                    notif_adm_msg = ""
+                    for user in usr.get_notif_list():
+                        try:
+                            result = await bot.send_message(
+                                chat_id=user.get_id(),
+                                text=f"Новый заказ:\n{tt.get_order_template(order)}",
+                                reply_markup=markups.get_markup_seeNewOrder(order)
+                            )
+                            notif_adm_msg = notif_adm_msg.__add__(f"{user.get_id()}:{result.message_id}" if notif_adm_msg == "" else f",{user.get_id()}:{result.message_id}")
+                        except:
+                            logging.warning(f"FAIL MESSAGE TO [{user.get_id()}]")
+                            if settings.is_debug():
+                                print(f"DEBUG: FAIL MESSAGE TO [{user.get_id()}]")
+                    # print(notif_adm_msg)
+                    order.set_notif_adm_msg_str(notif_adm_msg)
+                except:
+                    text = tt.error
                 await bot.delete_message(
                     message_id=callback_query.message.message_id,
                     chat_id=chat_id
