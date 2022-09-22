@@ -353,6 +353,7 @@ def get_markup_shopStats():
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton(text=tt.registration_stats, callback_data="admin_registrationStats"))
     markup.add(types.InlineKeyboardButton(text=tt.order_stats, callback_data="admin_orderStats"))
+    markup.add(types.InlineKeyboardButton(text=tt.sales_stats, callback_data="admin_salesStats"))
     markup.add(btnBackAdmin)
     return markup
 

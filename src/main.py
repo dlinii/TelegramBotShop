@@ -367,7 +367,8 @@ async def process_callback(callback_query: types.CallbackQuery):
             try:
                 text = f"Категория {cat.get_name()} была успешно удалена."
                 cat.delete()
-            except:
+            except Exception as e:
+                logging.warning(f"SENT EXCEPTION(error delete cat): {e}")
                 text = f"Произошла ошибка!"
             await bot.edit_message_text(
                 chat_id=chat_id,
@@ -635,7 +636,8 @@ async def process_callback(callback_query: types.CallbackQuery):
             try:
                 item.set_hide_image(0 if await item.is_hide_image() else 1)
                 text = tt.get_item_card(item) + f"\nКатегория: {cat.get_name()}"
-            except:
+            except Exception as e:
+                logging.warning(f"SENT EXCEPTION(error \"item.set_hide_image\"): {e}")
                 text = tt.error
             markup = await markups.get_markup_editItem(item)
 
@@ -676,7 +678,8 @@ async def process_callback(callback_query: types.CallbackQuery):
             try:
                 item.set_active(0 if item.is_active() else 1)
                 text = tt.get_item_card(item) + f"\nКатегория: {cat.get_name()}"
-            except:
+            except Exception as e:
+                logging.warning(f"SENT EXCEPTION(error \"item.set_active\"): {e}")
                 text = tt.error
             markup = await markups.get_markup_editItem(item)
 
@@ -706,7 +709,8 @@ async def process_callback(callback_query: types.CallbackQuery):
                 text = f"Товар \"{item.get_name()}\" был удалён."
                 item.delete()
                 markup = markups.single_button(markups.btnBackEditItemChooseItem(cat.get_id()))
-            except:
+            except Exception as e:
+                logging.warning(f"SENT EXCEPTION(error delete item): {e}")
                 text = tt.error
                 markup = markups.single_button(markups.btnBackEditItem(item.get_id()))
 
@@ -922,7 +926,8 @@ async def process_callback(callback_query: types.CallbackQuery):
                         if settings.is_debug():
                             print(f"DEBUG [{user.get_id()}] FAILED TO SEND MESSAGE TO [{editUser.get_id()}]")
 
-                except:
+                except Exception as e:
+                    logging.warning(f"SENT EXCEPTION(error change role admin): {e}")
                     text = tt.error
                     markup = markups.single_button(markups.btnBackSeeUserProfile(editUser.get_id()))
             await bot.edit_message_text(
@@ -1001,6 +1006,14 @@ async def process_callback(callback_query: types.CallbackQuery):
                 message_id=callback_query.message.message_id,
                 text=tt.order_stats,
                 reply_markup=markups.get_markup_orderStats(),
+            )
+        elif call_data == "salesStats":
+
+            await bot.edit_message_text(
+                chat_id=chat_id,
+                message_id=callback_query.message.message_id,
+                text=tt.get_sales_stats(usr.get_user_list()),
+                reply_markup=markups.single_button(markups.btnBackShopStats),
             )
         elif call_data == "orderStatsBack":
             await bot.delete_message(
@@ -1187,7 +1200,8 @@ async def process_callback(callback_query: types.CallbackQuery):
                     text = tt.system_settings
                     markup = markups.get_markup_systemSettings()
 
-            except:
+            except Exception as e:
+                logging.warning(f"SENT EXCEPTION(error changeEnable): {e}")
                 text = tt.error
                 if call_data[12:] in ["PhoneNumber", "Delivery", "Captcha"]:
                     markup = markups.single_button(markups.btnBackCheckoutSettings)
@@ -1539,7 +1553,8 @@ async def process_callback(callback_query: types.CallbackQuery):
                 command.delete()
                 text = tt.custom_commands
                 markup = markups.get_markup_customCommands()
-            except:
+            except Exception as e:
+                logging.warning(f"SENT EXCEPTION(error delete Command): {e}")
                 text = tt.error
                 markup = markups.single_button(markups.btnBackCustomCommands)
             await bot.edit_message_text(
@@ -2323,7 +2338,8 @@ async def addCat(message: types.Message, state: FSMContext):
     try:
         await state.update_data(name=message.text)
         text_name = tt.get_category_was_created_successfuly(cat_name)
-    except:
+    except Exception as e:
+        logging.warning(f"SENT EXCEPTION(error state_handler.addCat.name): {e}")
         text_name = tt.error
     # category.create_cat(cat_name)
     if settings.is_type_image_enabled():
@@ -2365,10 +2381,11 @@ async def addCatSetImage(msg: types.Message, state: FSMContext):
     await state.update_data(image=image_id)
 
     data = await state.get_data()
-    category.create_cat(data["name"], data["image"])
     try:
+        category.create_cat(data["name"], data["image"])
         text = tt.get_category_was_created_successfuly(data["name"])
-    except:
+    except Exception as e:
+        logging.warning(f"SENT EXCEPTION(error create cat): {e}")
         text = tt.error
 
     await bot.delete_message(
@@ -2391,7 +2408,8 @@ async def changeCatName(message: types.Message, state: FSMContext):
     try:
         text = f"Название категории \"{cat.get_name()}\" было изменено на \"{cat_name}\"."
         cat.set_name(cat_name)
-    except:
+    except Exception as e:
+        logging.warning(f"SENT EXCEPTION(error change name cat): {e}")
         text = tt.error
 
     await bot.delete_message(
@@ -2414,7 +2432,8 @@ async def changeCatName(message: types.Message, state: FSMContext):
     try:
         text = f"Сумма на руках была изменена с \"{user.get_price()}р.\" на \"{price}р.\"."
         user.set_price(price)
-    except:
+    except Exception as e:
+        logging.warning(f"SENT EXCEPTION(error change user price): {e}")
         text = tt.error
 
     await bot.delete_message(
@@ -2443,10 +2462,11 @@ async def changeCatImage(msg: types.Message, state: FSMContext):
     await state.update_data(image=image_id)
 
     data = await state.get_data()
-    cat.set_image_id(image_id)
     try:
+        cat.set_image_id(image_id)
         text = f"Изображение для категории {cat.get_name()} было изменено."
-    except:
+    except Exception as e:
+        logging.warning(f"SENT EXCEPTION(error change image cat): {e}")
         text = tt.error
 
     await bot.delete_message(
@@ -2484,7 +2504,8 @@ async def addItemSetPrice(message: types.Message, state: FSMContext):
             reply_markup=markups.get_markup_addItemSetCat(category.get_cat_list()),
         )
         await state_handler.addItem.cat_id.set()
-    except:
+    except Exception as e:
+        logging.warning(f"SENT EXCEPTION(error state_handler.addItem.price): {e}")
         await bot.send_message(
             chat_id=message.chat.id,
             text=tt.error,
@@ -2559,7 +2580,8 @@ async def editItemSetPrice(message: types.Message, state: FSMContext):
     try:
         text = f"Ценя для \"{item.get_name()}\" была изменена с {item.get_price()} на {'{:.2f}'.format(float(message.text))}."
         item.set_price(float(message.text))
-    except:
+    except Exception as e:
+        logging.warning(f"SENT EXCEPTION(error change item price): {e}")
         text = tt.error
 
     try:
@@ -2590,7 +2612,8 @@ async def editItemSetImage(message: types.Message, state: FSMContext):
     try:
         await message.photo[-1].download(destination_file=f"images/{image_id}")
         text = f"Изображение для каталога было добавлено."
-    except:
+    except Exception as e:
+        logging.warning(f"SENT EXCEPTION(error add image catalogue): {e}")
         text = tt.error
     catalogue.create_ctg(image_id)
 
@@ -2616,7 +2639,8 @@ async def editItemSetImage(message: types.Message, state: FSMContext):
         await message.photo[-1].download(destination_file=f"images/{image_id}")
         item.set_image_id(image_id)
         text = f"Изображение для \"{item.get_name()}\" было обновлено."
-    except:
+    except Exception as e:
+        logging.warning(f"SENT EXCEPTION(error change image item): {e}")
         text = tt.error
 
     await bot.send_message(
@@ -2649,7 +2673,8 @@ async def editItemSetDesc(message: types.Message, state: FSMContext):
     try:
         text = f"Описание для \"{item.get_name()}\" было изменено с \"{item.get_desc()}\" на \"{message.text}\""
         item.set_desc(message.text)
-    except:
+    except Exception as e:
+        logging.warning(f"SENT EXCEPTION(error change desc item): {e}")
         text = tt.error
 
     try:
@@ -2676,7 +2701,8 @@ async def editItemSetName(message: types.Message, state: FSMContext):
     try:
         text = f"Название для \"{item.get_name()}\" было изменено на \"{message.text}\"."
         item.set_name(message.text)
-    except:
+    except Exception as e:
+        logging.warning(f"SENT EXCEPTION(error change item name): {e}")
         text = tt.error
 
     try:
@@ -2705,7 +2731,8 @@ async def editItemStockSetStock(message: types.Message, state: FSMContext):
             raise Exception(TypeError)
         text = f"Количество товара для \"{item.get_name()}\" было изменено с {item.get_amount()} шт. на {message.text} шт."
         item.set_amount(int(message.text))
-    except:
+    except Exception as e:
+        logging.warning(f"SENT EXCEPTION(error change count item): {e}")
         text = tt.error
     try:
         await bot.delete_message(
@@ -2753,7 +2780,8 @@ async def seeUserProfileSetUserID(message: types.Message, state: FSMContext):
         else:
             text = f"Пользователя с ID {message.text} не существует."
             markup = markups.single_button(markups.btnBackUserManagement)
-    except:
+    except Exception as e:
+        logging.warning(f"SENT EXCEPTION(error search user): {e}")
         text = tt.error
         markup = markups.single_button(markups.btnBackUserManagement)
     state = Dispatcher.get_current().current_state()
@@ -2777,7 +2805,8 @@ async def changeShopNameSetName(message: types.Message, state: FSMContext):
     try:
         text = f"Название магазина было изменено с \"{settings.get_shop_name()}\" на \"{message.text}\"."
         settings.set_shop_name(message.text)
-    except:
+    except Exception as e:
+        logging.warning(f"SENT EXCEPTION(error change shop name): {e}")
         text = tt.error
     await bot.delete_message(
         message_id=data["state_message"],
@@ -2797,7 +2826,8 @@ async def changeShopGreetingSetGreeting(message: types.Message, state: FSMContex
     try:
         text = f"Приветствие магазина было изменено с \"{settings.get_shop_greeting()}\" на \"{message.text}\"."
         settings.set_shop_greeting(message.text)
-    except:
+    except Exception as e:
+        logging.warning(f"SENT EXCEPTION(error change shop greeting): {e}")
         text = tt.error
     await bot.delete_message(
         message_id=data["state_message"],
@@ -2817,7 +2847,8 @@ async def changeShopContactsSetContacts(message: types.Message, state: FSMContex
     try:
         text = f"Политика возврата магазина была изменена с \"{settings.get_shop_name()}\" на \"{message.text}\"."
         settings.set_refund_policy(message.text)
-    except:
+    except Exception as e:
+        logging.warning(f"SENT EXCEPTION(error change refund policy): {e}")
         text = tt.error
     await bot.delete_message(
         message_id=data["state_message"],
@@ -2837,7 +2868,8 @@ async def changeShopContactsSetContacts(message: types.Message, state: FSMContex
     try:
         text = f"Текст для вкладки \"Контакты\" был изменен с \"{settings.get_shop_name()}\" на \"{message.text}\"."
         settings.set_shop_contacts(message.text)
-    except:
+    except Exception as e:
+        logging.warning(f"SENT EXCEPTION(error change shop contacts): {e}")
         text = tt.error
     await bot.delete_message(
         message_id=data["state_message"],
@@ -2858,7 +2890,8 @@ async def changeDeliveryPriceSetPrice(message: types.Message, state: FSMContext)
     try:
         text = f"Стоимость доставки была изменена с {'{:.2f}'.format(float(settings.get_delivery_price()))}руб. на {'{:.2f}'.format(float(message.text))}руб."
         settings.set_delivery_price(float(message.text))
-    except:
+    except Exception as e:
+        logging.warning(f"SENT EXCEPTION(error change delivery price): {e}")
         text = tt.error
     await bot.delete_message(
         message_id=data["state_message"],
@@ -3049,7 +3082,8 @@ async def addCustomCommandSetResponse(message: types.Message, state: FSMContext)
     try:
         commands.create_command(data["command"], message.text)
         text = f"Команда \"{data['command']}\" была успешно добвалена!"
-    except:
+    except Exception as e:
+        logging.warning(f"SENT EXCEPTION(error add command): {e}")
         text = tt.error
     await bot.send_message(
         chat_id=message.chat.id,
@@ -3118,7 +3152,8 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
             try:
                 # category.create_cat(data["name"])
                 text = tt.get_category_was_created_successfuly(data["name"])
-            except:
+            except Exception as e:
+                logging.warning(f"SENT EXCEPTION(error skipSetAddCatSetImage): {e}")
                 text = tt.error
 
             await bot.delete_message(
@@ -3135,7 +3170,8 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
             try:
                 itm.create_item(name=data["name"], price=data["price"], cat_id=data["cat_id"], desc=data["desc"], image_id=data["image"] if settings.is_item_image_enabled() else "None")
                 text = f"Товар {data['name']} был создан."
-            except:
+            except Exception as e:
+                logging.warning(f"SENT EXCEPTION(error create item): {e}")
                 text = tt.error
             await bot.delete_message(
                 message_id=callback_query.message.message_id,
@@ -3178,7 +3214,8 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
             try:
                 text = f"Категория для \"{item.get_name()}\" была изменена с \"{old_cat.get_name()}\" на \"{new_cat.get_name()}\"."
                 item.set_cat_id(new_cat.get_id())
-            except:
+            except Exception as e:
+                logging.warning(f"SENT EXCEPTION(error change cat for item): {e}")
                 text = tt.error
 
             await bot.edit_message_text(
@@ -3401,13 +3438,14 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
                                 reply_markup=markups.get_markup_seeNewOrder(order)
                             )
                             notif_adm_msg = notif_adm_msg.__add__(f"{user.get_id()}:{result.message_id}" if notif_adm_msg == "" else f",{user.get_id()}:{result.message_id}")
-                        except:
+                        except Exception as e:
                             logging.warning(f"FAIL MESSAGE TO [{user.get_id()}]")
                             if settings.is_debug():
                                 print(f"DEBUG: FAIL MESSAGE TO [{user.get_id()}]")
                     # print(notif_adm_msg)
                     order.set_notif_adm_msg_str(notif_adm_msg)
-                except:
+                except Exception as e:
+                    logging.warning(f"SENT EXCEPTION(error create order): {e}")
                     text = tt.error
                 await bot.delete_message(
                     message_id=callback_query.message.message_id,
