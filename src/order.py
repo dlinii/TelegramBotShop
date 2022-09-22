@@ -142,7 +142,7 @@ def get_status_dict():
             -2: tt.cancelled_user,
         }
 
-def get_order_list(status=2):
+def get_order_list(status=None):
     if status:
         c.execute(f"SELECT * FROM orders WHERE status=?", [status])
     else:

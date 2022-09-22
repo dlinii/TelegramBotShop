@@ -49,7 +49,7 @@ class RegistrationCharts:
 
 class OrderCharts:
     def __init__(self):
-        self.order_list = ordr.get_order_list()
+        self.order_list = ordr.get_order_list(status=2)
 
     def saveplot(self, data, title):
         return saveplot(data, title, "Количество заказов")

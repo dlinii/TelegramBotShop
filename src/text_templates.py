@@ -68,7 +68,7 @@ def get_sales_stats(users_list):
     for user in users_list:
         all_price += (0.0 if user.get_price() is None else user.get_price())
     users_and_price = ''.join(
-        [f'\t· @{user.get_username()} - {user.get_price()}р.\n' if (0.0 if user.get_price() is None else user.get_price()) > 0.0 else '' for user in
+        [f'\t· @{user.get_username()} - {user.get_price()}р.\nо' if (0.0 if user.get_price() is None else user.get_price()) > 0.0 else '' for user in
          users_list])
     return f"{line_separator}\nОбщая сумма: {all_price}р.\nСумма у каждого:\n{users_and_price}\n{line_separator}"
 
