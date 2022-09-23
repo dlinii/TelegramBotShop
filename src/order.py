@@ -143,10 +143,10 @@ def get_status_dict():
         }
 
 def get_order_list(status=None):
-    if status:
-        c.execute(f"SELECT * FROM orders WHERE status=?", [status])
-    else:
-        c.execute(f"SELECT * FROM orders")
+    # if status:
+    c.execute(f"SELECT * FROM orders WHERE status=?", [status])
+    # else:
+    #     c.execute(f"SELECT * FROM orders")
     return list(map(Order, [order[0] for order in list(c)]))
 
 def does_order_exist(order_id):
