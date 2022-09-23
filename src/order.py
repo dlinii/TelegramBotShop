@@ -149,6 +149,13 @@ def get_order_list(status=None):
     #     c.execute(f"SELECT * FROM orders")
     return list(map(Order, [order[0] for order in list(c)]))
 
+def get_order_list_manager(username):
+    # if status:
+    c.execute(f"SELECT * FROM orders WHERE status=? AND manager=?", [2, username])
+    # else:
+    #     c.execute(f"SELECT * FROM orders")
+    return list(map(Order, [order[0] for order in list(c)]))
+
 def does_order_exist(order_id):
     c.execute(f"SELECT * FROM orders WHERE order_id=?", [order_id])
     return len(list(c)) == 1

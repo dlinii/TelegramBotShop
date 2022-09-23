@@ -1,5 +1,6 @@
 from settings import Settings
 import category
+import order as ordr
 
 settings = Settings()
 
@@ -10,7 +11,8 @@ line_separator = "➖➖➖➖➖"
 def get_profile_template(user):
     username = f"\n🔖 Никнейм: @{user.get_username()}" if user.get_username() else ""
     price = f"\n💵 Сумма на руках: {0.0 if user.get_price() is None else user.get_price()}р." if (user.is_admin() or user.is_manager()) else ""
-    return f"{line_separator}\n📝 id: {user.get_id()}\n😄 Имя: {user.get_first()}{username}{price}\n📈 Кол-во заказов: {len(user.get_orders())}\n📅 Дата регистрации: {user.get_register_date_string()}\n{line_separator}"
+    count_sales = f"\n💼 Количество продаж: {len(ordr.get_order_list_manager(user.get_username()))}" if user.is_admin() or user.is_manager() else ""
+    return f"{line_separator}\n📝 id: {user.get_id()}\n😄 Имя: {user.get_first()}{username}{price}{count_sales}\n📈 Кол-во заказов: {len(user.get_orders())}\n📅 Дата регистрации: {user.get_register_date_string()}\n{line_separator}"
 
 
 def get_faq_template(shop_name):
@@ -68,7 +70,7 @@ def get_sales_stats(users_list):
     for user in users_list:
         all_price += (0.0 if user.get_price() is None else user.get_price())
     users_and_price = ''.join(
-        [f'\t· @{user.get_username()} - {user.get_price()}р.\nо' if (0.0 if user.get_price() is None else user.get_price()) > 0.0 else '' for user in
+        [f'\t· @{user.get_username()} - {user.get_price()}р.\n' if (0.0 if user.get_price() is None else user.get_price()) > 0.0 else '' for user in
          users_list])
     return f"{line_separator}\nОбщая сумма: {all_price}р.\nСумма у каждого:\n{users_and_price}\n{line_separator}"
 
