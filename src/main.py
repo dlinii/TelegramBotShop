@@ -2908,7 +2908,7 @@ async def refreshMessagesSetMsgID(message: types.Message, state: FSMContext):
     )
     try:
         msg_id_old = int(message.text) - 200
-        for i in range(100):
+        for i in range(200):
             print(i)
             try:
                 await bot.forward_message(
