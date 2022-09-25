@@ -78,6 +78,7 @@ class Item:
     
     def set_image_id(self, value):
         c.execute(f"UPDATE items SET image_id=? WHERE id=?", [value, self.get_id()])
+        conn.commit()
 
     async def is_hide_image(self):
         if exists(f"images/{self.get_image_id()}"):

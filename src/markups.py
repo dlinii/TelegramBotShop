@@ -16,7 +16,7 @@ btnBackAdmin = types.InlineKeyboardButton(text=tt.back, callback_data="admin_adm
 # Item management
 btnBackItemManagement = types.InlineKeyboardButton(text=tt.back, callback_data="admin_itemManagement")
 btnBackEditCatChooseCategory = types.InlineKeyboardButton(text=tt.back, callback_data="admin_editCatChooseCategory")
-def btnBackEditCat(cat_id): return types.InlineKeyboardButton(text=tt.back, callback_data=f"admin_editCat{cat_id}")
+def btnBackEditCat(cat_id): return types.InlineKeyboardButton(text=tt.back, callback_data=f"admin_editBackCat{cat_id}")
 btnBackEditItemChooseCategory = types.InlineKeyboardButton(text=tt.back, callback_data="admin_editItemChooseCategory")
 def btnBackEditItemChooseItem(cat_id): return types.InlineKeyboardButton(text=tt.back, callback_data=f"admin_editItemChooseItem{cat_id}")
 def btnBackEditItem(item_id): return types.InlineKeyboardButton(text=tt.back, callback_data=f"admin_editItem{item_id}")
@@ -179,7 +179,8 @@ def get_markup_checkoutCartConfirmation():
 def get_markup_catalogue(cat_list):
     markup = types.InlineKeyboardMarkup()
     for cat in cat_list:
-        markup.add(types.InlineKeyboardButton(text=cat.get_name(), callback_data=f"viewCat{cat.get_id()}"))
+        if cat.is_active():
+            markup.add(types.InlineKeyboardButton(text=cat.get_name(), callback_data=f"viewCat{cat.get_id()}"))
     # markup.add(types.InlineKeyboardButton(text=tt.search, callback_data="search"))
     return markup
 
@@ -234,9 +235,11 @@ def get_markup_editCatChooseCategory(cat_list):
     return markup
 
 def get_markup_editCat(cat_id):
+    cat = category.Category(cat_id)
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton(text=tt.change_name, callback_data=f"admin_editCatName{cat_id}"))
     markup.add(types.InlineKeyboardButton(text=tt.change_image, callback_data=f"admin_editCatImage{cat_id}"))
+    markup.add(types.InlineKeyboardButton(text=(tt.hide if cat.is_active() else tt.show), callback_data=f"admin_editHideCat{cat_id}"))
     markup.add(types.InlineKeyboardButton(text=tt.delete, callback_data=f"admin_editCatDelete{cat_id}"))
     markup.add(btnBackEditCatChooseCategory)
     return markup
@@ -314,6 +317,7 @@ def get_markup_userManagement():
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton(text=tt.user_profile, callback_data="admin_seeUserProfile"))
     markup.add(types.InlineKeyboardButton(text=tt.notify_everyone, callback_data="admin_notifyEveryone"))
+    markup.add(types.InlineKeyboardButton(text=tt.refresh_messages, callback_data="admin_refreshMessages"))
     markup.add(btnBackAdmin)
     return markup
 
@@ -339,7 +343,7 @@ def get_markup_seeUserOrders(user):
     return markup
 
 def get_markup_seeUserOrder(order):
-    markup = markup = types.InlineKeyboardMarkup()
+    markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.processing), callback_data=f"admin_changeOrderStatusProcessing{order.get_order_id()}"))
     markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.delivery), callback_data=f"admin_changeOrderStatusDelivery{order.get_order_id()}"))
     markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.done), callback_data=f"admin_changeOrderStatusDone{order.get_order_id()}"))

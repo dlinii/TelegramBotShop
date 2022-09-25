@@ -72,6 +72,11 @@ class seeUserProfile(StatesGroup):
     state_message = State()
     user_id = State()
 
+class refreshMessages(StatesGroup):
+    state_message = State()
+    user_id = State()
+    msg_id = State()
+
 
 # Checkout
 class checkoutCart(StatesGroup):

@@ -4,14 +4,15 @@ import item as itm
 conn = sqlite3.connect("data.db")
 c = conn.cursor()
 
+
 class Category:
     def __init__(self, cat_id):
         self.id = cat_id
 
-    def __eq__(self, __o: object) -> bool:
-        return self.get_id() == __o.get_id()
+    # def __eq__(self, __o: object) -> bool:
+    #     return self.get_id() == __o.get_id()
 
-    def __repr__(self) -> str:
+    def __repr__(self):
         return self.get_name()
 
     def get_id(self):
@@ -32,12 +33,21 @@ class Category:
         return self.__clist()[2]
 
     def get_image(self):
-        if self.get_image_id() == "None":
-            return "None"
+        # if self.get_image_id() == "None":
+        #     return "None"
         return open("images/" + self.get_image_id(), "rb")
 
     def set_image_id(self, value):
         c.execute(f"UPDATE cats SET image_id=? WHERE id=?", [value, self.get_id()])
+        conn.commit()
+
+    def is_active(self):
+        return self.__clist()[3] == 1
+
+    def set_active(self, value):
+
+        c.execute(f"UPDATE cats SET active=? WHERE id=?", [value, self.get_id()])
+        conn.commit()
 
     def delete(self):
         c.execute(f"DELETE FROM cats WHERE id=?", [self.get_id()])
@@ -51,10 +61,10 @@ class Category:
 def get_cat_list():
     c.execute(f"SELECT * FROM cats")
     return list(map(Category, [cat[0] for cat in list(c)]))
-    
+
 
 def create_cat(cat_name, image_id):
-    c.execute(f"INSERT INTO cats(name, image_id) VALUES(?, ?)", [cat_name, image_id])
+    c.execute(f"INSERT INTO cats(name, image_id, active) VALUES(?, ?, ?)", [cat_name, image_id, 1])
     conn.commit()
 
 

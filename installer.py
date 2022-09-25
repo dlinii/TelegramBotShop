@@ -41,11 +41,12 @@ tickfontsize = 8
 
 CREATE_CATS_TEXT = """
 CREATE TABLE "cats" (
-	"id" INTEGER,
-	"name" TEXT NOT NULL,
-	"image_id" INTEGER,
+	"id"	INTEGER,
+	"name"	TEXT NOT NULL,
+	"image_id"	INTEGER,
+	"active"	INTEGER,
 	PRIMARY KEY("id")
-)
+);
 """
 CREATE_ITEMS_TEXT = """
 CREATE TABLE "items" (
