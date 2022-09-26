@@ -164,20 +164,20 @@ async def welcome(message: types.Message):
 
 
 @dp.message_handler()
-async def handle_text(message):
-    logging.info(f"MESSAGE [{message.chat.id}] {message.text}")
+async def handle_text(msg):
+    logging.info(f"MESSAGE [{msg.chat.id}] {msg.text}")
     if settings.is_debug():
-        print(f"DEBUG: MESSAGE [{message.chat.id}] {message.text}")
-    user = usr.User(message.chat.id)
-    user.set_first(message.from_user.first_name)
+        print(f"DEBUG: MESSAGE [{msg.chat.id}] {msg.text}")
+    user = usr.User(msg.chat.id)
+    user.set_first(msg.from_user.first_name)
     if user.is_cart_delivery() != 1:
         # new_message_id = message.message_id
         # print(message.message_id)
         # markupMain = types.ReplyKeyboardMarkup(resize_keyboard=True)
         # markupMain.add(types.KeyboardButton(tt.faq))
-        if message.text == tt.faq:
+        if msg.text == tt.faq:
             await bot.send_message(
-                chat_id=message.chat.id,
+                chat_id=msg.chat.id,
                 text=tt.get_faq_template(settings.get_shop_name()),
                 reply_markup=markups.get_markup_faq(),
             )
@@ -194,48 +194,48 @@ async def handle_text(message):
         #         print(f'Message_id does not exist: {new_message_id} - {error}')
         #     new_message_id = new_message_id - 1
     else:
-        if message.text == tt.admin_panel:
+        if msg.text == tt.admin_panel:
             if user.is_admin():
                 await bot.send_message(
-                    chat_id=message.chat.id,
+                    chat_id=msg.chat.id,
                     text=tt.admin_panel,
                     reply_markup=markups.get_markup_admin(),
                 )
-        elif message.text == tt.orders:
+        elif msg.text == tt.orders:
             if user.is_manager() or user.is_admin():
                 await bot.send_message(
-                    chat_id=message.chat.id,
+                    chat_id=msg.chat.id,
                     text=tt.orders,
                     reply_markup=markups.get_markup_orders()
                 )
-        elif message.text == tt.faq:
+        elif msg.text == tt.faq:
             await bot.send_message(
-                chat_id=message.chat.id,
+                chat_id=msg.chat.id,
                 text=tt.get_faq_template(settings.get_shop_name()),
                 reply_markup=markups.get_markup_faq(),
             )
-        elif message.text == tt.profile:
+        elif msg.text == tt.profile:
             await bot.send_message(
-                chat_id=message.chat.id,
+                chat_id=msg.chat.id,
                 text=tt.get_profile_template(user),
                 reply_markup=markups.get_markup_profile(user),
             )
-        elif message.text == tt.catalogue:
+        elif msg.text == tt.catalogue:
             ctg = catalogue.get_images_list()
 
             if ctg:
                 await bot.send_media_group(
-                    chat_id=message.chat.id,
+                    chat_id=msg.chat.id,
                     media=ctg
                 )
             await bot.send_message(
-                chat_id=message.chat.id,
+                chat_id=msg.chat.id,
                 text=tt.catalogue,
                 reply_markup=markups.get_markup_catalogue(category.get_cat_list()),
             )
-        elif message.text == tt.cart:
-            user.set_username(message.from_user.username)
-            user.set_first(message.from_user.first_name)
+        elif msg.text == tt.cart:
+            user.set_username(msg.from_user.username)
+            user.set_first(msg.from_user.first_name)
             if user.get_cart():
                 text = tt.cart
 
@@ -244,17 +244,17 @@ async def handle_text(message):
                 text = tt.cart_is_empty
                 markup = types.InlineKeyboardMarkup()
             await bot.send_message(
-                chat_id=message.chat.id,
+                chat_id=msg.chat.id,
                 text=text,
                 reply_markup=markup
             )
-        elif commands.does_command_exist(command=message.text):
+        elif commands.does_command_exist(command=msg.text):
             await bot.send_message(
-                chat_id=message.chat.id,
-                text=commands.get_command_by_command(message.text).get_response()
+                chat_id=msg.chat.id,
+                text=commands.get_command_by_command(msg.text).get_response()
             )
         else:
-            await bot.send_message(message.chat.id, 'Не могу понять команду :(')
+            await bot.send_message(msg.chat.id, 'Не могу понять команду :(')
 
 
 @dp.callback_query_handler()
@@ -1966,7 +1966,7 @@ async def process_callback(callback_query: types.CallbackQuery):
             order = ordr.Order(call_data[18:])
             result = await bot.send_message(
                 chat_id=chat_id,
-                text=f"Начат поиск ссобщений пользователя с id: {order.get_user_id()}",
+                text=f"Начат поиск сообщений пользователя с id: {order.get_user_id()}",
             )
             try:
                 user_and_msg_list = order.get_notif_adm_msg_list()[0]
@@ -2940,7 +2940,7 @@ async def refreshMessagesSetMsgID(message: types.Message, state: FSMContext):
     user_id = data["user_id"]
     result = await bot.send_message(
         chat_id=message.chat.id,
-        text=f"Начат поиск ссобщений пользователя с id: {user_id}",
+        text=f"Начат поиск сообщений пользователя с id: {user_id}",
         reply_markup=markups.single_button(markups.btnBackUserManagement),
     )
     try:
@@ -3154,12 +3154,12 @@ async def checkoutCartSetPhoneNumber(message: types.Message, state: FSMContext):
 
 
 @dp.message_handler(state=state_handler.checkoutCart.home_adress)
-async def checkoutCartSetHomeAdress(message: types.Message, state: FSMContext):
+async def checkoutCartSetHomeAddress(msg: types.Message, state: FSMContext):
     state = Dispatcher.get_current().current_state()
     data = await state.get_data()
-    await state.update_data(home_adress=message.text)
+    await state.update_data(home_adress=msg.text)
     await bot.send_message(
-        chat_id=message.chat.id,
+        chat_id=msg.chat.id,
         text=f"Введите комментарий к заказу {tt.or_press_back}",
         reply_markup=markups.single_button(markups.btnBackCart),
     )

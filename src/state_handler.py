@@ -1,4 +1,3 @@
-from urllib import response
 from aiogram.dispatcher.filters.state import StatesGroup, State
 
 # Item management
