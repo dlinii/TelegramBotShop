@@ -543,9 +543,12 @@ def get_markup_seeOrder(order, user_id=None):
         markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.done), callback_data=f"manager_changeOrderStatusDone{order.get_order_id()}"))
     if order.get_status() != -1:
         markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.cancelled), callback_data=f"manager_changeOrderStatusCancel{order.get_order_id()}"))
-    markup.add(types.InlineKeyboardButton(text=tt.send_msg, callback_data=f"manager_sendMsgForOrder{order.get_order_id()}"))
     if order.get_status() == 1:
-        markup.add(types.InlineKeyboardButton(text=tt.change_order_item, callback_data=f"manager_changeOrderItem{order.get_order_id()}"))
+        markup.add(types.InlineKeyboardButton(text=tt.send_msg,
+                                              callback_data=f"manager_sendMsgForOrder{order.get_order_id()}"))
+        if order.get_email_adress() is None:
+            markup.add(types.InlineKeyboardButton(text=tt.forward_msg,
+                                                  callback_data=f"manager_forwardMsgForOrder{order.get_order_id()}"))
     markup.add(btnBackSeeUserOrders(user_id) if user_id else btnBackOrders)
     return markup
 
@@ -559,8 +562,10 @@ def get_markup_seeNewOrder(order, user_id=None):
         markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.done), callback_data=f"manager_changeOrderStatusDone{order.get_order_id()}"))
     if order.get_status() != -1:
         markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.cancelled), callback_data=f"manager_changeOrderStatusCancel{order.get_order_id()}"))
-
-    markup.add(types.InlineKeyboardButton(text=tt.send_msg, callback_data=f"manager_sendMsgForOrder{order.get_order_id()}"))
+    if order.get_status() == 1:
+        markup.add(types.InlineKeyboardButton(text=tt.send_msg, callback_data=f"manager_sendMsgForOrder{order.get_order_id()}"))
+        if order.get_email_adress() is None:
+            markup.add(types.InlineKeyboardButton(text=tt.forward_msg, callback_data=f"manager_forwardMsgForOrder{order.get_order_id()}"))
     return markup
 
 def get_markup_orders():

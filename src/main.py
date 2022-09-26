@@ -1962,6 +1962,43 @@ async def process_callback(callback_query: types.CallbackQuery):
                 await bot.answer_callback_query(callback_query_id=callback_query.id,
                                                 text='Сообщение не было отправлено!')
 
+        elif call_data.startswith("forwardMsgForOrder"):
+            order = ordr.Order(call_data[18:])
+            result = await bot.send_message(
+                chat_id=chat_id,
+                text=f"Начат поиск ссобщений пользователя с id: {order.get_user_id()}",
+            )
+            try:
+                user_and_msg_list = order.get_notif_adm_msg_list()[0]
+                print(f"user_and_msg_list = {user_and_msg_list}")
+                msg_id_old = int(user_and_msg_list.split(":")[1]) - 50
+                print(f"msg_id_old = {msg_id_old}")
+                for i in range(50):
+                    print(msg_id_old + i)
+                    try:
+                        await bot.forward_message(
+                            chat_id=chat_id,
+                            from_chat_id=order.get_user_id(),
+                            message_id=msg_id_old + i
+                        )
+                    except:
+                        print("not found")
+                await bot.delete_message(
+                    message_id=result.message_id,
+                    chat_id=chat_id
+                )
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=f"Поиск завершен!",
+                )
+            except Exception as e:
+                await bot.answer_callback_query(callback_query_id=callback_query.id,
+                                                text='Ошибка поиска сообщений!')
+                logging.warning(f"SENT EXCEPTION(error admin_refreshMessages): {e}")
+
+                await bot.answer_callback_query(callback_query_id=callback_query.id,
+                                                text='Сообщение отправлено!')
+
         elif call_data.startswith("changeOrderItem"):
             order = ordr.Order(call_data[15:])
             text = tt.change_order_item
@@ -2901,14 +2938,14 @@ async def refreshMessagesSetMsgID(message: types.Message, state: FSMContext):
         chat_id=message.chat.id
     )
     user_id = data["user_id"]
-    await bot.send_message(
+    result = await bot.send_message(
         chat_id=message.chat.id,
         text=f"Начат поиск ссобщений пользователя с id: {user_id}",
         reply_markup=markups.single_button(markups.btnBackUserManagement),
     )
     try:
-        msg_id_old = int(message.text) - 200
-        for i in range(200):
+        msg_id_old = int(message.text) - 500
+        for i in range(500):
             print(i)
             try:
                 await bot.forward_message(
@@ -2918,6 +2955,16 @@ async def refreshMessagesSetMsgID(message: types.Message, state: FSMContext):
                 )
             except:
                 print("not found")
+
+        await bot.delete_message(
+            message_id=result.message_id,
+            chat_id=message.chat.id
+        )
+        await bot.send_message(
+            chat_id=message.chat.id,
+            text=f"Поиск завершен!",
+            reply_markup=markups.single_button(markups.btnBackUserManagement),
+        )
     except Exception as e:
         await bot.answer_callback_query(callback_query_id=message.chat.id,
                                         text='Ошибка поиска сообщений!')
