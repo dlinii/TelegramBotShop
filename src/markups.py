@@ -718,6 +718,8 @@ def get_markup_seeOrder(order, user_id=None):
     if order.get_status() == 1:
         markup.add(types.InlineKeyboardButton(text=tt.send_msg,
                                               callback_data=f"manager_sendMsgForOrder{order.get_order_id()}"))
+        markup.add(types.InlineKeyboardButton(text=tt.change_order_item,
+                                              callback_data=f"manager_changeOrderItem{order.get_order_id()}"))
         if order.get_email_adress() is None:
             markup.add(types.InlineKeyboardButton(text=tt.forward_msg,
                                                   callback_data=f"manager_forwardMsgForOrder{order.get_order_id()}"))
@@ -742,6 +744,8 @@ def get_markup_seeNewOrder(order):
     if order.get_status() == 1:
         markup.add(types.InlineKeyboardButton(text=tt.send_msg,
                                               callback_data=f"manager_sendMsgForOrder{order.get_order_id()}"))
+        markup.add(types.InlineKeyboardButton(text=tt.change_order_item,
+                                              callback_data=f"manager_changeOrderItem{order.get_order_id()}"))
         if order.get_email_adress() is None:
             markup.add(types.InlineKeyboardButton(text=tt.forward_msg,
                                                   callback_data=f"manager_forwardMsgForOrder{order.get_order_id()}"))
