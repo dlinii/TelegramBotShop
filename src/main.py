@@ -1766,12 +1766,13 @@ async def process_callback(callback_query: types.CallbackQuery):
 
         elif call_data.startswith("orderChanged"):
             order = ordr.Order(call_data[12:])
-            await bot.edit_message_text(
-                text=tt.get_order_template(order),
-                chat_id=chat_id,
-                message_id=callback_query.message.message_id,
-                reply_markup=markups.get_markup_seeOrder(order)
-            )
+            if order.get_item_list_amount() != "None":
+                await bot.edit_message_text(
+                    text=tt.get_order_template(order),
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    reply_markup=markups.get_markup_seeOrder(order)
+                )
         elif call_data.startswith("addToOrderFromOrder"):
             order_id_and_item_id = call_data[19:]
             order = ordr.Order(order_id_and_item_id.split("_")[0])
@@ -2002,7 +2003,9 @@ async def process_callback(callback_query: types.CallbackQuery):
         elif call_data.startswith("changeOrderItem"):
             order = ordr.Order(call_data[15:])
             text = tt.change_order_item
-
+            if order.get_item_list_amount() == "None":
+                await bot.answer_callback_query(callback_query_id=callback_query.id,
+                                                text='Добавьте товар в заказ!')
             markup = markups.get_markup_change_order_item(order)
             try:
                 await bot.edit_message_text(
@@ -3599,86 +3602,87 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
             )
             await state_handler.checkoutCart.captcha.set()
         elif call_data == "checkoutCartConfirm":
-            while True:
-                order_id = randint(100000, 999999)
-                if not ordr.does_order_exist(order_id):
-                    break
-            user_id = data["user_id"]
-            item_list_comma = user.get_cart_comma()
-            email = data["username"]
-            is_check_order = 1
-            text = f"{tt.line_separator}\nНе удалось оформить заказ!\n"
-            additional_message = data["additional_message"]
-            phone_number = data["phone_number"] if settings.is_phone_number_enabled() else None
-            home_adress = data["home_adress"] if settings.is_delivery_enabled() and user.is_cart_delivery() else None
-            for item in itm.get_item_list():
-                if item.get_amount() - user.get_count_item_cart_for_id(str(item.get_id())) >= 0:
-                    item.set_amount(item.get_amount() - user.get_count_item_cart_for_id(str(item.get_id())))
-                    if item.is_active() and item.get_amount() == 0:
-                        item.set_active(0)
+            if user.get_cart_comma() != "None":
+                while True:
+                    order_id = randint(100000, 999999)
+                    if not ordr.does_order_exist(order_id):
+                        break
+                user_id = data["user_id"]
+                item_list_comma = user.get_cart_comma()
+                email = data["username"]
+                is_check_order = 1
+                text = f"{tt.line_separator}\nНе удалось оформить заказ!\n"
+                additional_message = data["additional_message"]
+                phone_number = data["phone_number"] if settings.is_phone_number_enabled() else None
+                home_adress = data["home_adress"] if settings.is_delivery_enabled() and user.is_cart_delivery() else None
+                for item in itm.get_item_list():
+                    if item.get_amount() - user.get_count_item_cart_for_id(str(item.get_id())) >= 0:
+                        item.set_amount(item.get_amount() - user.get_count_item_cart_for_id(str(item.get_id())))
+                        if item.is_active() and item.get_amount() == 0:
+                            item.set_active(0)
+                    else:
+                        is_check_order = 0
+                        text = text.__add__(f"\n· {item.get_name()} осталось {item.get_amount()} шт.")
+
+                text = text.__add__(
+                    f"\n\n Пожалуйста измените количество выбранного товара или замените товар.\n{tt.line_separator}")
+                if is_check_order:
+                    try:
+
+                        order = ordr.create_order(order_id, user_id, item_list_comma, email, additional_message,
+                                                  phone_number=phone_number, home_adress=home_adress)
+                        user.clear_cart()
+                        text = f"Заказ с ID {order.get_order_id()} был успешно создан.\nСпасибо за заказ! Наш менеджер свяжется с вами в ближайшее время."
+                        notif_adm_msg = ""
+                        for user in usr.get_notif_list():
+                            try:
+                                result = await bot.send_message(
+                                    chat_id=user.get_id(),
+                                    text=f"Новый заказ:\n{tt.get_order_template(order)}",
+                                    reply_markup=markups.get_markup_seeNewOrder(order)
+                                )
+                                notif_adm_msg = notif_adm_msg.__add__(
+                                    f"{user.get_id()}:{result.message_id}" if notif_adm_msg == "" else f",{user.get_id()}:{result.message_id}")
+                            except Exception as e:
+                                logging.warning(f"FAIL MESSAGE TO [{user.get_id()}]")
+                                if settings.is_debug():
+                                    print(f"DEBUG: FAIL MESSAGE TO [{user.get_id()}]")
+                        # print(notif_adm_msg)
+                        order.set_notif_adm_msg_str(notif_adm_msg)
+                    except Exception as e:
+                        logging.warning(f"SENT EXCEPTION(error create order): {e}")
+                        text = tt.error
+                    await bot.delete_message(
+                        message_id=callback_query.message.message_id,
+                        chat_id=chat_id
+                    )
+                    await bot.send_message(
+                        chat_id=chat_id,
+                        text=text,
+                        reply_markup=markups.single_button(markups.btnBackCart),
+                    )
                 else:
-                    is_check_order = 0
-                    text = text.__add__(f"\n· {item.get_name()} осталось {item.get_amount()} шт.")
+                    await bot.delete_message(
+                        message_id=callback_query.message.message_id,
+                        chat_id=chat_id
+                    )
+                    await bot.send_message(
+                        chat_id=chat_id,
+                        text=text,
+                    )
+                    if user.get_cart():
+                        text = tt.cart
 
-            text = text.__add__(
-                f"\n\n Пожалуйста измените количество выбранного товара или замените товар.\n{tt.line_separator}")
-            if is_check_order:
-                try:
-
-                    order = ordr.create_order(order_id, user_id, item_list_comma, email, additional_message,
-                                              phone_number=phone_number, home_adress=home_adress)
-                    user.clear_cart()
-                    text = f"Заказ с ID {order.get_order_id()} был успешно создан.\nСпасибо за заказ! Наш менеджер свяжется с вами в ближайшее время."
-                    notif_adm_msg = ""
-                    for user in usr.get_notif_list():
-                        try:
-                            result = await bot.send_message(
-                                chat_id=user.get_id(),
-                                text=f"Новый заказ:\n{tt.get_order_template(order)}",
-                                reply_markup=markups.get_markup_seeNewOrder(order)
-                            )
-                            notif_adm_msg = notif_adm_msg.__add__(
-                                f"{user.get_id()}:{result.message_id}" if notif_adm_msg == "" else f",{user.get_id()}:{result.message_id}")
-                        except Exception as e:
-                            logging.warning(f"FAIL MESSAGE TO [{user.get_id()}]")
-                            if settings.is_debug():
-                                print(f"DEBUG: FAIL MESSAGE TO [{user.get_id()}]")
-                    # print(notif_adm_msg)
-                    order.set_notif_adm_msg_str(notif_adm_msg)
-                except Exception as e:
-                    logging.warning(f"SENT EXCEPTION(error create order): {e}")
-                    text = tt.error
-                await bot.delete_message(
-                    message_id=callback_query.message.message_id,
-                    chat_id=chat_id
-                )
-                await bot.send_message(
-                    chat_id=chat_id,
-                    text=text,
-                    reply_markup=markups.single_button(markups.btnBackCart),
-                )
-            else:
-                await bot.delete_message(
-                    message_id=callback_query.message.message_id,
-                    chat_id=chat_id
-                )
-                await bot.send_message(
-                    chat_id=chat_id,
-                    text=text,
-                )
-                if user.get_cart():
-                    text = tt.cart
-
-                    markup = markups.get_markup_cart(user)
-                else:
-                    text = tt.cart_is_empty
-                    markup = types.InlineKeyboardMarkup()
-                await bot.send_message(
-                    chat_id=chat_id,
-                    text=text,
-                    reply_markup=markup
-                )
-            await state.finish()
+                        markup = markups.get_markup_cart(user)
+                    else:
+                        text = tt.cart_is_empty
+                        markup = types.InlineKeyboardMarkup()
+                    await bot.send_message(
+                        chat_id=chat_id,
+                        text=text,
+                        reply_markup=markup
+                    )
+                await state.finish()
 
 
 async def background_runner():

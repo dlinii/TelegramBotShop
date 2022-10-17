@@ -192,27 +192,33 @@ def get_markup_cart(user):
 
 def get_markup_change_order_item(order):
     markup = types.InlineKeyboardMarkup()
-    for item_and_amount in order.get_item_list_amount():
-        order_id_and_item_id = f"{order.get_order_id()}_{str(item_and_amount[0].get_id())}"
-        cat = category.Category(item_and_amount[0].get_cat_id())
-        cat_name = cat.get_name() if len(cat.get_name()) < 15 else (cat.get_name()[:12] + "...")
-        item_name = item_and_amount[0].get_name() if len(item_and_amount[0].get_name()) < 24 else (
-                item_and_amount[0].get_name()[:21] + "...")
-        text = f"{cat_name} - {item_and_amount[0].get_name()} ({item_and_amount[1]}шт.)"
-        if len(text) > 47:
-            text = f"{cat_name} - {item_name} ({item_and_amount[1]}шт.)"
-        markup.add(types.InlineKeyboardButton(text=text, callback_data=f"viewItem{item_and_amount[0].get_id()}"))
-        markup.add(types.InlineKeyboardButton(text=f"{item_and_amount[0].get_price() * item_and_amount[1]}руб.",
-                                              callback_data="None"), types.InlineKeyboardButton(text=tt.plus,
-                                                                                                callback_data=f"manager_addToOrderFromOrder{order_id_and_item_id}"),
-                   types.InlineKeyboardButton(text=tt.minus,
-                                              callback_data=f"manager_removeFromOrderFromOrder{order_id_and_item_id}"))
+    if order.get_item_list_amount() != "None":
+        for item_and_amount in order.get_item_list_amount():
+            order_id_and_item_id = f"{order.get_order_id()}_{str(item_and_amount[0].get_id())}"
+            cat = category.Category(item_and_amount[0].get_cat_id())
+            cat_name = cat.get_name() if len(cat.get_name()) < 15 else (cat.get_name()[:12] + "...")
+            item_name = item_and_amount[0].get_name() if len(item_and_amount[0].get_name()) < 24 else (
+                    item_and_amount[0].get_name()[:21] + "...")
+            text = f"{cat_name} - {item_and_amount[0].get_name()} ({item_and_amount[1]}шт.)"
+            if len(text) > 47:
+                text = f"{cat_name} - {item_name} ({item_and_amount[1]}шт.)"
+            markup.add(types.InlineKeyboardButton(text=text, callback_data=f"viewItem{item_and_amount[0].get_id()}"))
+            markup.add(types.InlineKeyboardButton(text=f"{item_and_amount[0].get_price() * item_and_amount[1]}руб.",
+                                                  callback_data="None"), types.InlineKeyboardButton(text=tt.plus,
+                                                                                                    callback_data=f"manager_addToOrderFromOrder{order_id_and_item_id}"),
+                       types.InlineKeyboardButton(text=tt.minus,
+                                                  callback_data=f"manager_removeFromOrderFromOrder{order_id_and_item_id}"))
+    else:
+        markup.add(types.InlineKeyboardButton(text=f"Заказ пуст...",
+                                              callback_data="None"))
 
     markup.add(types.InlineKeyboardButton(text=tt.add_item_from_order,
                                           callback_data=f"manager_addItemFromOrder{order.get_order_id()}"))
-    markup.add(types.InlineKeyboardButton(text=f"Всего: {'{:.2f}'.format(order.get_item_list_price())}руб.",
-                                          callback_data="None"))
-    markup.add(types.InlineKeyboardButton(text=tt.back, callback_data=f"manager_orderChanged{order.get_order_id()}"))
+    if order.get_item_list_amount() != "None":
+        markup.add(types.InlineKeyboardButton(text=f"Всего: {'{:.2f}'.format(order.get_item_list_price())}руб.",
+                                              callback_data="None"))
+
+    markup.add(types.InlineKeyboardButton(text=tt.back, callback_data=(f"manager_orderChanged{order.get_order_id()}" if order.get_item_list_amount() != "None" else f"manager_changeOrderItem{order.get_order_id()}")))
     return markup
 
 

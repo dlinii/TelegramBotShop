@@ -30,7 +30,12 @@ class Order:
         return self.__clist()[2]
     
     def get_item_list(self):
-        return list(map(itm.Item, [item_id for item_id in self.get_item_list_raw().split(",")]))
+        lst = self.get_item_list_raw().split(",")
+        filter_list = []
+        for item_list in lst:
+            if item_list != "None":
+                filter_list.append(str(item_list))
+        return list(map(itm.Item, [item_id for item_id in filter_list]))
 
     def get_count_item_list(self, item_id):
         items = self.get_item_list()

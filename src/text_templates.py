@@ -51,8 +51,11 @@ def get_order_confirmation_template(item_amount_dict, cart_price, additional_mes
 
 
 def get_order_template(order):
-    item_list_amount_formatted = '\n'.join(
-        [f'\t· {category.Category(item[0].get_cat_id())} - {item[0].get_name()} ({item[1]} шт.)' for item in order.get_item_list_amount()])
+    if order.get_item_list_amount() is None:
+        item_list_amount_formatted = "-"
+    else:
+        item_list_amount_formatted = '\n'.join(
+            [f'\t· {category.Category(item[0].get_cat_id())} - {item[0].get_name()} ({item[1]} шт.)' for item in order.get_item_list_amount()])
     phone_number = f"Номер телефона: {order.get_phone_number()}\n" if settings.is_phone_number_enabled() else ""
     home_adress = f"Адрес доставки: {order.get_home_adress()}\n" if settings.is_delivery_enabled() else ""
     additional_message = f"Комментарий к заказу: {order.get_additional_message()}\n" if order.get_additional_message() else ""
