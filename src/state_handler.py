@@ -85,11 +85,11 @@ class checkoutCart(StatesGroup):
     order_id = State()
     
     # Required
-    email = State()
     additional_message = State()
     confirmation = State()
 
     # Additional
+    email = State()
     phone_number = State()
     home_adress = State()
     captcha = State()

@@ -104,6 +104,12 @@ class Settings:
     def set_delivery(self, value):
         self.__set_setting("shop_settings", "enabledelivery", value)
         
+    def is_email_enabled(self):
+        return self.__get_config()["shop_settings"]["enableemail"] == "1"
+    
+    def set_email(self, value):
+        self.__set_setting("shop_settings", "enableemail", value)
+        
     def get_delivery_price(self):
         return float(self.__get_config()["shop_settings"]["delivery_price"])
     
@@ -164,6 +170,7 @@ enableimagetype = 1
 enablesticker = 0
 enablephonenumber = 0
 enabledelivery = 0
+enableemail = 0
 delivery_price = 0.0
 enablecaptcha = 1
 

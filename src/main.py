@@ -1219,6 +1219,8 @@ async def process_callback(callback_query: types.CallbackQuery):
                         settings.set_enable_phone_number("0" if settings.is_phone_number_enabled() else "1")
                     case "Delivery":
                         settings.set_delivery("0" if settings.is_delivery_enabled() else "1")
+                    case "Email":
+                        settings.set_email("0" if settings.is_email_enabled() else "1")
                     case "Captcha":
                         settings.set_enable_captcha("0" if settings.is_captcha_enabled() else "1")
                 text = tt.checkout_settings
@@ -2406,16 +2408,31 @@ async def process_callback(callback_query: types.CallbackQuery):
             text = text.__add__(
                 f"\n\n Пожалуйста измените количество выбранного товара или замените товар.\n{tt.line_separator}")
             if is_check_order:
+                if settings.is_email_enabled():
+                    _text = f"Введите ваш Email адрес {tt.or_press_back}"
+                    markup = markups.single_button(markups.btnBackCart)
+                    await state_handler.checkoutCart.email.set()
+                elif settings.is_phone_number_enabled():
+                    _text = f"Введите ваш номер телефона {tt.or_press_back}"
+                    markup = markups.single_button(markups.btnBackCart)
+                    await state_handler.checkoutCart.phone_number.set()
+                elif settings.is_delivery_enabled() and user.is_cart_delivery():
+                    _text = f"Введите адрес доставки {tt.or_press_back}"
+                    markup = markups.single_button(markups.btnBackCart)
+                    await state_handler.checkoutCart.home_adress.set()
+                else:
+                    _text = f"Введите комментарий к заказу {tt.or_press_back}"
+                    markup = markups.get_markup_comment()
+                    await state_handler.checkoutCart.additional_message.set()
                 await bot.edit_message_text(
                     chat_id=chat_id,
                     message_id=callback_query.message.message_id,
                     # text=f"Введите ваш Email адрес {tt.or_press_back}",
-                    text=f"Введите комментарий к заказу",
-                    reply_markup=markups.get_markup_comment(),
+                    text=_text,
+                    reply_markup=markup,
                 )
-
                 # await state_handler.checkoutCart.email.set()
-                await state_handler.checkoutCart.additional_message.set()
+                # await state_handler.checkoutCart.additional_message.set()
                 state = Dispatcher.get_current().current_state()
                 await state.update_data(state_message=callback_query.message.message_id)
                 await state.update_data(user_id=chat_id)
@@ -3114,12 +3131,15 @@ async def checkoutCartSetEmail(message: types.Message, state: FSMContext):
         await state.update_data(email=message.text)
         if settings.is_phone_number_enabled():
             text = f"Введите ваш номер телефона {tt.or_press_back}"
+            markup=markups.single_button(markups.btnBackCart)
             await state_handler.checkoutCart.phone_number.set()
         elif settings.is_delivery_enabled() and user.is_cart_delivery():
             text = f"Введите адрес доставки {tt.or_press_back}"
+            markup=markups.single_button(markups.btnBackCart)
             await state_handler.checkoutCart.home_adress.set()
         else:
             text = f"Введите комментарий к заказу {tt.or_press_back}"
+            markup = markups.get_markup_comment()
             await state_handler.checkoutCart.additional_message.set()
     else:
         text = f"\"{message.text}\" не является действительным Email адресом."
@@ -3127,7 +3147,7 @@ async def checkoutCartSetEmail(message: types.Message, state: FSMContext):
     await bot.send_message(
         chat_id=message.chat.id,
         text=text,
-        reply_markup=markups.single_button(markups.btnBackCart),
+        reply_markup=markup,
     )
 
 
@@ -3139,9 +3159,11 @@ async def checkoutCartSetPhoneNumber(message: types.Message, state: FSMContext):
         await state.update_data(phone_number=message.text)
         if settings.is_delivery_enabled() and user.is_cart_delivery():
             text = f"Введите адрес доставки {tt.or_press_back}"
+            markup = markups.single_button(markups.btnBackCart)
             await state_handler.checkoutCart.home_adress.set()
         else:
             text = f"Введите комментарий к заказу {tt.or_press_back}"
+            markup = markups.get_markup_comment()
             await state_handler.checkoutCart.additional_message.set()
     else:
         text = f"\"{message.text}\" не является действительным номером телефона."
@@ -3149,7 +3171,7 @@ async def checkoutCartSetPhoneNumber(message: types.Message, state: FSMContext):
     await bot.send_message(
         chat_id=message.chat.id,
         text=text,
-        reply_markup=markups.single_button(markups.btnBackCart),
+        reply_markup=markup,
     )
 
 
@@ -3161,7 +3183,7 @@ async def checkoutCartSetHomeAddress(msg: types.Message, state: FSMContext):
     await bot.send_message(
         chat_id=msg.chat.id,
         text=f"Введите комментарий к заказу {tt.or_press_back}",
-        reply_markup=markups.single_button(markups.btnBackCart),
+        reply_markup=markups.get_markup_comment(),
     )
     await state_handler.checkoutCart.additional_message.set()
 
@@ -3556,20 +3578,31 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
             user = usr.User(chat_id)
             await state.update_data(username=user.get_username())
             await state.update_data(additional_message="")
-            await bot.delete_message(
-                message_id=callback_query.message.message_id,
-                chat_id=chat_id
-            )
-            await bot.send_message(
-                chat_id=chat_id,
-                text=tt.get_order_confirmation_template(item_amount_dict=user.get_cart_amount(),
-                                                        cart_price=user.get_cart_price(),
-                                                        additional_message=None, phone_number=data[
-                        "phone_number"] if settings.is_phone_number_enabled() else None, home_adress=data[
-                        "home_adress"] if settings.is_delivery_enabled() and user.is_cart_delivery() else None),
-                reply_markup=markups.get_markup_checkoutCartConfirmation(),
-            )
-            await state_handler.checkoutCart.confirmation.set()
+            if settings.is_captcha_enabled():
+                captcha_text = get_captcha_text()
+                await state.update_data(captcha=captcha_text)
+                await bot.send_photo(
+                    chat_id=chat_id,
+                    caption=f"Введите текст с картинки для подтверждения заказа.",
+                    photo=generate_captcha(captcha_text),
+                    reply_markup=markups.get_markup_captcha()
+                )
+                await state_handler.checkoutCart.captcha.set()
+            else:
+                await bot.delete_message(
+                    message_id=callback_query.message.message_id,
+                    chat_id=chat_id
+                )
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=tt.get_order_confirmation_template(item_amount_dict=user.get_cart_amount(),
+                                                            cart_price=user.get_cart_price(),
+                                                            additional_message=None, phone_number=data[
+                            "phone_number"] if settings.is_phone_number_enabled() else None, home_adress=data[
+                            "home_adress"] if settings.is_delivery_enabled() and user.is_cart_delivery() else None),
+                    reply_markup=markups.get_markup_checkoutCartConfirmation(),
+                )
+                await state_handler.checkoutCart.confirmation.set()
         elif call_data == "cart":
             if user.get_cart():
                 text = tt.cart

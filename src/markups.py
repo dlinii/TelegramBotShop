@@ -551,6 +551,9 @@ def get_markup_checkoutSettings():
     markup.add(
         types.InlineKeyboardButton(text=tt.disable_delivery if settings.is_delivery_enabled() else tt.enable_delivery,
                                    callback_data="admin_changeEnableDelivery"))
+    markup.add(
+        types.InlineKeyboardButton(text=tt.disable_email if settings.is_email_enabled() else tt.enable_email,
+                                   callback_data="admin_changeEnableEmail"))
     markup.add(types.InlineKeyboardButton(
         text=tt.disable_phone_number if settings.is_phone_number_enabled() else tt.enable_phone_number,
         callback_data="admin_changeEnablePhoneNumber"))
