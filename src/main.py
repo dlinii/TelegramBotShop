@@ -35,6 +35,7 @@ c = conn.cursor()
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s:%(levelname)s:%(message)s",
                     filename=f"logs/{datetime.date.today().strftime('%d-%m-%Y')}.log")
+dateForLogs = datetime.date.today().strftime("%d-%m-%Y")
 settings = Settings()
 
 storage = MemoryStorage()
@@ -43,7 +44,7 @@ dp = Dispatcher(bot, storage=storage)
 
 
 # Create a backup folder + copy the needed files there
-def create_backup():
+async def create_backup():
     folder_path = "backups/" + datetime.date.today().strftime("%d-%m-%Y")
     if folder_path[8:] in listdir("backups"):
         for file in listdir(folder_path):
@@ -52,6 +53,20 @@ def create_backup():
     mkdir(folder_path)
     copyfile("config.ini", folder_path + "/config.ini")
     copyfile("data.db", folder_path + "/data.db")
+    await bot.send_document(
+        chat_id=settings.get_main_admin_id(),
+        document=open(folder_path + "/data.db", 'rb'),
+        caption="Лови, пупсик😘!"
+    )
+    await bot.send_document(
+        chat_id=settings.get_main_admin_id(),
+        document=open(folder_path + "/config.ini", 'rb'),
+        caption=datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+    )
+    await bot.send_document(
+        chat_id=settings.get_main_admin_id(),
+        document=open("logs/" + dateForLogs + ".log", 'rb')
+    )
     logging.info("backup created")
     print("Backup created!")
 
@@ -3688,7 +3703,7 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
 async def background_runner():
     while True:
         if not exists("backups/" + datetime.date.today().strftime("%d-%m-%Y")):
-            create_backup()
+            await create_backup()
         await asyncio.sleep(60)
 
 
