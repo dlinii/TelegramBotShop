@@ -1,9 +1,7 @@
 /images
-data.db
 *.pyc
 *.pyd
 sticker.tgs
-config.ini
 src/test.py
 aws.sh
 KP.pem
