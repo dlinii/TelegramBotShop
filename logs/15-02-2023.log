@@ -1,0 +1,2603 @@
+2022-09-06 01:37:48,075:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 01:37:49,244:WARNING:Updates were skipped successfully.
+2022-09-06 01:37:49,244:INFO:backup created
+2022-09-06 01:37:49,245:INFO:Start polling.
+2022-09-06 01:37:55,362:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 01:38:00,132:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 01:38:01,675:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 01:38:02,854:INFO:CALL [461924047] admin_addCat
+2022-09-06 01:38:27,982:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 01:38:29,176:INFO:CALL [461924047] admin_addCat
+2022-09-06 01:38:34,768:INFO:CALL [461924047] admin_skipSetAddCatSetImage (STATE)
+2022-09-06 01:38:34,769:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-50' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=AttributeError("module 'aiogram.types.message' has no attribute 'chat'")>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 283, in process_update
+    return await self.callback_query_handlers.notify(update.callback_query)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 2443, in cancelState
+    chat_id=message.chat.id
+AttributeError: module 'aiogram.types.message' has no attribute 'chat'
+2022-09-06 01:38:40,647:INFO:CALL [461924047] admin_itemManagement (STATE)
+2022-09-06 01:38:42,094:INFO:CALL [461924047] admin_addCat
+2022-09-06 01:39:08,447:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 01:39:09,448:INFO:CALL [461924047] admin_addCat
+2022-09-06 01:40:21,775:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 01:40:24,340:INFO:CALL [461924047] admin_adminPanel
+2022-09-06 01:40:28,255:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 01:42:13,987:INFO:Stop polling...
+2022-09-06 01:42:13,988:WARNING:Goodbye!
+2022-09-06 01:42:16,390:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 01:42:17,529:WARNING:Updates were skipped successfully.
+2022-09-06 01:42:17,529:INFO:Start polling.
+2022-09-06 01:42:17,672:INFO:MESSAGE [461924047] 📁 Заказы
+2022-09-06 01:42:18,619:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 01:42:28,165:INFO:Stop polling...
+2022-09-06 01:42:28,165:WARNING:Goodbye!
+2022-09-06 01:42:30,103:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 01:42:30,238:WARNING:Updates were skipped successfully.
+2022-09-06 01:42:30,238:INFO:Start polling.
+2022-09-06 01:42:30,373:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 01:42:31,756:INFO:CALL [461924047] admin_addCat
+2022-09-06 01:42:44,479:INFO:Stop polling...
+2022-09-06 01:42:44,479:WARNING:Goodbye!
+2022-09-06 01:42:46,466:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 01:42:46,617:WARNING:Updates were skipped successfully.
+2022-09-06 01:42:46,617:INFO:Start polling.
+2022-09-06 01:42:46,781:INFO:MESSAGE [461924047] sdf
+2022-09-06 01:42:50,610:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 01:42:52,226:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 01:42:53,177:INFO:CALL [461924047] admin_addCat
+2022-09-06 01:44:57,368:INFO:Stop polling...
+2022-09-06 01:44:57,369:WARNING:Goodbye!
+2022-09-06 01:44:59,711:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 01:44:59,859:WARNING:Updates were skipped successfully.
+2022-09-06 01:44:59,859:INFO:Start polling.
+2022-09-06 01:45:00,004:INFO:MESSAGE [461924047] adsdas
+2022-09-06 01:45:09,890:INFO:Stop polling...
+2022-09-06 01:45:09,890:WARNING:Goodbye!
+2022-09-06 01:45:11,987:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 01:45:12,121:WARNING:Updates were skipped successfully.
+2022-09-06 01:45:12,121:INFO:Start polling.
+2022-09-06 01:45:12,263:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 01:45:13,559:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 01:45:14,399:INFO:CALL [461924047] admin_addCat
+2022-09-06 01:46:42,869:INFO:Stop polling...
+2022-09-06 01:46:42,869:WARNING:Goodbye!
+2022-09-06 01:46:44,954:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 01:46:45,104:WARNING:Updates were skipped successfully.
+2022-09-06 01:46:45,104:INFO:Start polling.
+2022-09-06 01:46:45,259:INFO:CALL [461924047] admin_skipSetAddCatSetImage
+2022-09-06 01:46:51,332:INFO:Stop polling...
+2022-09-06 01:46:51,333:WARNING:Goodbye!
+2022-09-06 01:46:58,812:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 01:46:59,485:WARNING:Updates were skipped successfully.
+2022-09-06 01:46:59,485:INFO:Start polling.
+2022-09-06 01:46:59,677:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 01:47:07,258:INFO:Stop polling...
+2022-09-06 01:47:07,258:WARNING:Goodbye!
+2022-09-06 01:47:09,304:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 01:47:09,445:WARNING:Updates were skipped successfully.
+2022-09-06 01:47:09,446:INFO:Start polling.
+2022-09-06 01:47:09,596:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 01:47:14,946:INFO:Stop polling...
+2022-09-06 01:47:14,946:WARNING:Goodbye!
+2022-09-06 01:47:17,113:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 01:47:17,263:WARNING:Updates were skipped successfully.
+2022-09-06 01:47:17,263:INFO:Start polling.
+2022-09-06 01:47:17,413:INFO:CALL [461924047] admin_addCat
+2022-09-06 01:47:28,551:INFO:Stop polling...
+2022-09-06 01:47:28,552:WARNING:Goodbye!
+2022-09-06 01:47:30,474:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 01:47:30,622:WARNING:Updates were skipped successfully.
+2022-09-06 01:47:30,622:INFO:Start polling.
+2022-09-06 01:47:30,778:INFO:CALL [461924047] admin_skipSetAddCatSetImage
+2022-09-06 01:47:34,657:INFO:Stop polling...
+2022-09-06 01:47:34,658:WARNING:Goodbye!
+2022-09-06 01:47:36,826:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 01:47:38,013:WARNING:Updates were skipped successfully.
+2022-09-06 01:47:38,014:INFO:Start polling.
+2022-09-06 01:47:40,813:INFO:CALL [461924047] admin_skipSetAddCatSetImage
+2022-09-06 01:48:05,847:INFO:CALL [461924047] admin_skipSetAddCatSetImage
+2022-09-06 01:49:37,368:INFO:CALL [461924047] admin_skipSetAddCatSetImage
+2022-09-06 01:50:28,028:INFO:Stop polling...
+2022-09-06 01:50:28,029:WARNING:Goodbye!
+2022-09-06 01:50:30,124:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 01:50:31,308:WARNING:Updates were skipped successfully.
+2022-09-06 01:50:31,309:INFO:Start polling.
+2022-09-06 01:50:32,986:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 01:50:39,157:INFO:Stop polling...
+2022-09-06 01:50:39,158:WARNING:Goodbye!
+2022-09-06 01:50:41,882:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 01:50:42,031:WARNING:Updates were skipped successfully.
+2022-09-06 01:50:42,031:INFO:Start polling.
+2022-09-06 01:50:42,180:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 01:50:48,060:INFO:Stop polling...
+2022-09-06 01:50:48,060:WARNING:Goodbye!
+2022-09-06 01:50:49,971:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 01:50:50,121:WARNING:Updates were skipped successfully.
+2022-09-06 01:50:50,121:INFO:Start polling.
+2022-09-06 01:50:50,269:INFO:CALL [461924047] admin_addCat
+2022-09-06 01:51:28,099:INFO:Stop polling...
+2022-09-06 01:51:28,099:WARNING:Goodbye!
+2022-09-06 01:51:30,473:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 01:51:30,604:WARNING:Updates were skipped successfully.
+2022-09-06 01:51:30,605:INFO:Start polling.
+2022-09-06 01:51:30,745:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 01:51:51,683:INFO:Stop polling...
+2022-09-06 01:51:51,683:WARNING:Goodbye!
+2022-09-06 01:51:53,668:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 01:51:53,834:WARNING:Updates were skipped successfully.
+2022-09-06 01:51:53,834:INFO:Start polling.
+2022-09-06 01:51:53,982:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 01:51:55,070:INFO:CALL [461924047] admin_addCat
+2022-09-06 01:52:20,064:INFO:MESSAGE [461924047] 🛒 Корзина
+2022-09-06 01:52:21,957:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 01:58:25,687:INFO:Stop polling...
+2022-09-06 01:58:25,688:WARNING:Goodbye!
+2022-09-06 01:58:27,814:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 01:58:28,984:WARNING:Updates were skipped successfully.
+2022-09-06 01:58:28,985:INFO:Start polling.
+2022-09-06 01:58:31,438:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 01:58:32,523:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 01:58:33,374:INFO:CALL [461924047] admin_addCat
+2022-09-06 01:58:36,119:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-22' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=OperationalError('1 values for 2 columns')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 1734, in addCat
+    category.create_cat(cat_name)
+  File "/home/eve9te/project/TelegramBotShop/src/category.py", line 55, in create_cat
+    c.execute(f"INSERT INTO cats(name, image_id) VALUES(?)", [cat_name, image_id])
+sqlite3.OperationalError: 1 values for 2 columns
+2022-09-06 01:59:36,955:INFO:Stop polling...
+2022-09-06 01:59:36,955:WARNING:Goodbye!
+2022-09-06 01:59:38,991:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 01:59:40,136:WARNING:Updates were skipped successfully.
+2022-09-06 01:59:40,136:INFO:Start polling.
+2022-09-06 01:59:46,297:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 01:59:47,989:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 01:59:52,154:INFO:Stop polling...
+2022-09-06 01:59:52,154:WARNING:Goodbye!
+2022-09-06 01:59:54,712:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 01:59:54,883:WARNING:Updates were skipped successfully.
+2022-09-06 01:59:54,883:INFO:Start polling.
+2022-09-06 01:59:55,022:INFO:CALL [461924047] admin_addCat
+2022-09-06 01:59:57,587:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-14' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=OperationalError('1 values for 2 columns')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 1734, in addCat
+    category.create_cat(cat_name)
+  File "/home/eve9te/project/TelegramBotShop/src/category.py", line 55, in create_cat
+    c.execute(f"INSERT INTO cats(name, image_id) VALUES(?)", [cat_name, image_id])
+sqlite3.OperationalError: 1 values for 2 columns
+2022-09-06 02:01:01,628:INFO:Stop polling...
+2022-09-06 02:01:01,629:WARNING:Goodbye!
+2022-09-06 02:01:03,794:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 02:01:04,096:WARNING:Updates were skipped successfully.
+2022-09-06 02:01:04,096:INFO:Start polling.
+2022-09-06 02:01:04,239:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 02:01:09,015:INFO:Stop polling...
+2022-09-06 02:01:09,015:WARNING:Goodbye!
+2022-09-06 02:01:12,479:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 02:01:12,641:WARNING:Updates were skipped successfully.
+2022-09-06 02:01:12,641:INFO:Start polling.
+2022-09-06 02:01:12,804:INFO:CALL [461924047] admin_addCat
+2022-09-06 02:02:13,446:INFO:Stop polling...
+2022-09-06 02:02:13,447:WARNING:Goodbye!
+2022-09-06 02:02:15,631:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 02:02:16,078:WARNING:Updates were skipped successfully.
+2022-09-06 02:02:16,079:INFO:Start polling.
+2022-09-06 02:02:18,752:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 02:02:20,546:INFO:MESSAGE [461924047] 📁 Профиль
+2022-09-06 02:02:23,264:INFO:MESSAGE [461924047] ℹ️ FAQ
+2022-09-06 02:02:31,881:INFO:Stop polling...
+2022-09-06 02:02:31,881:WARNING:Goodbye!
+2022-09-06 02:02:35,080:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 02:02:35,220:WARNING:Updates were skipped successfully.
+2022-09-06 02:02:35,220:INFO:Start polling.
+2022-09-06 02:02:35,377:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 02:02:38,294:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 02:02:39,259:INFO:CALL [461924047] admin_addCat
+2022-09-06 02:05:07,316:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 02:05:08,748:INFO:CALL [461924047] admin_adminPanel
+2022-09-06 02:05:09,815:INFO:CALL [461924047] admin_shopSettings
+2022-09-06 02:05:10,830:INFO:CALL [461924047] admin_typeSettings
+2022-09-06 02:05:11,939:INFO:CALL [461924047] admin_changeEnableTypeImage
+2022-09-06 02:05:12,818:INFO:CALL [461924047] admin_shopSettings
+2022-09-06 02:05:13,921:INFO:CALL [461924047] admin_adminPanel
+2022-09-06 02:05:16,992:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 02:05:17,881:INFO:CALL [461924047] admin_addCat
+2022-09-06 02:05:21,731:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 02:05:23,591:INFO:MESSAGE [461924047] 🛒 Корзина
+2022-09-06 02:05:24,703:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 02:06:01,273:INFO:CALL [461924047] admin_addCat
+2022-09-06 02:07:09,342:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 02:07:10,446:INFO:CALL [461924047] admin_adminPanel
+2022-09-06 02:07:11,613:INFO:CALL [461924047] admin_shopSettings
+2022-09-06 02:07:12,520:INFO:CALL [461924047] admin_additionalSettings
+2022-09-06 02:07:13,694:INFO:CALL [461924047] admin_customCommands
+2022-09-06 02:07:14,697:INFO:CALL [461924047] admin_addCommand
+2022-09-06 02:10:19,707:INFO:Stop polling...
+2022-09-06 02:10:19,707:WARNING:Goodbye!
+2022-09-06 02:10:22,327:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 02:10:23,496:WARNING:Updates were skipped successfully.
+2022-09-06 02:10:23,496:INFO:Start polling.
+2022-09-06 02:10:35,067:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 02:10:36,735:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 02:10:37,776:INFO:CALL [461924047] admin_addCat
+2022-09-06 02:11:00,658:INFO:Stop polling...
+2022-09-06 02:11:00,658:WARNING:Goodbye!
+2022-09-06 02:11:02,834:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 02:11:04,037:WARNING:Updates were skipped successfully.
+2022-09-06 02:11:04,038:INFO:Start polling.
+2022-09-06 02:11:04,189:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 02:11:10,043:INFO:Stop polling...
+2022-09-06 02:11:10,044:WARNING:Goodbye!
+2022-09-06 02:11:12,842:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 02:11:12,984:WARNING:Updates were skipped successfully.
+2022-09-06 02:11:12,985:INFO:Start polling.
+2022-09-06 02:11:13,121:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 02:11:14,116:INFO:CALL [461924047] admin_addCat
+2022-09-06 02:11:55,383:INFO:Stop polling...
+2022-09-06 02:11:55,383:WARNING:Goodbye!
+2022-09-06 02:11:57,325:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 02:11:57,453:WARNING:Updates were skipped successfully.
+2022-09-06 02:11:57,453:INFO:Start polling.
+2022-09-06 02:11:57,592:INFO:MESSAGE [461924047] sfd
+2022-09-06 02:12:03,065:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 02:12:04,100:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 02:12:05,040:INFO:CALL [461924047] admin_addCat
+2022-09-06 02:12:20,044:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 02:12:21,607:INFO:CALL [461924047] admin_adminPanel
+2022-09-06 02:12:22,791:INFO:CALL [461924047] admin_shopSettings
+2022-09-06 02:12:24,190:INFO:CALL [461924047] admin_typeSettings
+2022-09-06 02:12:25,347:INFO:CALL [461924047] admin_changeEnableTypeImage
+2022-09-06 02:12:26,404:INFO:CALL [461924047] admin_shopSettings
+2022-09-06 02:12:27,437:INFO:CALL [461924047] admin_adminPanel
+2022-09-06 02:12:28,773:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 02:12:29,546:INFO:CALL [461924047] admin_addCat
+2022-09-06 02:14:30,161:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 02:14:31,335:INFO:CALL [461924047] admin_addItem
+2022-09-06 02:14:39,264:INFO:CALL [461924047] admin_addItemSetCat2 (STATE)
+2022-09-06 02:14:53,721:INFO:CALL [461924047] admin_addItemConfirm (STATE)
+2022-09-06 02:14:55,608:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 02:15:52,464:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 02:15:54,160:INFO:CALL [461924047] viewCat1
+2022-09-06 02:15:54,161:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-131' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=IndexError('tuple index out of range')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 283, in process_update
+    return await self.callback_query_handlers.notify(update.callback_query)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 1545, in process_callback
+    if cat.get_image_id() == "None" or not settings.is_type_image_enabled():
+  File "/home/eve9te/project/TelegramBotShop/src/category.py", line 32, in get_image_id
+    return self.__clist()[7]
+IndexError: tuple index out of range
+2022-09-06 02:16:00,107:INFO:Stop polling...
+2022-09-06 02:16:00,107:WARNING:Goodbye!
+2022-09-06 02:16:03,468:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 02:16:04,695:WARNING:Updates were skipped successfully.
+2022-09-06 02:16:04,695:INFO:Start polling.
+2022-09-06 02:16:06,109:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 02:16:07,691:INFO:CALL [461924047] viewCat2
+2022-09-06 02:16:07,692:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-14' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=IndexError('tuple index out of range')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 283, in process_update
+    return await self.callback_query_handlers.notify(update.callback_query)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 1545, in process_callback
+    if cat.get_image_id() == "None" or not settings.is_type_image_enabled():
+  File "/home/eve9te/project/TelegramBotShop/src/category.py", line 32, in get_image_id
+    return self.__clist()[7]
+IndexError: tuple index out of range
+2022-09-06 02:16:19,113:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 02:16:20,054:INFO:CALL [461924047] admin_shopSettings
+2022-09-06 02:16:21,721:INFO:CALL [461924047] admin_typeSettings
+2022-09-06 02:16:22,707:INFO:CALL [461924047] admin_changeEnableTypeImage
+2022-09-06 02:16:25,060:INFO:CALL [461924047] viewCat2
+2022-09-06 02:16:25,061:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-33' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=IndexError('tuple index out of range')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 283, in process_update
+    return await self.callback_query_handlers.notify(update.callback_query)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 1545, in process_callback
+    if cat.get_image_id() == "None" or not settings.is_type_image_enabled():
+  File "/home/eve9te/project/TelegramBotShop/src/category.py", line 32, in get_image_id
+    return self.__clist()[7]
+IndexError: tuple index out of range
+2022-09-06 02:16:27,368:INFO:CALL [461924047] viewCat1
+2022-09-06 02:16:27,369:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-36' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=IndexError('tuple index out of range')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 283, in process_update
+    return await self.callback_query_handlers.notify(update.callback_query)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 1545, in process_callback
+    if cat.get_image_id() == "None" or not settings.is_type_image_enabled():
+  File "/home/eve9te/project/TelegramBotShop/src/category.py", line 32, in get_image_id
+    return self.__clist()[7]
+IndexError: tuple index out of range
+2022-09-06 02:18:54,289:INFO:CALL [461924047] viewCat2
+2022-09-06 02:18:54,290:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-46' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=IndexError('tuple index out of range')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 283, in process_update
+    return await self.callback_query_handlers.notify(update.callback_query)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 1545, in process_callback
+    if cat.get_image_id() == "None" or not settings.is_type_image_enabled():
+  File "/home/eve9te/project/TelegramBotShop/src/category.py", line 32, in get_image_id
+    return self.__clist()[7]
+IndexError: tuple index out of range
+2022-09-06 02:19:31,070:INFO:CALL [461924047] viewCat1
+2022-09-06 02:19:31,071:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-50' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=IndexError('tuple index out of range')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 283, in process_update
+    return await self.callback_query_handlers.notify(update.callback_query)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 1545, in process_callback
+    if cat.get_image_id() == "None" or not settings.is_type_image_enabled():
+  File "/home/eve9te/project/TelegramBotShop/src/category.py", line 32, in get_image_id
+    return self.__clist()[7]
+IndexError: tuple index out of range
+2022-09-06 02:19:33,618:INFO:Stop polling...
+2022-09-06 02:19:33,618:WARNING:Goodbye!
+2022-09-06 02:19:36,884:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 02:19:38,047:WARNING:Updates were skipped successfully.
+2022-09-06 02:19:38,047:INFO:Start polling.
+2022-09-06 02:19:38,939:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 02:19:39,934:INFO:CALL [461924047] viewCat1
+2022-09-06 02:19:39,935:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-14' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=IndexError('tuple index out of range')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 283, in process_update
+    return await self.callback_query_handlers.notify(update.callback_query)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 1545, in process_callback
+    if cat.get_image_id() == "None" or not settings.is_type_image_enabled():
+  File "/home/eve9te/project/TelegramBotShop/src/category.py", line 32, in get_image_id
+    return self.__clist()[7]
+IndexError: tuple index out of range
+2022-09-06 02:22:17,183:INFO:Stop polling...
+2022-09-06 02:22:17,183:WARNING:Goodbye!
+2022-09-06 02:22:19,336:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 02:22:20,517:WARNING:Updates were skipped successfully.
+2022-09-06 02:22:20,517:INFO:Start polling.
+2022-09-06 02:22:21,011:INFO:CALL [461924047] viewCat1
+2022-09-06 02:22:40,124:INFO:Stop polling...
+2022-09-06 02:22:40,125:WARNING:Goodbye!
+2022-09-06 02:22:43,418:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 02:22:43,563:WARNING:Updates were skipped successfully.
+2022-09-06 02:22:43,563:INFO:Start polling.
+2022-09-06 02:22:43,705:INFO:CALL [461924047] catalogue
+2022-09-06 02:22:49,186:INFO:Stop polling...
+2022-09-06 02:22:49,187:WARNING:Goodbye!
+2022-09-06 02:22:52,490:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 02:22:52,628:WARNING:Updates were skipped successfully.
+2022-09-06 02:22:52,628:INFO:Start polling.
+2022-09-06 02:22:52,766:INFO:CALL [461924047] viewCat1
+2022-09-06 02:25:02,492:INFO:CALL [461924047] admin_changeEnableTypeImage
+2022-09-06 02:30:53,170:INFO:Stop polling...
+2022-09-06 02:30:53,170:WARNING:Goodbye!
+2022-09-06 02:30:55,582:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 02:30:56,731:WARNING:Updates were skipped successfully.
+2022-09-06 02:30:56,731:INFO:Start polling.
+2022-09-06 02:30:58,111:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 02:31:10,577:INFO:Stop polling...
+2022-09-06 02:31:10,578:WARNING:Goodbye!
+2022-09-06 02:31:12,615:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 02:31:12,753:WARNING:Updates were skipped successfully.
+2022-09-06 02:31:12,753:INFO:Start polling.
+2022-09-06 02:31:12,892:INFO:CALL [461924047] viewCat1
+2022-09-06 02:32:24,351:INFO:Stop polling...
+2022-09-06 02:32:24,352:WARNING:Goodbye!
+2022-09-06 02:32:29,534:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 02:32:29,707:WARNING:Updates were skipped successfully.
+2022-09-06 02:32:29,708:INFO:Start polling.
+2022-09-06 02:32:29,883:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 02:34:23,707:INFO:Stop polling...
+2022-09-06 02:34:23,707:WARNING:Goodbye!
+2022-09-06 02:34:25,853:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 02:34:26,000:WARNING:Updates were skipped successfully.
+2022-09-06 02:34:26,001:INFO:Start polling.
+2022-09-06 02:34:26,135:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 02:34:28,255:INFO:CALL [461924047] viewCat1
+2022-09-06 02:34:40,718:INFO:Stop polling...
+2022-09-06 02:34:40,718:WARNING:Goodbye!
+2022-09-06 02:34:42,802:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 02:34:42,939:WARNING:Updates were skipped successfully.
+2022-09-06 02:34:42,940:INFO:Start polling.
+2022-09-06 02:34:43,080:INFO:CALL [461924047] catalogue
+2022-09-06 02:34:44,271:INFO:CALL [461924047] viewCat2
+2022-09-06 02:35:20,160:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 02:35:21,312:INFO:CALL [461924047] admin_shopSettings
+2022-09-06 02:35:22,754:INFO:CALL [461924047] admin_typeSettings
+2022-09-06 02:35:24,050:INFO:CALL [461924047] admin_shopSettings
+2022-09-06 02:35:26,318:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 02:35:27,471:INFO:CALL [461924047] viewCat2
+2022-09-06 02:37:17,712:INFO:CALL [461924047] catalogue
+2022-09-06 02:37:18,785:INFO:CALL [461924047] viewCat2
+2022-09-06 02:38:11,228:INFO:CALL [461924047] catalogue
+2022-09-06 02:38:11,302:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-61' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=BadRequest('There is no text in the message to edit')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 283, in process_update
+    return await self.callback_query_handlers.notify(update.callback_query)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 1536, in process_callback
+    await bot.edit_message_text(
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/bot.py", line 2645, in edit_message_text
+    result = await self.request(api.Methods.EDIT_MESSAGE_TEXT, payload)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/base.py", line 231, in request
+    return await api.make_request(await self.get_session(), self.server, self.__token, method, data, files,
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/api.py", line 115, in check_result
+    exceptions.BadRequest.detect(description)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/utils/exceptions.py", line 141, in detect
+    raise cls(description)
+aiogram.utils.exceptions.BadRequest: There is no text in the message to edit
+2022-09-06 02:41:11,297:INFO:CALL [461924047] catalogue
+2022-09-06 02:41:11,369:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-73' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=BadRequest('There is no text in the message to edit')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 283, in process_update
+    return await self.callback_query_handlers.notify(update.callback_query)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 1536, in process_callback
+    await bot.edit_message_text(
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/bot.py", line 2645, in edit_message_text
+    result = await self.request(api.Methods.EDIT_MESSAGE_TEXT, payload)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/base.py", line 231, in request
+    return await api.make_request(await self.get_session(), self.server, self.__token, method, data, files,
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/api.py", line 115, in check_result
+    exceptions.BadRequest.detect(description)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/utils/exceptions.py", line 141, in detect
+    raise cls(description)
+aiogram.utils.exceptions.BadRequest: There is no text in the message to edit
+2022-09-06 02:43:45,898:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 02:43:47,216:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 02:43:48,171:INFO:CALL [461924047] admin_addCat
+2022-09-06 02:44:32,856:INFO:Stop polling...
+2022-09-06 02:44:32,857:WARNING:Goodbye!
+2022-09-06 02:44:34,732:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 02:44:35,910:WARNING:Updates were skipped successfully.
+2022-09-06 02:44:35,910:INFO:Start polling.
+2022-09-06 02:44:36,311:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 02:44:37,179:INFO:CALL [461924047] admin_addCat
+2022-09-06 02:56:09,523:INFO:Stop polling...
+2022-09-06 02:56:09,523:WARNING:Goodbye!
+2022-09-06 02:56:11,829:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 02:56:13,152:WARNING:Updates were skipped successfully.
+2022-09-06 02:56:13,152:INFO:Start polling.
+2022-09-06 02:56:15,175:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 02:56:23,547:INFO:Stop polling...
+2022-09-06 02:56:23,548:WARNING:Goodbye!
+2022-09-06 02:56:26,516:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 02:56:26,657:WARNING:Updates were skipped successfully.
+2022-09-06 02:56:26,657:INFO:Start polling.
+2022-09-06 02:56:26,817:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 02:56:28,194:INFO:CALL [461924047] admin_addCat
+2022-09-06 02:57:06,774:INFO:Stop polling...
+2022-09-06 02:57:06,774:WARNING:Goodbye!
+2022-09-06 02:57:10,275:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 02:57:10,411:WARNING:Updates were skipped successfully.
+2022-09-06 02:57:10,412:INFO:Start polling.
+2022-09-06 02:57:10,545:INFO:MESSAGE [461924047] sdf
+2022-09-06 02:57:18,266:INFO:Stop polling...
+2022-09-06 02:57:18,267:WARNING:Goodbye!
+2022-09-06 02:57:21,430:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 02:57:21,575:WARNING:Updates were skipped successfully.
+2022-09-06 02:57:21,575:INFO:Start polling.
+2022-09-06 02:57:21,708:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 02:57:27,190:INFO:Stop polling...
+2022-09-06 02:57:27,190:WARNING:Goodbye!
+2022-09-06 02:57:29,330:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 02:57:29,498:WARNING:Updates were skipped successfully.
+2022-09-06 02:57:29,498:INFO:Start polling.
+2022-09-06 02:57:29,640:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 02:57:36,614:INFO:CALL [461924047] admin_addCat
+2022-09-06 02:59:49,377:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-23' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=KeyError('id')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 1765, in addCatSetImage
+    cat = category.Category(data["id"])
+KeyError: 'id'
+2022-09-06 02:59:55,290:INFO:Stop polling...
+2022-09-06 02:59:55,291:WARNING:Goodbye!
+2022-09-06 02:59:57,967:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 02:59:59,144:WARNING:Updates were skipped successfully.
+2022-09-06 02:59:59,144:INFO:Start polling.
+2022-09-06 03:00:47,952:INFO:Stop polling...
+2022-09-06 03:00:47,953:WARNING:Goodbye!
+2022-09-06 03:00:50,927:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:00:52,131:WARNING:Updates were skipped successfully.
+2022-09-06 03:00:52,132:INFO:Start polling.
+2022-09-06 03:00:55,552:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 03:01:04,360:INFO:Stop polling...
+2022-09-06 03:01:04,361:WARNING:Goodbye!
+2022-09-06 03:01:06,501:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:01:06,643:WARNING:Updates were skipped successfully.
+2022-09-06 03:01:06,644:INFO:Start polling.
+2022-09-06 03:01:06,788:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 03:01:16,888:INFO:Stop polling...
+2022-09-06 03:01:16,889:WARNING:Goodbye!
+2022-09-06 03:01:18,862:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:01:19,007:WARNING:Updates were skipped successfully.
+2022-09-06 03:01:19,008:INFO:Start polling.
+2022-09-06 03:01:19,148:INFO:CALL [461924047] admin_addCat
+2022-09-06 03:01:31,669:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-18' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=KeyError('cat_id')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 1765, in addCatSetImage
+    cat = category.Category(data["cat_id"])
+KeyError: 'cat_id'
+2022-09-06 03:05:04,889:INFO:Stop polling...
+2022-09-06 03:05:04,890:WARNING:Goodbye!
+2022-09-06 03:05:06,881:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:05:08,126:WARNING:Updates were skipped successfully.
+2022-09-06 03:05:08,127:INFO:Start polling.
+2022-09-06 03:05:14,358:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 03:05:23,375:INFO:Stop polling...
+2022-09-06 03:05:23,375:WARNING:Goodbye!
+2022-09-06 03:05:25,358:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:05:25,503:WARNING:Updates were skipped successfully.
+2022-09-06 03:05:25,503:INFO:Start polling.
+2022-09-06 03:05:25,649:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 03:05:28,020:INFO:CALL [461924047] admin_addCat
+2022-09-06 03:06:02,503:INFO:Stop polling...
+2022-09-06 03:06:02,503:WARNING:Goodbye!
+2022-09-06 03:06:04,669:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:06:04,827:WARNING:Updates were skipped successfully.
+2022-09-06 03:06:04,827:INFO:Start polling.
+2022-09-06 03:06:09,129:INFO:CALL [461924047] admin_skipSetAddCatSetImage
+2022-09-06 03:06:12,814:INFO:Stop polling...
+2022-09-06 03:06:12,815:WARNING:Goodbye!
+2022-09-06 03:06:14,771:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:06:15,917:WARNING:Updates were skipped successfully.
+2022-09-06 03:06:15,917:INFO:Start polling.
+2022-09-06 03:06:26,564:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 03:06:27,870:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 03:06:28,768:INFO:CALL [461924047] admin_addCat
+2022-09-06 03:06:35,464:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-26' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=KeyError('name')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 1765, in addCatSetImage
+    print(data["name"])
+KeyError: 'name'
+2022-09-06 03:07:03,891:INFO:Stop polling...
+2022-09-06 03:07:03,891:WARNING:Goodbye!
+2022-09-06 03:07:05,938:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:07:07,149:WARNING:Updates were skipped successfully.
+2022-09-06 03:07:07,150:INFO:Start polling.
+2022-09-06 03:07:09,360:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 03:07:13,001:INFO:Stop polling...
+2022-09-06 03:07:13,002:WARNING:Goodbye!
+2022-09-06 03:07:16,236:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:07:16,377:WARNING:Updates were skipped successfully.
+2022-09-06 03:07:16,377:INFO:Start polling.
+2022-09-06 03:07:16,520:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 03:07:17,628:INFO:CALL [461924047] admin_addCat
+2022-09-06 03:07:48,362:INFO:Stop polling...
+2022-09-06 03:07:48,362:WARNING:Goodbye!
+2022-09-06 03:07:50,586:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:07:51,743:WARNING:Updates were skipped successfully.
+2022-09-06 03:07:51,743:INFO:Start polling.
+2022-09-06 03:07:51,889:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 03:07:52,706:INFO:CALL [461924047] admin_addCat
+2022-09-06 03:08:15,697:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 03:08:17,216:INFO:CALL [461924047] admin_shopSettings
+2022-09-06 03:08:20,953:INFO:CALL [461924047] admin_mainSettings
+2022-09-06 03:08:22,884:INFO:CALL [461924047] admin_shopSettings
+2022-09-06 03:08:23,638:INFO:CALL [461924047] admin_additionalSettings
+2022-09-06 03:08:25,379:INFO:CALL [461924047] admin_systemSettings
+2022-09-06 03:08:26,887:INFO:CALL [461924047] admin_cleanImagesMenu
+2022-09-06 03:08:28,072:INFO:CALL [461924047] admin_cleanImages
+2022-09-06 03:08:28,074:INFO:unused images cleaned (0.00mb)
+2022-09-06 03:08:30,930:INFO:CALL [461924047] admin_systemSettings
+2022-09-06 03:10:29,808:INFO:Stop polling...
+2022-09-06 03:10:29,809:WARNING:Goodbye!
+2022-09-06 03:10:31,806:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:10:32,969:WARNING:Updates were skipped successfully.
+2022-09-06 03:10:32,969:INFO:Start polling.
+2022-09-06 03:10:35,257:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 03:10:39,519:INFO:Stop polling...
+2022-09-06 03:10:39,520:WARNING:Goodbye!
+2022-09-06 03:10:42,795:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:10:42,929:WARNING:Updates were skipped successfully.
+2022-09-06 03:10:42,929:INFO:Start polling.
+2022-09-06 03:10:43,070:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 03:10:44,071:INFO:CALL [461924047] admin_addCat
+2022-09-06 03:10:57,190:INFO:Stop polling...
+2022-09-06 03:10:57,190:WARNING:Goodbye!
+2022-09-06 03:10:59,131:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:10:59,282:WARNING:Updates were skipped successfully.
+2022-09-06 03:10:59,282:INFO:Start polling.
+2022-09-06 03:11:36,488:INFO:Stop polling...
+2022-09-06 03:11:36,488:WARNING:Goodbye!
+2022-09-06 03:11:38,465:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:11:39,700:WARNING:Updates were skipped successfully.
+2022-09-06 03:11:39,701:INFO:Start polling.
+2022-09-06 03:11:40,368:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 03:11:45,117:INFO:Stop polling...
+2022-09-06 03:11:45,118:WARNING:Goodbye!
+2022-09-06 03:11:47,685:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:11:47,830:WARNING:Updates were skipped successfully.
+2022-09-06 03:11:47,830:INFO:Start polling.
+2022-09-06 03:11:47,973:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 03:11:49,072:INFO:CALL [461924047] admin_addCat
+2022-09-06 03:16:02,819:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 03:17:27,159:INFO:Stop polling...
+2022-09-06 03:17:27,159:WARNING:Goodbye!
+2022-09-06 03:17:29,895:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:17:30,055:WARNING:Updates were skipped successfully.
+2022-09-06 03:17:30,056:INFO:Start polling.
+2022-09-06 03:17:30,237:INFO:CALL [461924047] admin_addCat
+2022-09-06 03:17:51,640:INFO:Stop polling...
+2022-09-06 03:17:51,640:WARNING:Goodbye!
+2022-09-06 03:17:53,499:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:17:53,637:WARNING:Updates were skipped successfully.
+2022-09-06 03:17:53,637:INFO:Start polling.
+2022-09-06 03:17:53,783:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 03:18:02,876:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 03:18:04,179:INFO:CALL [461924047] admin_addCat
+2022-09-06 03:18:41,783:INFO:Stop polling...
+2022-09-06 03:18:41,784:WARNING:Goodbye!
+2022-09-06 03:18:43,750:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:18:44,996:WARNING:Updates were skipped successfully.
+2022-09-06 03:18:44,997:INFO:Start polling.
+2022-09-06 03:18:45,560:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 03:18:46,791:INFO:CALL [461924047] admin_addCat
+2022-09-06 03:19:03,104:INFO:Stop polling...
+2022-09-06 03:19:03,105:WARNING:Goodbye!
+2022-09-06 03:19:05,618:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:19:05,759:WARNING:Updates were skipped successfully.
+2022-09-06 03:19:05,759:INFO:Start polling.
+2022-09-06 03:19:05,907:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 03:19:16,190:INFO:Stop polling...
+2022-09-06 03:19:16,190:WARNING:Goodbye!
+2022-09-06 03:19:18,000:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:19:18,152:WARNING:Updates were skipped successfully.
+2022-09-06 03:19:18,152:INFO:Start polling.
+2022-09-06 03:19:18,297:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 03:19:22,110:INFO:CALL [461924047] admin_addCat
+2022-09-06 03:19:58,922:INFO:Stop polling...
+2022-09-06 03:19:58,922:WARNING:Goodbye!
+2022-09-06 03:20:00,957:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:20:02,165:WARNING:Updates were skipped successfully.
+2022-09-06 03:20:02,165:INFO:Start polling.
+2022-09-06 03:20:16,586:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 03:20:17,590:INFO:CALL [461924047] admin_addCat
+2022-09-06 03:20:29,047:INFO:Stop polling...
+2022-09-06 03:20:29,047:WARNING:Goodbye!
+2022-09-06 03:20:31,920:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:20:32,076:WARNING:Updates were skipped successfully.
+2022-09-06 03:20:32,076:INFO:Start polling.
+2022-09-06 03:20:32,232:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 03:20:33,266:INFO:CALL [461924047] admin_addCat
+2022-09-06 03:20:50,496:INFO:Stop polling...
+2022-09-06 03:20:50,496:WARNING:Goodbye!
+2022-09-06 03:20:52,333:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:20:52,465:WARNING:Updates were skipped successfully.
+2022-09-06 03:20:52,465:INFO:Start polling.
+2022-09-06 03:21:04,489:INFO:CALL [461924047] admin_skipSetAddCatSetImage
+2022-09-06 03:21:11,185:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 03:21:12,169:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 03:21:13,183:INFO:CALL [461924047] admin_addCat
+2022-09-06 03:23:05,308:INFO:Stop polling...
+2022-09-06 03:23:05,309:WARNING:Goodbye!
+2022-09-06 03:23:08,075:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:23:09,222:WARNING:Updates were skipped successfully.
+2022-09-06 03:23:09,222:INFO:Start polling.
+2022-09-06 03:23:10,628:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 03:23:11,893:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 03:23:13,067:INFO:CALL [461924047] admin_addItem
+2022-09-06 03:23:22,167:INFO:CALL [461924047] admin_addItemSetCat1 (STATE)
+2022-09-06 03:25:41,312:INFO:Stop polling...
+2022-09-06 03:25:41,312:WARNING:Goodbye!
+2022-09-06 03:25:43,171:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:25:44,467:WARNING:Updates were skipped successfully.
+2022-09-06 03:25:44,467:INFO:Start polling.
+2022-09-06 03:25:44,769:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 03:25:51,768:INFO:Stop polling...
+2022-09-06 03:25:51,768:WARNING:Goodbye!
+2022-09-06 03:26:09,801:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:26:09,936:WARNING:Updates were skipped successfully.
+2022-09-06 03:26:09,937:INFO:Start polling.
+2022-09-06 03:26:10,073:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 03:26:17,344:INFO:Stop polling...
+2022-09-06 03:26:17,345:WARNING:Goodbye!
+2022-09-06 03:26:24,480:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:26:24,619:WARNING:Updates were skipped successfully.
+2022-09-06 03:26:24,619:INFO:Start polling.
+2022-09-06 03:26:24,755:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 03:26:26,246:INFO:CALL [461924047] admin_addCat
+2022-09-06 03:35:20,098:INFO:Stop polling...
+2022-09-06 03:35:20,099:WARNING:Goodbye!
+2022-09-06 03:35:22,024:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:35:23,199:WARNING:Updates were skipped successfully.
+2022-09-06 03:35:23,199:INFO:Start polling.
+2022-09-06 03:35:26,339:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 03:35:36,158:INFO:Stop polling...
+2022-09-06 03:35:36,159:WARNING:Goodbye!
+2022-09-06 03:35:38,124:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:35:38,270:WARNING:Updates were skipped successfully.
+2022-09-06 03:35:38,271:INFO:Start polling.
+2022-09-06 03:35:38,430:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 03:35:39,772:INFO:CALL [461924047] admin_addCat
+2022-09-06 03:35:54,680:INFO:Stop polling...
+2022-09-06 03:35:54,681:WARNING:Goodbye!
+2022-09-06 03:35:57,795:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:35:57,951:WARNING:Updates were skipped successfully.
+2022-09-06 03:35:57,951:INFO:Start polling.
+2022-09-06 03:36:05,681:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 03:36:13,027:INFO:Stop polling...
+2022-09-06 03:36:13,028:WARNING:Goodbye!
+2022-09-06 03:36:15,023:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:36:15,154:WARNING:Updates were skipped successfully.
+2022-09-06 03:36:15,155:INFO:Start polling.
+2022-09-06 03:36:15,286:INFO:CALL [461924047] admin_addCat
+2022-09-06 03:36:22,568:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-18' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=KeyError('image')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 1777, in addCatSetImage
+    category.create_cat(data["name"], data["image"])
+KeyError: 'image'
+2022-09-06 03:36:48,952:INFO:Stop polling...
+2022-09-06 03:36:48,953:WARNING:Goodbye!
+2022-09-06 03:36:51,331:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:36:51,464:WARNING:Updates were skipped successfully.
+2022-09-06 03:36:51,464:INFO:Start polling.
+2022-09-06 03:36:55,679:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 03:37:03,463:INFO:Stop polling...
+2022-09-06 03:37:03,464:WARNING:Goodbye!
+2022-09-06 03:37:06,336:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:37:06,485:WARNING:Updates were skipped successfully.
+2022-09-06 03:37:06,485:INFO:Start polling.
+2022-09-06 03:37:06,638:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 03:37:16,391:INFO:Stop polling...
+2022-09-06 03:37:16,392:WARNING:Goodbye!
+2022-09-06 03:37:18,765:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:37:18,926:WARNING:Updates were skipped successfully.
+2022-09-06 03:37:18,926:INFO:Start polling.
+2022-09-06 03:37:19,112:INFO:CALL [461924047] admin_addCat
+2022-09-06 03:47:39,124:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-42' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=OperationalError('database is locked')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 1777, in addCatSetImage
+    category.create_cat(data["name"], data["image"])
+  File "/home/eve9te/project/TelegramBotShop/src/category.py", line 55, in create_cat
+    c.execute(f"INSERT INTO cats(name, image_id) VALUES(?, ?)", [cat_name, image_id])
+sqlite3.OperationalError: database is locked
+2022-09-06 03:49:01,009:INFO:Stop polling...
+2022-09-06 03:49:01,009:WARNING:Goodbye!
+2022-09-06 03:49:03,095:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:49:04,279:WARNING:Updates were skipped successfully.
+2022-09-06 03:49:04,280:INFO:Start polling.
+2022-09-06 03:49:09,055:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 03:49:11,065:INFO:Stop polling...
+2022-09-06 03:49:11,066:WARNING:Goodbye!
+2022-09-06 03:49:13,081:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:49:13,850:WARNING:Updates were skipped successfully.
+2022-09-06 03:49:13,850:INFO:Start polling.
+2022-09-06 03:49:13,987:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 03:49:15,168:INFO:CALL [461924047] admin_addCat
+2022-09-06 03:49:43,156:INFO:Stop polling...
+2022-09-06 03:49:43,157:WARNING:Goodbye!
+2022-09-06 03:49:45,304:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:49:45,440:WARNING:Updates were skipped successfully.
+2022-09-06 03:49:45,440:INFO:Start polling.
+2022-09-06 03:49:45,569:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 03:49:48,851:INFO:CALL [461924047] viewCat18
+2022-09-06 03:51:58,748:INFO:CALL [461924047] catalogue
+2022-09-06 03:51:58,821:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-20' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=BadRequest('There is no text in the message to edit')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 283, in process_update
+    return await self.callback_query_handlers.notify(update.callback_query)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 1536, in process_callback
+    await bot.edit_message_text(
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/bot.py", line 2645, in edit_message_text
+    result = await self.request(api.Methods.EDIT_MESSAGE_TEXT, payload)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/base.py", line 231, in request
+    return await api.make_request(await self.get_session(), self.server, self.__token, method, data, files,
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/api.py", line 115, in check_result
+    exceptions.BadRequest.detect(description)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/utils/exceptions.py", line 141, in detect
+    raise cls(description)
+aiogram.utils.exceptions.BadRequest: There is no text in the message to edit
+2022-09-06 03:54:25,886:INFO:CALL [461924047] catalogue
+2022-09-06 03:54:25,956:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-31' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=BadRequest('There is no text in the message to edit')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 283, in process_update
+    return await self.callback_query_handlers.notify(update.callback_query)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 1536, in process_callback
+    await bot.edit_message_text(
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/bot.py", line 2645, in edit_message_text
+    result = await self.request(api.Methods.EDIT_MESSAGE_TEXT, payload)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/base.py", line 231, in request
+    return await api.make_request(await self.get_session(), self.server, self.__token, method, data, files,
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/api.py", line 115, in check_result
+    exceptions.BadRequest.detect(description)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/utils/exceptions.py", line 141, in detect
+    raise cls(description)
+aiogram.utils.exceptions.BadRequest: There is no text in the message to edit
+2022-09-06 03:54:34,183:INFO:Stop polling...
+2022-09-06 03:54:34,184:WARNING:Goodbye!
+2022-09-06 03:54:36,751:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:54:37,890:WARNING:Updates were skipped successfully.
+2022-09-06 03:54:37,890:INFO:Start polling.
+2022-09-06 03:54:38,021:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 03:54:42,131:INFO:CALL [461924047] viewCat18
+2022-09-06 03:54:59,812:INFO:Stop polling...
+2022-09-06 03:54:59,812:WARNING:Goodbye!
+2022-09-06 03:55:03,105:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:55:03,257:WARNING:Updates were skipped successfully.
+2022-09-06 03:55:03,258:INFO:Start polling.
+2022-09-06 03:55:03,405:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 03:55:04,767:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 03:55:08,907:INFO:Stop polling...
+2022-09-06 03:55:08,908:WARNING:Goodbye!
+2022-09-06 03:55:11,153:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 03:55:11,289:WARNING:Updates were skipped successfully.
+2022-09-06 03:55:11,289:INFO:Start polling.
+2022-09-06 03:55:11,426:INFO:CALL [461924047] admin_addCat
+2022-09-06 03:55:23,971:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 03:55:25,192:INFO:CALL [461924047] admin_adminPanel
+2022-09-06 03:55:28,025:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 03:55:29,213:INFO:CALL [461924047] viewCat19
+2022-09-06 13:52:42,534:ERROR:Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 381, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/bot.py", line 110, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/base.py", line 231, in request
+    return await api.make_request(await self.get_session(), self.server, self.__token, method, data, files,
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/api.py", line 139, in make_request
+    async with session.post(url, data=req, **kwargs) as response:
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiohttp/client.py", line 1138, in __aenter__
+    self._resp = await self._coro
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiohttp/client.py", line 559, in _request
+    await resp.start(conn)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiohttp/client_reqrep.py", line 893, in start
+    with self._timer:
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiohttp/helpers.py", line 721, in __exit__
+    raise asyncio.TimeoutError from None
+asyncio.exceptions.TimeoutError
+2022-09-06 14:49:11,992:INFO:Stop polling...
+2022-09-06 14:49:11,996:WARNING:Goodbye!
+2022-09-06 15:42:30,694:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 15:42:31,838:WARNING:Updates were skipped successfully.
+2022-09-06 15:42:31,839:INFO:Start polling.
+2022-09-06 15:42:48,591:INFO:COMMAND [461924047] /start
+2022-09-06 15:44:09,703:INFO:Stop polling...
+2022-09-06 15:44:09,703:WARNING:Goodbye!
+2022-09-06 15:44:11,781:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 15:44:12,968:WARNING:Updates were skipped successfully.
+2022-09-06 15:44:12,968:INFO:Start polling.
+2022-09-06 15:44:14,074:INFO:COMMAND [461924047] /start
+2022-09-06 15:58:19,436:INFO:Stop polling...
+2022-09-06 15:58:19,437:WARNING:Goodbye!
+2022-09-06 15:58:21,590:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 15:58:22,854:WARNING:Updates were skipped successfully.
+2022-09-06 15:58:22,855:INFO:Start polling.
+2022-09-06 15:58:31,828:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 15:58:35,199:INFO:MESSAGE [461924047] 🛒 Корзина
+2022-09-06 15:58:36,854:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 15:58:38,711:INFO:CALL [461924047] viewCat1
+2022-09-06 15:58:40,025:INFO:CALL [461924047] catalogue
+2022-09-06 15:58:40,945:INFO:CALL [461924047] viewCat10
+2022-09-06 15:58:42,022:INFO:CALL [461924047] catalogue
+2022-09-06 15:58:43,433:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 15:58:44,631:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 15:58:45,479:INFO:CALL [461924047] admin_addItem
+2022-09-06 15:58:54,796:INFO:CALL [461924047] admin_addItemSetCat1 (STATE)
+2022-09-06 15:59:05,541:INFO:CALL [461924047] admin_addItemConfirm (STATE)
+2022-09-06 15:59:08,671:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 15:59:10,372:INFO:CALL [461924047] viewCat1
+2022-09-06 15:59:11,485:INFO:CALL [461924047] viewItem2
+2022-09-06 15:59:13,420:INFO:CALL [461924047] addToCart2
+2022-09-06 15:59:14,524:INFO:MESSAGE [461924047] 🛒 Корзина
+2022-09-06 15:59:17,460:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 15:59:18,731:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 15:59:20,357:INFO:CALL [461924047] admin_editItemChooseCategory
+2022-09-06 15:59:22,273:INFO:CALL [461924047] admin_editItemChooseItem1
+2022-09-06 15:59:23,538:INFO:CALL [461924047] admin_editItem2
+2022-09-06 15:59:26,155:INFO:CALL [461924047] admin_editItemStock2
+2022-09-06 15:59:27,889:WARNING:[461924047] FAILED TO DELETE MESSAGE WITH ID 505
+2022-09-06 15:59:34,708:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 15:59:36,165:INFO:CALL [461924047] viewCat1
+2022-09-06 15:59:37,240:INFO:CALL [461924047] viewItem2
+2022-09-06 15:59:38,525:INFO:CALL [461924047] addToCart2
+2022-09-06 15:59:39,764:INFO:MESSAGE [461924047] 🛒 Корзина
+2022-09-06 15:59:41,081:INFO:CALL [461924047] checkoutCart
+2022-09-06 15:59:55,181:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-161' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=KeyError('email')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 2308, in checkoutCartCheckCaptcha
+    text=tt.get_order_confirmation_template(item_amount_dict=user.get_cart_amount(), cart_price=user.get_cart_price(), email_adress=data["email"], additional_message=data["additional_message"], phone_number=data["phone_number"] if settings.is_phone_number_enabled() else None, home_adress=data["home_adress"] if settings.is_delivery_enabled() and user.is_cart_delivery() else None),
+KeyError: 'email'
+2022-09-06 15:59:59,311:INFO:CALL [461924047] refreshCaptcha (STATE)
+2022-09-06 16:04:04,822:INFO:Stop polling...
+2022-09-06 16:04:04,822:WARNING:Goodbye!
+2022-09-06 16:04:07,466:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 16:04:08,744:WARNING:Updates were skipped successfully.
+2022-09-06 16:04:08,744:INFO:Start polling.
+2022-09-06 16:04:14,442:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 16:04:27,824:INFO:Stop polling...
+2022-09-06 16:04:27,824:WARNING:Goodbye!
+2022-09-06 16:04:29,938:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 16:04:30,089:WARNING:Updates were skipped successfully.
+2022-09-06 16:04:30,089:INFO:Start polling.
+2022-09-06 16:04:30,333:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 16:04:51,597:INFO:Stop polling...
+2022-09-06 16:04:51,597:WARNING:Goodbye!
+2022-09-06 16:04:53,724:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 16:04:53,869:WARNING:Updates were skipped successfully.
+2022-09-06 16:04:53,870:INFO:Start polling.
+2022-09-06 16:04:54,050:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 16:07:05,251:INFO:CALL [461924047] viewCat1
+2022-09-06 16:20:38,608:INFO:CALL [461924047] catalogue
+2022-09-06 16:20:41,075:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 16:20:42,315:INFO:CALL [461924047] admin_shopSettings
+2022-09-06 16:25:35,081:INFO:Stop polling...
+2022-09-06 16:25:35,082:WARNING:Goodbye!
+2022-09-06 16:25:37,251:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 16:25:38,492:WARNING:Updates were skipped successfully.
+2022-09-06 16:25:38,493:INFO:Start polling.
+2022-09-06 16:25:45,468:INFO:MESSAGE [461924047] 🛒 Корзина
+2022-09-06 16:25:54,036:INFO:Stop polling...
+2022-09-06 16:25:54,036:WARNING:Goodbye!
+2022-09-06 16:25:55,980:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 16:25:56,120:WARNING:Updates were skipped successfully.
+2022-09-06 16:25:56,120:INFO:Start polling.
+2022-09-06 16:25:56,265:INFO:CALL [461924047] checkoutCart
+2022-09-06 16:27:33,374:INFO:Stop polling...
+2022-09-06 16:27:33,374:WARNING:Goodbye!
+2022-09-06 16:27:35,555:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 16:27:35,697:WARNING:Updates were skipped successfully.
+2022-09-06 16:27:35,698:INFO:Start polling.
+2022-09-06 16:27:35,838:INFO:MESSAGE [461924047] ывааыв
+2022-09-06 16:27:43,778:INFO:Stop polling...
+2022-09-06 16:27:43,778:WARNING:Goodbye!
+2022-09-06 16:27:45,795:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 16:27:45,932:WARNING:Updates were skipped successfully.
+2022-09-06 16:27:45,932:INFO:Start polling.
+2022-09-06 16:27:46,076:INFO:MESSAGE [461924047] 📁 Заказы
+2022-09-06 16:27:50,131:INFO:Stop polling...
+2022-09-06 16:27:50,132:WARNING:Goodbye!
+2022-09-06 16:27:52,079:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 16:27:52,227:WARNING:Updates were skipped successfully.
+2022-09-06 16:27:52,227:INFO:Start polling.
+2022-09-06 16:27:52,367:INFO:CALL [461924047] manager_ordersProcessing
+2022-09-06 16:29:10,727:INFO:Stop polling...
+2022-09-06 16:29:10,727:WARNING:Goodbye!
+2022-09-06 16:29:12,735:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 16:29:12,868:WARNING:Updates were skipped successfully.
+2022-09-06 16:29:12,868:INFO:Start polling.
+2022-09-06 16:29:13,004:INFO:MESSAGE [461924047] 🛒 Корзина
+2022-09-06 16:29:36,812:INFO:Stop polling...
+2022-09-06 16:29:36,812:WARNING:Goodbye!
+2022-09-06 16:29:38,951:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 16:29:39,089:WARNING:Updates were skipped successfully.
+2022-09-06 16:29:39,090:INFO:Start polling.
+2022-09-06 16:29:39,229:INFO:CALL [461924047] checkoutCart
+2022-09-06 16:30:10,427:INFO:Stop polling...
+2022-09-06 16:30:10,428:WARNING:Goodbye!
+2022-09-06 16:30:12,402:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 16:30:12,532:WARNING:Updates were skipped successfully.
+2022-09-06 16:30:12,533:INFO:Start polling.
+2022-09-06 16:30:12,663:INFO:MESSAGE [461924047] 🛒 Корзина
+2022-09-06 16:30:18,413:INFO:Stop polling...
+2022-09-06 16:30:18,413:WARNING:Goodbye!
+2022-09-06 16:30:20,735:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 16:30:21,028:WARNING:Updates were skipped successfully.
+2022-09-06 16:30:21,028:INFO:Start polling.
+2022-09-06 16:30:21,302:INFO:CALL [461924047] checkoutCart
+2022-09-06 16:31:12,044:INFO:Stop polling...
+2022-09-06 16:31:12,045:WARNING:Goodbye!
+2022-09-06 16:36:11,814:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 16:36:11,956:WARNING:Updates were skipped successfully.
+2022-09-06 16:36:11,956:INFO:Start polling.
+2022-09-06 16:36:12,094:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 16:36:21,342:INFO:Stop polling...
+2022-09-06 16:36:21,342:WARNING:Goodbye!
+2022-09-06 16:36:24,079:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 16:36:24,670:WARNING:Updates were skipped successfully.
+2022-09-06 16:36:24,671:INFO:Start polling.
+2022-09-06 16:36:25,385:INFO:CALL [461924047] viewCat1
+2022-09-06 16:36:40,861:INFO:Stop polling...
+2022-09-06 16:36:40,862:WARNING:Goodbye!
+2022-09-06 16:36:43,337:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 16:36:43,711:WARNING:Updates were skipped successfully.
+2022-09-06 16:36:43,712:INFO:Start polling.
+2022-09-06 16:36:44,039:INFO:CALL [461924047] viewItem2
+2022-09-06 16:38:53,997:INFO:MESSAGE [461924047] 📁 Заказы
+2022-09-06 16:44:53,616:INFO:CALL [461924047] manager_ordersProcessing
+2022-09-06 16:44:54,765:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 16:48:26,475:INFO:Stop polling...
+2022-09-06 16:48:26,476:WARNING:Goodbye!
+2022-09-06 16:48:28,354:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 16:48:29,616:WARNING:Updates were skipped successfully.
+2022-09-06 16:48:29,616:INFO:Start polling.
+2022-09-06 16:49:09,259:INFO:MESSAGE [461924047] 🛒 Корзина
+2022-09-06 16:49:11,364:INFO:CALL [461924047] checkoutCart
+2022-09-06 16:49:16,698:INFO:CALL [461924047] checkoutCartConfirm (STATE)
+2022-09-06 16:49:20,091:INFO:MESSAGE [461924047] 📁 Заказы
+2022-09-06 16:49:21,700:INFO:CALL [461924047] manager_ordersProcessing
+2022-09-06 16:49:23,005:INFO:CALL [461924047] manager_seeOrder963412
+2022-09-06 16:50:22,343:INFO:Stop polling...
+2022-09-06 16:50:22,344:WARNING:Goodbye!
+2022-09-06 16:50:25,343:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 16:50:26,327:WARNING:Updates were skipped successfully.
+2022-09-06 16:50:26,327:INFO:Start polling.
+2022-09-06 16:50:27,331:INFO:CALL [461924047] manager_orders
+2022-09-06 16:51:12,171:INFO:Stop polling...
+2022-09-06 16:51:12,171:WARNING:Goodbye!
+2022-09-06 16:51:14,687:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 16:51:14,813:WARNING:Updates were skipped successfully.
+2022-09-06 16:51:14,813:INFO:Start polling.
+2022-09-06 16:51:14,969:INFO:CALL [461924047] manager_ordersProcessing
+2022-09-06 16:51:19,066:INFO:Stop polling...
+2022-09-06 16:51:19,066:WARNING:Goodbye!
+2022-09-06 16:51:22,255:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 16:51:22,404:WARNING:Updates were skipped successfully.
+2022-09-06 16:51:22,405:INFO:Start polling.
+2022-09-06 16:51:22,600:INFO:CALL [461924047] manager_seeOrder963412
+2022-09-06 17:06:58,518:INFO:Stop polling...
+2022-09-06 17:06:58,519:WARNING:Goodbye!
+2022-09-06 17:07:01,414:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 17:07:03,320:WARNING:Updates were skipped successfully.
+2022-09-06 17:07:03,321:INFO:Start polling.
+2022-09-06 17:07:04,727:INFO:CALL [461924047] manager_orders
+2022-09-06 17:07:12,421:INFO:Stop polling...
+2022-09-06 17:07:12,422:WARNING:Goodbye!
+2022-09-06 17:07:20,767:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 17:07:21,203:WARNING:Updates were skipped successfully.
+2022-09-06 17:07:21,203:INFO:Start polling.
+2022-09-06 17:07:21,687:INFO:CALL [461924047] manager_ordersProcessing
+2022-09-06 17:07:26,687:INFO:Stop polling...
+2022-09-06 17:07:26,688:WARNING:Goodbye!
+2022-09-06 17:07:29,112:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 17:07:29,513:WARNING:Updates were skipped successfully.
+2022-09-06 17:07:29,514:INFO:Start polling.
+2022-09-06 17:07:29,917:INFO:CALL [461924047] manager_seeOrder963412
+2022-09-06 17:07:43,012:INFO:Stop polling...
+2022-09-06 17:07:43,013:WARNING:Goodbye!
+2022-09-06 17:07:44,833:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 17:07:44,981:WARNING:Updates were skipped successfully.
+2022-09-06 17:07:44,981:INFO:Start polling.
+2022-09-06 17:07:45,134:INFO:CALL [461924047] manager_sendMsgForOrder963412
+2022-09-06 17:07:45,135:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=IndexError('list index out of range')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 283, in process_update
+    return await self.callback_query_handlers.notify(update.callback_query)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 1453, in process_callback
+    chat_id=order.get_user_id(),
+  File "/home/eve9te/project/TelegramBotShop/src/order.py", line 27, in get_user_id
+    return self.__clist()[1]
+  File "/home/eve9te/project/TelegramBotShop/src/order.py", line 24, in __clist
+    return list(c)[0]
+IndexError: list index out of range
+2022-09-06 17:12:17,343:INFO:Stop polling...
+2022-09-06 17:12:17,344:WARNING:Goodbye!
+2022-09-06 17:12:19,610:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 17:12:20,753:WARNING:Updates were skipped successfully.
+2022-09-06 17:12:20,753:INFO:Start polling.
+2022-09-06 17:12:32,037:INFO:Stop polling...
+2022-09-06 17:12:32,038:WARNING:Goodbye!
+2022-09-06 17:12:34,898:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 17:12:36,086:WARNING:Updates were skipped successfully.
+2022-09-06 17:12:36,087:INFO:Start polling.
+2022-09-06 17:12:36,711:INFO:CALL [461924047] manager_sendMsgForOrder963412
+2022-09-06 17:12:36,712:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=IndexError('list index out of range')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 283, in process_update
+    return await self.callback_query_handlers.notify(update.callback_query)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 1454, in process_callback
+    chat_id=order.get_user_id(),
+  File "/home/eve9te/project/TelegramBotShop/src/order.py", line 27, in get_user_id
+    return self.__clist()[1]
+  File "/home/eve9te/project/TelegramBotShop/src/order.py", line 24, in __clist
+    return list(c)[0]
+IndexError: list index out of range
+2022-09-06 17:13:02,726:INFO:Stop polling...
+2022-09-06 17:13:02,727:WARNING:Goodbye!
+2022-09-06 17:13:05,675:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 17:13:05,819:WARNING:Updates were skipped successfully.
+2022-09-06 17:13:05,820:INFO:Start polling.
+2022-09-06 17:13:05,977:INFO:CALL [461924047] manager_sendMsgForOrder963412
+2022-09-06 17:13:05,980:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=IndexError('list index out of range')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 283, in process_update
+    return await self.callback_query_handlers.notify(update.callback_query)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 1454, in process_callback
+    chat_id=order.get_user_id(),
+  File "/home/eve9te/project/TelegramBotShop/src/order.py", line 27, in get_user_id
+    return self.__clist()[1]
+  File "/home/eve9te/project/TelegramBotShop/src/order.py", line 24, in __clist
+    return list(c)[0]
+IndexError: list index out of range
+2022-09-06 17:18:14,336:INFO:Stop polling...
+2022-09-06 17:18:14,337:WARNING:Goodbye!
+2022-09-06 17:18:17,071:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 17:18:18,286:WARNING:Updates were skipped successfully.
+2022-09-06 17:18:18,286:INFO:Start polling.
+2022-09-06 17:18:18,456:INFO:CALL [461924047] manager_sendMsgForOrder963412
+2022-09-06 17:21:01,206:INFO:Stop polling...
+2022-09-06 17:21:01,206:WARNING:Goodbye!
+2022-09-06 17:21:05,275:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 17:21:05,875:WARNING:Updates were skipped successfully.
+2022-09-06 17:21:05,875:INFO:Start polling.
+2022-09-06 17:21:06,395:INFO:CALL [461924047] manager_sendMsgForOrder963412
+2022-09-06 17:21:19,299:INFO:Stop polling...
+2022-09-06 17:21:19,299:WARNING:Goodbye!
+2022-09-06 17:21:22,510:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 17:21:22,660:WARNING:Updates were skipped successfully.
+2022-09-06 17:21:22,661:INFO:Start polling.
+2022-09-06 17:21:22,817:INFO:CALL [461924047] manager_sendMsgForOrder963412
+2022-09-06 17:24:13,634:INFO:MESSAGE [461924047] 📁 Заказы
+2022-09-06 17:34:36,289:INFO:Stop polling...
+2022-09-06 17:34:36,290:WARNING:Goodbye!
+2022-09-06 17:34:38,722:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 17:34:39,929:WARNING:Updates were skipped successfully.
+2022-09-06 17:34:39,930:INFO:Start polling.
+2022-09-06 17:34:45,812:INFO:COMMAND [461924047] /start
+2022-09-06 17:34:56,880:INFO:Stop polling...
+2022-09-06 17:34:56,880:WARNING:Goodbye!
+2022-09-06 17:35:01,505:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 17:35:02,510:WARNING:Updates were skipped successfully.
+2022-09-06 17:35:02,510:INFO:Start polling.
+2022-09-06 17:35:03,513:INFO:CALL [461924047] manager_ordersProcessing
+2022-09-06 17:35:11,352:INFO:Stop polling...
+2022-09-06 17:35:11,353:WARNING:Goodbye!
+2022-09-06 17:35:13,344:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 17:35:14,550:WARNING:Updates were skipped successfully.
+2022-09-06 17:35:14,551:INFO:Start polling.
+2022-09-06 17:36:40,948:INFO:COMMAND [461924047] /start
+2022-09-06 17:36:42,798:INFO:MESSAGE [461924047] 📁 Заказы
+2022-09-06 17:36:43,905:INFO:CALL [461924047] manager_ordersProcessing
+2022-09-06 17:36:44,929:INFO:CALL [461924047] manager_seeOrder963412
+2022-09-06 17:36:46,018:INFO:CALL [461924047] manager_sendMsgForOrder963412
+2022-09-06 17:37:43,350:INFO:CALL [461924047] manager_sendMsgForOrder963412
+2022-09-06 17:38:38,693:INFO:Stop polling...
+2022-09-06 17:38:38,694:WARNING:Goodbye!
+2022-09-06 17:38:40,591:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 17:38:41,778:WARNING:Updates were skipped successfully.
+2022-09-06 17:38:41,778:INFO:Start polling.
+2022-09-06 17:38:43,300:INFO:CALL [461924047] manager_sendMsgForOrder963412
+2022-09-06 17:39:54,948:INFO:Stop polling...
+2022-09-06 17:39:54,949:WARNING:Goodbye!
+2022-09-06 17:39:56,867:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 17:39:57,013:WARNING:Updates were skipped successfully.
+2022-09-06 17:39:57,013:INFO:Start polling.
+2022-09-06 17:39:57,161:INFO:COMMAND [803210182] /start
+2022-09-06 17:39:57,163:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=IndexError('list index out of range')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 114, in welcome
+    user = usr.User(message.chat.id, message.from_user.username)
+  File "/home/eve9te/project/TelegramBotShop/src/user.py", line 17, in __init__
+    c.execute(f"INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?, ?)", [self.get_id(), self.get_username() ,1 if str(self.get_id()) == settings.get_main_admin_id() else 0, 0, 0, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "None", 1])
+  File "/home/eve9te/project/TelegramBotShop/src/user.py", line 23, in get_username
+    return self.__clist()[1]
+  File "/home/eve9te/project/TelegramBotShop/src/user.py", line 27, in __clist
+    return list(c)[0]
+IndexError: list index out of range
+2022-09-06 17:41:20,372:INFO:Stop polling...
+2022-09-06 17:41:20,373:WARNING:Goodbye!
+2022-09-06 17:41:22,280:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 17:41:23,446:WARNING:Updates were skipped successfully.
+2022-09-06 17:41:23,446:INFO:Start polling.
+2022-09-06 17:41:28,163:INFO:COMMAND [803210182] /start
+2022-09-06 17:43:03,316:INFO:Stop polling...
+2022-09-06 17:43:03,317:WARNING:Goodbye!
+2022-09-06 17:43:05,354:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 17:43:05,547:WARNING:Updates were skipped successfully.
+2022-09-06 17:43:05,548:INFO:Start polling.
+2022-09-06 17:43:05,711:INFO:MESSAGE [461924047] 📁 Профиль
+2022-09-06 17:43:10,037:INFO:Stop polling...
+2022-09-06 17:43:10,037:WARNING:Goodbye!
+2022-09-06 17:43:13,332:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 17:43:14,286:WARNING:Updates were skipped successfully.
+2022-09-06 17:43:14,286:INFO:Start polling.
+2022-09-06 17:43:15,454:INFO:CALL [461924047] changeEnableNotif
+2022-09-06 17:45:26,704:INFO:MESSAGE [461924047] 🛒 Корзина
+2022-09-06 17:47:20,901:INFO:MESSAGE [461924047] 📁 Профиль
+2022-09-06 17:47:22,959:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 17:47:24,313:INFO:MESSAGE [461924047] 🛒 Корзина
+2022-09-06 17:47:27,224:INFO:CALL [461924047] viewCat1
+2022-09-06 17:47:28,674:INFO:CALL [461924047] viewItem2
+2022-09-06 17:47:30,417:INFO:CALL [461924047] addToCart2
+2022-09-06 17:47:32,542:INFO:MESSAGE [461924047] 🛒 Корзина
+2022-09-06 17:47:33,414:INFO:CALL [461924047] checkoutCart
+2022-09-06 17:47:38,414:INFO:CALL [461924047] checkoutCartConfirm (STATE)
+2022-09-06 17:47:41,173:INFO:CALL [461924047] manager_sendMsgForOrder517794
+2022-09-06 17:48:21,371:INFO:CALL [461924047] cart
+2022-09-06 17:48:24,070:INFO:CALL [461924047] manager_orders
+2022-09-06 17:48:25,366:INFO:CALL [461924047] manager_ordersProcessing
+2022-09-06 17:48:26,732:INFO:CALL [461924047] manager_seeOrder517794
+2022-09-06 17:48:28,038:INFO:CALL [461924047] manager_sendMsgForOrder517794
+2022-09-06 17:48:29,979:INFO:CALL [461924047] manager_orders
+2022-09-06 17:48:31,406:INFO:CALL [461924047] manager_ordersProcessing
+2022-09-06 17:48:32,319:INFO:CALL [461924047] manager_seeOrder963412
+2022-09-06 17:48:33,357:INFO:CALL [461924047] manager_sendMsgForOrder963412
+2022-09-06 17:49:48,567:INFO:Stop polling...
+2022-09-06 17:49:48,568:WARNING:Goodbye!
+2022-09-06 17:49:51,129:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 17:49:52,733:WARNING:Updates were skipped successfully.
+2022-09-06 17:49:52,733:INFO:Start polling.
+2022-09-06 17:49:55,717:INFO:CALL [461924047] manager_sendMsgForOrder963412
+2022-09-06 18:55:27,069:INFO:Stop polling...
+2022-09-06 18:55:27,069:WARNING:Goodbye!
+2022-09-06 18:55:30,016:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 18:55:31,260:WARNING:Updates were skipped successfully.
+2022-09-06 18:55:31,260:INFO:Start polling.
+2022-09-06 18:56:05,183:INFO:MESSAGE [461924047] Гав
+2022-09-06 19:07:51,534:ERROR:Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 381, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/bot.py", line 110, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/base.py", line 231, in request
+    return await api.make_request(await self.get_session(), self.server, self.__token, method, data, files,
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/api.py", line 139, in make_request
+    async with session.post(url, data=req, **kwargs) as response:
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiohttp/client.py", line 1138, in __aenter__
+    self._resp = await self._coro
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiohttp/client.py", line 559, in _request
+    await resp.start(conn)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiohttp/client_reqrep.py", line 893, in start
+    with self._timer:
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiohttp/helpers.py", line 721, in __exit__
+    raise asyncio.TimeoutError from None
+asyncio.exceptions.TimeoutError
+2022-09-06 19:19:15,958:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 19:19:23,172:INFO:CALL [461924047] admin_shopSettings
+2022-09-06 19:19:27,599:INFO:CALL [461924047] admin_additionalSettings
+2022-09-06 19:19:29,898:INFO:CALL [461924047] admin_customCommands
+2022-09-06 19:19:32,022:INFO:CALL [461924047] admin_addCommand
+2022-09-06 19:19:47,611:INFO:CALL [461924047] admin_customCommands
+2022-09-06 19:19:50,109:INFO:MESSAGE [461924047] гав
+2022-09-06 19:19:59,809:INFO:MESSAGE [461924047] Гав
+2022-09-06 19:20:02,249:INFO:MESSAGE [461924047] гав
+2022-09-06 20:37:44,449:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 20:37:46,942:INFO:CALL [461924047] viewCat6
+2022-09-06 20:37:48,154:INFO:CALL [461924047] catalogue
+2022-09-06 20:37:50,437:INFO:CALL [461924047] viewCat1
+2022-09-06 20:37:52,199:INFO:CALL [461924047] viewItem2
+2022-09-06 20:37:54,361:INFO:CALL [461924047] viewCat1
+2022-09-06 20:37:57,541:INFO:CALL [461924047] catalogue
+2022-09-06 20:37:59,573:INFO:CALL [461924047] viewCat19
+2022-09-06 20:38:04,199:INFO:CALL [461924047] catalogue
+2022-09-06 20:38:04,295:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-376' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=BadRequest('There is no text in the message to edit')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 283, in process_update
+    return await self.callback_query_handlers.notify(update.callback_query)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 1538, in process_callback
+    await bot.edit_message_text(
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/bot.py", line 2645, in edit_message_text
+    result = await self.request(api.Methods.EDIT_MESSAGE_TEXT, payload)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/base.py", line 231, in request
+    return await api.make_request(await self.get_session(), self.server, self.__token, method, data, files,
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/api.py", line 115, in check_result
+    exceptions.BadRequest.detect(description)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/utils/exceptions.py", line 141, in detect
+    raise cls(description)
+aiogram.utils.exceptions.BadRequest: There is no text in the message to edit
+2022-09-06 20:39:35,926:INFO:CALL [461924047] catalogue
+2022-09-06 20:39:36,496:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-384' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=BadRequest('There is no text in the message to edit')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 283, in process_update
+    return await self.callback_query_handlers.notify(update.callback_query)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 1538, in process_callback
+    await bot.edit_message_text(
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/bot.py", line 2645, in edit_message_text
+    result = await self.request(api.Methods.EDIT_MESSAGE_TEXT, payload)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/base.py", line 231, in request
+    return await api.make_request(await self.get_session(), self.server, self.__token, method, data, files,
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/api.py", line 115, in check_result
+    exceptions.BadRequest.detect(description)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/utils/exceptions.py", line 141, in detect
+    raise cls(description)
+aiogram.utils.exceptions.BadRequest: There is no text in the message to edit
+2022-09-06 20:46:06,044:INFO:Stop polling...
+2022-09-06 20:46:06,044:WARNING:Goodbye!
+2022-09-06 20:46:08,072:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 20:46:08,768:WARNING:Updates were skipped successfully.
+2022-09-06 20:46:08,768:INFO:Start polling.
+2022-09-06 20:46:08,974:INFO:CALL [461924047] catalogue
+2022-09-06 20:53:31,787:INFO:CALL [461924047] viewCat1
+2022-09-06 20:53:36,256:INFO:CALL [461924047] viewItem2
+2022-09-06 20:53:40,080:INFO:CALL [461924047] viewCat1
+2022-09-06 20:53:50,505:INFO:CALL [461924047] catalogue
+2022-09-06 20:53:59,439:INFO:CALL [461924047] viewCat19
+2022-09-06 20:54:04,631:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 20:54:06,826:INFO:CALL [461924047] admin_shopSettings
+2022-09-06 20:54:09,577:INFO:CALL [461924047] admin_adminPanel
+2022-09-06 20:54:11,485:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 20:54:27,596:INFO:CALL [461924047] admin_addItem
+2022-09-06 20:54:45,607:INFO:CALL [461924047] admin_addItemSetCat19 (STATE)
+2022-09-06 20:55:18,335:INFO:CALL [461924047] admin_addItemConfirm (STATE)
+2022-09-06 21:06:56,969:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 21:06:58,334:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 21:07:01,180:INFO:CALL [461924047] viewCat19
+2022-09-06 21:07:04,750:INFO:CALL [461924047] viewItem3
+2022-09-06 21:07:11,870:INFO:CALL [461924047] viewCat19
+2022-09-06 21:07:26,207:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 21:07:29,335:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 21:07:30,844:INFO:CALL [461924047] admin_addItem
+2022-09-06 21:07:48,873:INFO:CALL [461924047] admin_addItemSetCat19 (STATE)
+2022-09-06 21:08:10,954:INFO:CALL [461924047] admin_skipSetAddItemSetImage (STATE)
+2022-09-06 21:08:12,451:INFO:CALL [461924047] admin_addItemConfirm (STATE)
+2022-09-06 21:08:15,604:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 21:08:16,908:INFO:CALL [461924047] viewCat19
+2022-09-06 21:08:19,636:INFO:CALL [461924047] viewItem4
+2022-09-06 21:08:19,725:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-207' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=BadRequest('There is no text in the message to edit')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 283, in process_update
+    return await self.callback_query_handlers.notify(update.callback_query)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 1594, in process_callback
+    await bot.edit_message_text(
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/bot.py", line 2645, in edit_message_text
+    result = await self.request(api.Methods.EDIT_MESSAGE_TEXT, payload)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/base.py", line 231, in request
+    return await api.make_request(await self.get_session(), self.server, self.__token, method, data, files,
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/api.py", line 115, in check_result
+    exceptions.BadRequest.detect(description)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/utils/exceptions.py", line 141, in detect
+    raise cls(description)
+aiogram.utils.exceptions.BadRequest: There is no text in the message to edit
+2022-09-06 21:09:49,239:INFO:Stop polling...
+2022-09-06 21:09:49,239:WARNING:Goodbye!
+2022-09-06 21:09:51,759:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 21:09:52,937:WARNING:Updates were skipped successfully.
+2022-09-06 21:09:52,937:INFO:Start polling.
+2022-09-06 21:09:57,308:INFO:CALL [461924047] viewItem4
+2022-09-06 21:11:16,736:INFO:Stop polling...
+2022-09-06 21:11:16,736:WARNING:Goodbye!
+2022-09-06 21:11:19,779:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 21:11:20,662:WARNING:Updates were skipped successfully.
+2022-09-06 21:11:20,662:INFO:Start polling.
+2022-09-06 21:11:21,022:INFO:CALL [461924047] viewCat19
+2022-09-06 21:12:27,887:INFO:Stop polling...
+2022-09-06 21:12:27,888:WARNING:Goodbye!
+2022-09-06 21:12:29,984:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 21:12:30,145:WARNING:Updates were skipped successfully.
+2022-09-06 21:12:30,145:INFO:Start polling.
+2022-09-06 21:12:30,299:INFO:CALL [461924047] viewItem3
+2022-09-06 21:12:52,177:INFO:Stop polling...
+2022-09-06 21:12:52,178:WARNING:Goodbye!
+2022-09-06 21:12:54,588:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 21:12:54,829:WARNING:Updates were skipped successfully.
+2022-09-06 21:12:54,830:INFO:Start polling.
+2022-09-06 21:12:55,107:INFO:CALL [461924047] viewCat19
+2022-09-06 21:12:59,750:INFO:Stop polling...
+2022-09-06 21:12:59,751:WARNING:Goodbye!
+2022-09-06 21:13:01,777:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 21:13:02,016:WARNING:Updates were skipped successfully.
+2022-09-06 21:13:02,017:INFO:Start polling.
+2022-09-06 21:13:02,434:INFO:CALL [461924047] viewItem4
+2022-09-06 21:13:25,810:INFO:Stop polling...
+2022-09-06 21:13:25,811:WARNING:Goodbye!
+2022-09-06 21:13:27,778:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 21:13:27,939:WARNING:Updates were skipped successfully.
+2022-09-06 21:13:27,939:INFO:Start polling.
+2022-09-06 21:13:28,108:INFO:CALL [461924047] viewCat19
+2022-09-06 21:13:32,083:INFO:Stop polling...
+2022-09-06 21:13:32,083:WARNING:Goodbye!
+2022-09-06 21:13:34,416:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 21:13:34,593:WARNING:Updates were skipped successfully.
+2022-09-06 21:13:34,593:INFO:Start polling.
+2022-09-06 21:13:34,782:INFO:CALL [461924047] catalogue
+2022-09-06 21:25:12,969:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 21:25:16,686:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 21:26:18,931:INFO:Stop polling...
+2022-09-06 21:26:18,932:WARNING:Goodbye!
+2022-09-06 21:26:38,574:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 21:26:41,380:WARNING:Updates were skipped successfully.
+2022-09-06 21:26:41,380:INFO:Start polling.
+2022-09-06 21:26:44,092:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 21:26:44,093:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=ValidationError('Media group must include 2-10 items as written in docs, but also it works with 1 element')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 176, in handle_text
+    await bot.send_media_group(
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/bot.py", line 1092, in send_media_group
+    raise ValidationError("Media group must include 2-10 items as written in docs, but also it works with 1 element")
+aiogram.utils.exceptions.ValidationError: Media group must include 2-10 items as written in docs, but also it works with 1 element
+2022-09-06 21:27:59,753:INFO:Stop polling...
+2022-09-06 21:27:59,754:WARNING:Goodbye!
+2022-09-06 21:28:01,790:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 21:28:03,005:WARNING:Updates were skipped successfully.
+2022-09-06 21:28:03,005:INFO:Start polling.
+2022-09-06 21:32:26,693:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 21:32:26,694:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-23' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=ValidationError('Media group must include 2-10 items as written in docs, but also it works with 1 element')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 176, in handle_text
+    await bot.send_media_group(
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/bot.py", line 1092, in send_media_group
+    raise ValidationError("Media group must include 2-10 items as written in docs, but also it works with 1 element")
+aiogram.utils.exceptions.ValidationError: Media group must include 2-10 items as written in docs, but also it works with 1 element
+2022-09-06 21:46:04,603:INFO:Stop polling...
+2022-09-06 21:46:04,604:WARNING:Goodbye!
+2022-09-06 21:46:06,552:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 21:46:07,760:WARNING:Updates were skipped successfully.
+2022-09-06 21:46:07,760:INFO:Start polling.
+2022-09-06 21:46:09,791:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 21:46:09,795:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=OperationalError('no such table: catalogue')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 176, in handle_text
+    ctg = catalogue.get_ctg_list()
+  File "/home/eve9te/project/TelegramBotShop/src/catalogue.py", line 40, in get_ctg_list
+    c.execute(f"SELECT * FROM catalogue")
+sqlite3.OperationalError: no such table: catalogue
+2022-09-06 21:46:46,939:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 22:04:54,764:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 22:04:59,546:INFO:CALL [461924047] admin_shopSettings
+2022-09-06 22:05:01,406:INFO:CALL [461924047] admin_adminPanel
+2022-09-06 22:06:00,826:INFO:Stop polling...
+2022-09-06 22:06:00,827:WARNING:Goodbye!
+2022-09-06 22:06:04,526:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 22:06:05,123:WARNING:Updates were skipped successfully.
+2022-09-06 22:06:05,123:INFO:Start polling.
+2022-09-06 22:06:05,822:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 22:06:21,739:INFO:Stop polling...
+2022-09-06 22:06:21,740:WARNING:Goodbye!
+2022-09-06 22:06:24,770:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 22:06:25,115:WARNING:Updates were skipped successfully.
+2022-09-06 22:06:25,115:INFO:Start polling.
+2022-09-06 22:06:25,458:INFO:CALL [461924047] admin_editItemChooseCategory
+2022-09-06 22:06:33,901:INFO:Stop polling...
+2022-09-06 22:06:33,902:WARNING:Goodbye!
+2022-09-06 22:06:36,466:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 22:06:36,629:WARNING:Updates were skipped successfully.
+2022-09-06 22:06:36,630:INFO:Start polling.
+2022-09-06 22:06:36,842:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 22:14:11,016:INFO:Stop polling...
+2022-09-06 22:14:11,017:WARNING:Goodbye!
+2022-09-06 22:14:20,223:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 22:14:23,945:WARNING:Updates were skipped successfully.
+2022-09-06 22:14:23,946:INFO:Start polling.
+2022-09-06 22:14:36,484:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 22:14:38,877:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 22:14:46,943:INFO:CALL [461924047] admin_addImageCtg
+2022-09-06 22:14:56,505:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-23' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=KeyError('item_id')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 1998, in editItemSetImage
+    item = itm.Item(data["item_id"])
+KeyError: 'item_id'
+2022-09-06 22:15:51,472:INFO:Stop polling...
+2022-09-06 22:15:51,472:WARNING:Goodbye!
+2022-09-06 22:16:09,316:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 22:16:16,133:WARNING:Updates were skipped successfully.
+2022-09-06 22:16:16,134:INFO:Start polling.
+2022-09-06 22:16:18,745:INFO:CALL [461924047] admin_addImageCtg
+2022-09-06 22:16:33,013:INFO:Stop polling...
+2022-09-06 22:16:33,013:WARNING:Goodbye!
+2022-09-06 22:16:44,526:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 22:16:48,056:WARNING:Updates were skipped successfully.
+2022-09-06 22:16:48,057:INFO:Start polling.
+2022-09-06 22:16:51,854:INFO:Stop polling...
+2022-09-06 22:16:51,855:WARNING:Goodbye!
+2022-09-06 22:16:54,135:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 22:16:55,381:WARNING:Updates were skipped successfully.
+2022-09-06 22:16:55,382:INFO:Start polling.
+2022-09-06 22:24:09,463:INFO:Stop polling...
+2022-09-06 22:24:09,464:WARNING:Goodbye!
+2022-09-06 22:24:14,636:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 22:24:17,778:WARNING:Updates were skipped successfully.
+2022-09-06 22:24:17,778:INFO:Start polling.
+2022-09-06 22:24:21,234:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 22:24:27,490:INFO:Stop polling...
+2022-09-06 22:24:27,491:WARNING:Goodbye!
+2022-09-06 22:24:29,434:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 22:24:29,617:WARNING:Updates were skipped successfully.
+2022-09-06 22:24:29,618:INFO:Start polling.
+2022-09-06 22:24:29,780:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 22:24:46,199:INFO:Stop polling...
+2022-09-06 22:24:46,199:WARNING:Goodbye!
+2022-09-06 22:24:48,888:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 22:24:49,163:WARNING:Updates were skipped successfully.
+2022-09-06 22:24:49,164:INFO:Start polling.
+2022-09-06 22:24:49,377:INFO:CALL [461924047] admin_addImageCtg
+2022-09-06 22:26:53,601:INFO:Stop polling...
+2022-09-06 22:26:53,601:WARNING:Goodbye!
+2022-09-06 22:26:55,980:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 22:26:56,137:WARNING:Updates were skipped successfully.
+2022-09-06 22:26:56,137:INFO:Start polling.
+2022-09-06 22:26:56,280:INFO:MESSAGE [461924047] 🛒 Корзина
+2022-09-06 22:27:02,570:INFO:Stop polling...
+2022-09-06 22:27:02,571:WARNING:Goodbye!
+2022-09-06 22:27:04,688:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 22:27:04,859:WARNING:Updates were skipped successfully.
+2022-09-06 22:27:04,859:INFO:Start polling.
+2022-09-06 22:27:05,246:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 22:29:30,723:INFO:CALL [461924047] admin_adminPanel
+2022-09-06 22:29:30,724:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 22:31:42,241:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 22:31:42,244:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 22:32:24,247:INFO:Stop polling...
+2022-09-06 22:32:24,247:WARNING:Goodbye!
+2022-09-06 22:32:27,143:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 22:32:27,336:WARNING:Updates were skipped successfully.
+2022-09-06 22:32:27,337:INFO:Start polling.
+2022-09-06 22:32:27,590:INFO:CALL [461924047] admin_addImageCtg
+2022-09-06 22:36:05,637:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 22:36:23,431:INFO:CALL [461924047] admin_addImageCtg
+2022-09-06 22:36:23,435:INFO:CALL [461924047] admin_addImageCtg (STATE)
+2022-09-06 22:38:18,116:INFO:Stop polling...
+2022-09-06 22:38:18,116:WARNING:Goodbye!
+2022-09-06 22:38:22,143:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 22:38:24,600:WARNING:Updates were skipped successfully.
+2022-09-06 22:38:24,601:INFO:Start polling.
+2022-09-06 22:38:34,911:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 22:38:37,423:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 22:38:39,450:INFO:CALL [461924047] admin_addImageCtg
+2022-09-06 22:38:57,270:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-23' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=OperationalError('2 values for 1 columns')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 1986, in editItemSetImage
+    catalogue.create_ctg(image_id)
+  File "/home/eve9te/project/TelegramBotShop/src/catalogue.py", line 57, in create_ctg
+    c.execute(f"INSERT INTO catalogue(image_id) VALUES(?, ?)", [image_id])
+sqlite3.OperationalError: 2 values for 1 columns
+2022-09-06 22:39:35,063:INFO:Stop polling...
+2022-09-06 22:39:35,063:WARNING:Goodbye!
+2022-09-06 22:39:37,457:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 22:39:39,046:WARNING:Updates were skipped successfully.
+2022-09-06 22:39:39,046:INFO:Start polling.
+2022-09-06 22:39:39,509:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 22:39:40,880:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 22:39:41,732:INFO:CALL [461924047] admin_addImageCtg
+2022-09-06 22:39:49,368:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 22:39:49,369:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-29' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=TypeError('can only concatenate str (not "method") to str')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 176, in handle_text
+    ctg = catalogue.get_images_list()
+  File "/home/eve9te/project/TelegramBotShop/src/catalogue.py", line 51, in get_images_list
+    media_group.append(InputMediaPhoto(open("images/" + ctg.__getitem__(i).get_image_id, "rb"),
+TypeError: can only concatenate str (not "method") to str
+2022-09-06 22:40:52,706:INFO:Stop polling...
+2022-09-06 22:40:52,707:WARNING:Goodbye!
+2022-09-06 22:40:57,738:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 22:40:59,095:WARNING:Updates were skipped successfully.
+2022-09-06 22:40:59,096:INFO:Start polling.
+2022-09-06 22:40:59,468:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 22:40:59,469:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=TypeError('can only concatenate str (not "method") to str')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 176, in handle_text
+    ctg = catalogue.get_images_list()
+  File "/home/eve9te/project/TelegramBotShop/src/catalogue.py", line 51, in get_images_list
+    media_group.append(InputMediaPhoto(open("images/" + ctg.__getitem__(i).get_image_id, "rb"),
+TypeError: can only concatenate str (not "method") to str
+2022-09-06 22:41:52,158:INFO:Stop polling...
+2022-09-06 22:41:52,158:WARNING:Goodbye!
+2022-09-06 22:41:54,444:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 22:41:54,908:WARNING:Updates were skipped successfully.
+2022-09-06 22:41:54,908:INFO:Start polling.
+2022-09-06 22:41:55,099:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 22:41:55,100:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=TypeError('can only concatenate str (not "method") to str')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 176, in handle_text
+    ctg = catalogue.get_images_list()
+  File "/home/eve9te/project/TelegramBotShop/src/catalogue.py", line 53, in get_images_list
+    media_group.append(open("images/" + ctg.__getitem__(i).get_image_id, "rb"))
+TypeError: can only concatenate str (not "method") to str
+2022-09-06 22:43:37,275:INFO:Stop polling...
+2022-09-06 22:43:37,275:WARNING:Goodbye!
+2022-09-06 22:43:44,194:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 22:43:46,150:WARNING:Updates were skipped successfully.
+2022-09-06 22:43:46,151:INFO:Start polling.
+2022-09-06 22:43:48,186:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 22:43:48,187:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=TypeError('__repr__ returned non-string (type _io.BufferedReader)')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 176, in handle_text
+    ctg = catalogue.get_images_list()
+  File "/home/eve9te/project/TelegramBotShop/src/catalogue.py", line 53, in get_images_list
+    print(ctg.__getitem__(i).get_image_id)
+TypeError: __repr__ returned non-string (type _io.BufferedReader)
+2022-09-06 22:43:52,239:INFO:Stop polling...
+2022-09-06 22:43:52,240:WARNING:Goodbye!
+2022-09-06 22:43:54,244:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 22:43:55,461:WARNING:Updates were skipped successfully.
+2022-09-06 22:43:55,462:INFO:Start polling.
+2022-09-06 22:44:13,634:INFO:Stop polling...
+2022-09-06 22:44:13,634:WARNING:Goodbye!
+2022-09-06 22:44:15,603:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 22:44:15,992:WARNING:Updates were skipped successfully.
+2022-09-06 22:44:15,993:INFO:Start polling.
+2022-09-06 22:44:16,173:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 22:44:16,175:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=TypeError('__repr__ returned non-string (type _io.BufferedReader)')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 176, in handle_text
+    ctg = catalogue.get_images_list()
+  File "/home/eve9te/project/TelegramBotShop/src/catalogue.py", line 54, in get_images_list
+    print(ctg.__getitem__(i).get_image_id)
+TypeError: __repr__ returned non-string (type _io.BufferedReader)
+2022-09-06 22:44:37,294:INFO:Stop polling...
+2022-09-06 22:44:37,295:WARNING:Goodbye!
+2022-09-06 22:44:40,059:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 22:44:40,492:WARNING:Updates were skipped successfully.
+2022-09-06 22:44:40,493:INFO:Start polling.
+2022-09-06 22:44:40,678:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 22:44:40,679:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=TypeError('__repr__ returned non-string (type _io.BufferedReader)')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 176, in handle_text
+    ctg = catalogue.get_images_list()
+  File "/home/eve9te/project/TelegramBotShop/src/catalogue.py", line 54, in get_images_list
+    print(ctg.__getitem__(i).get_image_id)
+TypeError: __repr__ returned non-string (type _io.BufferedReader)
+2022-09-06 22:44:53,142:INFO:Stop polling...
+2022-09-06 22:44:53,142:WARNING:Goodbye!
+2022-09-06 22:44:55,632:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 22:44:55,822:WARNING:Updates were skipped successfully.
+2022-09-06 22:44:55,822:INFO:Start polling.
+2022-09-06 22:44:56,007:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 22:44:56,009:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=TypeError('__repr__ returned non-string (type _io.BufferedReader)')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 176, in handle_text
+    ctg = catalogue.get_images_list()
+  File "/home/eve9te/project/TelegramBotShop/src/catalogue.py", line 55, in get_images_list
+    print(ctg.__getitem__(i).get_image_id)
+TypeError: __repr__ returned non-string (type _io.BufferedReader)
+2022-09-06 22:45:11,451:INFO:Stop polling...
+2022-09-06 22:45:11,451:WARNING:Goodbye!
+2022-09-06 22:45:20,710:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 22:45:24,783:WARNING:Goodbye!
+2022-09-06 22:45:28,612:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 22:45:30,690:WARNING:Updates were skipped successfully.
+2022-09-06 22:45:30,690:INFO:Start polling.
+2022-09-06 22:45:32,155:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 22:45:32,156:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=IndexError('list index out of range')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 176, in handle_text
+    ctg = catalogue.get_images_list()
+  File "/home/eve9te/project/TelegramBotShop/src/catalogue.py", line 55, in get_images_list
+    print(ctg.__getitem__(i + 1).get_image_id)
+IndexError: list index out of range
+2022-09-06 22:45:54,932:INFO:Stop polling...
+2022-09-06 22:45:54,933:WARNING:Goodbye!
+2022-09-06 22:45:57,030:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 22:45:58,235:WARNING:Updates were skipped successfully.
+2022-09-06 22:45:58,235:INFO:Start polling.
+2022-09-06 22:46:01,352:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 22:46:01,354:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=IndexError('list index out of range')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 176, in handle_text
+    ctg = catalogue.get_images_list()
+  File "/home/eve9te/project/TelegramBotShop/src/catalogue.py", line 55, in get_images_list
+    print(str(ctg.__getitem__(i + 1).get_image_id))
+IndexError: list index out of range
+2022-09-06 22:55:12,034:INFO:Stop polling...
+2022-09-06 22:55:12,034:WARNING:Goodbye!
+2022-09-06 22:57:09,537:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 22:57:10,800:WARNING:Updates were skipped successfully.
+2022-09-06 22:57:10,801:INFO:Start polling.
+2022-09-06 22:57:20,586:INFO:Stop polling...
+2022-09-06 22:57:20,587:WARNING:Goodbye!
+2022-09-06 22:57:25,753:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 22:57:28,587:WARNING:Updates were skipped successfully.
+2022-09-06 22:57:28,588:INFO:Start polling.
+2022-09-06 22:59:11,171:INFO:Stop polling...
+2022-09-06 22:59:11,171:WARNING:Goodbye!
+2022-09-06 22:59:31,345:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 22:59:32,832:WARNING:Updates were skipped successfully.
+2022-09-06 22:59:32,832:INFO:Start polling.
+2022-09-06 22:59:39,604:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 22:59:39,606:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=TypeError('Media must be an instance of InputMedia or dict, not tuple')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 180, in handle_text
+    await bot.send_media_group(
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/bot.py", line 1088, in send_media_group
+    media = types.MediaGroup(media)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/types/input_media.py", line 248, in __init__
+    self.attach_many(*medias)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/types/input_media.py", line 257, in attach_many
+    self.attach(media)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/types/input_media.py", line 284, in attach
+    raise TypeError(f"Media must be an instance of InputMedia or dict, not {type(media).__name__}")
+TypeError: Media must be an instance of InputMedia or dict, not tuple
+2022-09-06 23:02:37,973:INFO:Stop polling...
+2022-09-06 23:02:37,974:WARNING:Goodbye!
+2022-09-06 23:02:39,952:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 23:02:41,154:WARNING:Updates were skipped successfully.
+2022-09-06 23:02:41,155:INFO:Start polling.
+2022-09-06 23:02:41,882:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 23:02:41,884:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=TypeError('__repr__ returned non-string (type _io.BufferedReader)')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 176, in handle_text
+    ctg = catalogue.get_images_list()
+  File "/home/eve9te/project/TelegramBotShop/src/catalogue.py", line 55, in get_images_list
+    print(str(ctg.pop(i).get_image_id))
+TypeError: __repr__ returned non-string (type _io.BufferedReader)
+2022-09-06 23:02:45,496:INFO:Stop polling...
+2022-09-06 23:02:45,496:WARNING:Goodbye!
+2022-09-06 23:03:14,528:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 23:03:16,742:WARNING:Updates were skipped successfully.
+2022-09-06 23:03:16,742:INFO:Start polling.
+2022-09-06 23:03:19,139:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 23:03:19,140:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=TypeError('__repr__ returned non-string (type _io.BufferedReader)')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 176, in handle_text
+    ctg = catalogue.get_images_list()
+  File "/home/eve9te/project/TelegramBotShop/src/catalogue.py", line 55, in get_images_list
+    print(ctg.pop(i).get_image_id)
+TypeError: __repr__ returned non-string (type _io.BufferedReader)
+2022-09-06 23:05:26,270:INFO:Stop polling...
+2022-09-06 23:05:26,271:WARNING:Goodbye!
+2022-09-06 23:05:28,269:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 23:05:29,459:WARNING:Updates were skipped successfully.
+2022-09-06 23:05:29,459:INFO:Start polling.
+2022-09-06 23:05:29,670:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 23:05:29,675:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=IndexError('pop from empty list')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 176, in handle_text
+    ctg = catalogue.get_images_list()
+  File "/home/eve9te/project/TelegramBotShop/src/catalogue.py", line 56, in get_images_list
+    media_group.append(open("images/" + ctg.pop(i).get_image_id, "rb"))
+IndexError: pop from empty list
+2022-09-06 23:05:50,640:INFO:Stop polling...
+2022-09-06 23:05:50,640:WARNING:Goodbye!
+2022-09-06 23:05:54,148:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 23:05:55,604:WARNING:Updates were skipped successfully.
+2022-09-06 23:05:55,605:INFO:Start polling.
+2022-09-06 23:05:56,939:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 23:05:56,940:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=IndexError('pop from empty list')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 176, in handle_text
+    ctg = catalogue.get_images_list()
+  File "/home/eve9te/project/TelegramBotShop/src/catalogue.py", line 56, in get_images_list
+    media_group.append(open("images/" + ctg.pop(i).get_image_id, "rb"))
+IndexError: pop from empty list
+2022-09-06 23:05:57,963:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 23:05:57,963:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-13' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=IndexError('pop from empty list')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 176, in handle_text
+    ctg = catalogue.get_images_list()
+  File "/home/eve9te/project/TelegramBotShop/src/catalogue.py", line 56, in get_images_list
+    media_group.append(open("images/" + ctg.pop(i).get_image_id, "rb"))
+IndexError: pop from empty list
+2022-09-06 23:06:20,337:INFO:Stop polling...
+2022-09-06 23:06:20,338:WARNING:Goodbye!
+2022-09-06 23:06:22,308:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 23:06:22,478:WARNING:Updates were skipped successfully.
+2022-09-06 23:06:22,478:INFO:Start polling.
+2022-09-06 23:06:22,648:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 23:06:22,650:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=TypeError('can only concatenate str (not "method") to str')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 176, in handle_text
+    ctg = catalogue.get_images_list()
+  File "/home/eve9te/project/TelegramBotShop/src/catalogue.py", line 54, in get_images_list
+    media_group.append(open("images/" + ctg.pop(i).get_image_id, "rb"))
+TypeError: can only concatenate str (not "method") to str
+2022-09-06 23:06:42,517:INFO:Stop polling...
+2022-09-06 23:06:42,518:WARNING:Goodbye!
+2022-09-06 23:06:44,448:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 23:06:44,949:WARNING:Updates were skipped successfully.
+2022-09-06 23:06:44,949:INFO:Start polling.
+2022-09-06 23:06:45,118:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 23:06:45,119:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=FileNotFoundError(2, 'No such file or directory')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 176, in handle_text
+    ctg = catalogue.get_images_list()
+  File "/home/eve9te/project/TelegramBotShop/src/catalogue.py", line 54, in get_images_list
+    media_group.append(open("images/" + str(ctg.pop(i).get_image_id), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: "images/<bound method Catalogue.get_image_id of <_io.BufferedReader name='images/xk4jzv.png'>>"
+2022-09-06 23:08:23,162:INFO:Stop polling...
+2022-09-06 23:08:23,163:WARNING:Goodbye!
+2022-09-06 23:08:32,507:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 23:08:34,657:WARNING:Updates were skipped successfully.
+2022-09-06 23:08:34,657:INFO:Start polling.
+2022-09-06 23:08:36,686:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 23:08:36,688:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=FileNotFoundError(2, 'No such file or directory')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 176, in handle_text
+    ctg = catalogue.get_images_list()
+  File "/home/eve9te/project/TelegramBotShop/src/catalogue.py", line 56, in get_images_list
+    media_group.append(open(url_img, "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: "images/<bound method Catalogue.get_image_id of <_io.BufferedReader name='images/xk4jzv.png'>>"
+2022-09-06 23:09:08,112:INFO:Stop polling...
+2022-09-06 23:09:08,113:WARNING:Goodbye!
+2022-09-06 23:09:14,262:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 23:09:16,617:WARNING:Updates were skipped successfully.
+2022-09-06 23:09:16,618:INFO:Start polling.
+2022-09-06 23:09:18,769:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 23:09:18,771:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=TypeError('can only concatenate str (not "method") to str')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 176, in handle_text
+    ctg = catalogue.get_images_list()
+  File "/home/eve9te/project/TelegramBotShop/src/catalogue.py", line 54, in get_images_list
+    url_img = "images/" + ctg.pop(i).get_image_id
+TypeError: can only concatenate str (not "method") to str
+2022-09-06 23:10:04,376:INFO:Stop polling...
+2022-09-06 23:10:04,376:WARNING:Goodbye!
+2022-09-06 23:10:08,433:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 23:10:12,035:WARNING:Updates were skipped successfully.
+2022-09-06 23:10:12,035:INFO:Start polling.
+2022-09-06 23:10:13,758:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 23:10:13,759:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=TypeError('can only concatenate str (not "method") to str')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 176, in handle_text
+    ctg = catalogue.get_images_list()
+  File "/home/eve9te/project/TelegramBotShop/src/catalogue.py", line 54, in get_images_list
+    url_img = "images/" + ctg.pop(i).get_image_id
+TypeError: can only concatenate str (not "method") to str
+2022-09-06 23:11:18,807:INFO:Stop polling...
+2022-09-06 23:11:18,807:WARNING:Goodbye!
+2022-09-06 23:11:20,733:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 23:11:21,955:WARNING:Updates were skipped successfully.
+2022-09-06 23:11:21,956:INFO:Start polling.
+2022-09-06 23:11:22,404:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 23:11:22,406:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=TypeError('Media must be an instance of InputMedia or dict, not BufferedReader')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 180, in handle_text
+    await bot.send_media_group(
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/bot.py", line 1088, in send_media_group
+    media = types.MediaGroup(media)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/types/input_media.py", line 248, in __init__
+    self.attach_many(*medias)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/types/input_media.py", line 257, in attach_many
+    self.attach(media)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/types/input_media.py", line 284, in attach
+    raise TypeError(f"Media must be an instance of InputMedia or dict, not {type(media).__name__}")
+TypeError: Media must be an instance of InputMedia or dict, not BufferedReader
+2022-09-06 23:13:02,273:INFO:Stop polling...
+2022-09-06 23:13:02,273:WARNING:Goodbye!
+2022-09-06 23:13:09,680:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 23:13:11,832:WARNING:Updates were skipped successfully.
+2022-09-06 23:13:11,833:INFO:Start polling.
+2022-09-06 23:13:12,803:WARNING:Goodbye!
+2022-09-06 23:13:23,917:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 23:13:27,806:WARNING:Updates were skipped successfully.
+2022-09-06 23:13:27,806:INFO:Start polling.
+2022-09-06 23:13:29,650:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 23:14:02,084:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 23:14:18,701:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 23:14:24,101:INFO:CALL [461924047] admin_addImageCtg
+2022-09-06 23:14:34,401:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 23:14:34,403:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-37' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=IndexError('pop index out of range')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 176, in handle_text
+    ctg = catalogue.get_images_list()
+  File "/home/eve9te/project/TelegramBotShop/src/catalogue.py", line 54, in get_images_list
+    url_img = "images/" + ctg.pop(i).get_image_id()
+IndexError: pop index out of range
+2022-09-06 23:15:18,522:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 23:15:18,523:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-42' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=IndexError('pop index out of range')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 176, in handle_text
+    ctg = catalogue.get_images_list()
+  File "/home/eve9te/project/TelegramBotShop/src/catalogue.py", line 54, in get_images_list
+    url_img = "images/" + ctg.pop(i).get_image_id()
+IndexError: pop index out of range
+2022-09-06 23:16:04,728:INFO:Stop polling...
+2022-09-06 23:16:04,728:WARNING:Goodbye!
+2022-09-06 23:16:09,638:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 23:16:11,563:WARNING:Updates were skipped successfully.
+2022-09-06 23:16:11,563:INFO:Start polling.
+2022-09-06 23:16:13,408:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 23:18:24,586:INFO:Stop polling...
+2022-09-06 23:18:24,586:WARNING:Goodbye!
+2022-09-06 23:18:26,691:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 23:18:27,948:WARNING:Updates were skipped successfully.
+2022-09-06 23:18:27,948:INFO:Start polling.
+2022-09-06 23:18:35,121:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 23:18:35,125:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-10' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=TypeError("Bot.send_media_group() got an unexpected keyword argument 'reply_markup'")>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 180, in handle_text
+    await bot.send_media_group(
+TypeError: Bot.send_media_group() got an unexpected keyword argument 'reply_markup'
+2022-09-06 23:18:39,007:INFO:MESSAGE [461924047] 🛒 Корзина
+2022-09-06 23:18:44,015:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-13' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=OperationalError('database is locked')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 191, in handle_text
+    user.set_username(message.from_user.username)
+  File "/home/eve9te/project/TelegramBotShop/src/user.py", line 29, in set_username
+    c.execute(f"UPDATE users SET username=? WHERE user_id=?", [value, self.get_id()])
+sqlite3.OperationalError: database is locked
+2022-09-06 23:18:44,111:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 23:18:44,115:INFO:MESSAGE [461924047] ℹ️ FAQ
+2022-09-06 23:18:44,117:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-16' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=TypeError("Bot.send_media_group() got an unexpected keyword argument 'reply_markup'")>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 180, in handle_text
+    await bot.send_media_group(
+TypeError: Bot.send_media_group() got an unexpected keyword argument 'reply_markup'
+2022-09-06 23:18:50,272:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 23:18:50,275:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-22' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=TypeError("Bot.send_media_group() got an unexpected keyword argument 'reply_markup'")>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 180, in handle_text
+    await bot.send_media_group(
+TypeError: Bot.send_media_group() got an unexpected keyword argument 'reply_markup'
+2022-09-06 23:19:08,411:INFO:Stop polling...
+2022-09-06 23:19:08,412:WARNING:Goodbye!
+2022-09-06 23:19:13,517:INFO:Bot: 334_store [@Store334Bot]
+2022-09-06 23:19:14,847:WARNING:Updates were skipped successfully.
+2022-09-06 23:19:14,847:INFO:Start polling.
+2022-09-06 23:19:16,391:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 23:19:34,971:INFO:CALL [461924047] viewCat19
+2022-09-06 23:20:05,821:INFO:CALL [461924047] catalogue
+2022-09-06 23:20:13,283:INFO:CALL [461924047] viewCat19
+2022-09-06 23:20:18,648:INFO:CALL [461924047] catalogue
+2022-09-06 23:22:23,030:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 23:22:30,860:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 23:23:11,807:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 23:27:09,510:INFO:CALL [461924047] viewCat10
+2022-09-06 23:27:25,570:INFO:CALL [461924047] catalogue
+2022-09-06 23:27:28,322:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 23:28:51,108:INFO:CALL [461924047] viewCat19
+2022-09-06 23:28:53,418:INFO:CALL [461924047] catalogue
+2022-09-06 23:28:54,638:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 23:28:56,489:INFO:CALL [461924047] admin_itemManagement
+2022-09-06 23:30:17,698:INFO:CALL [461924047] admin_adminPanel
+2022-09-06 23:30:18,587:INFO:CALL [461924047] admin_shopSettings
+2022-09-06 23:30:19,678:INFO:CALL [461924047] admin_additionalSettings
+2022-09-06 23:30:21,038:INFO:CALL [461924047] admin_systemSettings
+2022-09-06 23:30:24,283:INFO:CALL [461924047] admin_cleanImagesMenu
+2022-09-06 23:30:25,387:INFO:CALL [461924047] admin_cleanImages
+2022-09-06 23:30:25,391:INFO:unused images cleaned (0.01mb)
+2022-09-06 23:30:31,037:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 23:30:31,038:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-143' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=FileNotFoundError(2, 'No such file or directory')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 256, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 176, in handle_text
+    ctg = catalogue.get_images_list()
+  File "/home/eve9te/project/TelegramBotShop/src/catalogue.py", line 56, in get_images_list
+    c.execute(f"INSERT INTO catalogue(image_id) VALUES(?)", [image_id])
+FileNotFoundError: [Errno 2] No such file or directory: 'images/xk4jzv.png'
+2022-09-06 23:31:54,506:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 23:31:59,856:INFO:CALL [461924047] viewCat19
+2022-09-06 23:32:00,045:ERROR:Task exception was never retrieved
+future: <Task finished name='Task-155' coro=<Dispatcher._process_polling_updates() done, defined at /home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py:407> exception=MessageToDeleteNotFound('Message to delete not found')>
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 1599, in process_callback
+    photo=cat.get_image(),
+  File "/home/eve9te/project/TelegramBotShop/src/category.py", line 35, in get_image
+    return open("images/" + self.get_image_id(), "rb")
+FileNotFoundError: [Errno 2] No such file or directory: 'images/rmnfkb.png'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 415, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 235, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/dispatcher.py", line 283, in process_update
+    return await self.callback_query_handlers.notify(update.callback_query)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/eve9te/project/TelegramBotShop/src/main.py", line 1603, in process_callback
+    await bot.delete_message(
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/bot.py", line 2823, in delete_message
+    return await self.request(api.Methods.DELETE_MESSAGE, payload)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/base.py", line 231, in request
+    return await api.make_request(await self.get_session(), self.server, self.__token, method, data, files,
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/bot/api.py", line 115, in check_result
+    exceptions.BadRequest.detect(description)
+  File "/home/eve9te/project/TelegramBotShop/venv/lib/python3.10/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.MessageToDeleteNotFound: Message to delete not found
+2022-09-06 23:33:41,565:INFO:MESSAGE [461924047] 🗄️ Каталог
+2022-09-06 23:33:42,530:INFO:CALL [461924047] viewCat19
+2022-09-06 23:33:44,033:INFO:CALL [461924047] viewItem3
+2022-09-06 23:33:45,556:INFO:CALL [461924047] viewCat19
+2022-09-06 23:33:46,865:INFO:CALL [461924047] catalogue
+2022-09-06 23:44:58,354:INFO:MESSAGE [461924047] 🔴 Админ панель
+2022-09-06 23:45:03,390:INFO:CALL [461924047] admin_itemManagement
+2022-09-07 00:00:15,021:INFO:backup created
+2022-09-07 00:00:30,740:INFO:Stop polling...
+2022-09-07 00:00:30,740:WARNING:Goodbye!
