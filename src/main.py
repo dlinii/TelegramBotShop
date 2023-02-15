@@ -30,7 +30,7 @@ from settings import Settings
 import commands
 import search
 
-conn = sqlite3.connect("data.db")
+conn = sqlite3.connect("dat1a.db")
 c = conn.cursor()
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s:%(levelname)s:%(message)s",
