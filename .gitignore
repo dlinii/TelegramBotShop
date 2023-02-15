@@ -1,4 +1,3 @@
-/images
 *.pyc
 *.pyd
 sticker.tgs
@@ -9,5 +8,3 @@ ideas.txt
 /tmp
 DOCS/overview.md
 src/modules/
-backups/
-logs/
