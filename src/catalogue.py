@@ -4,7 +4,7 @@ from aiogram.types import InputMediaPhoto
 
 import item as itm
 
-conn = sqlite3.connect("data1.db")
+conn = sqlite3.connect("data.db")
 c = conn.cursor()
 
 class Catalogue:
