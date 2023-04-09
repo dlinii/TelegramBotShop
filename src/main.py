@@ -1691,7 +1691,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                 text=tt.get_order_template(order),
                 chat_id=chat_id,
                 message_id=callback_query.message.message_id,
-                reply_markup=markups.get_markup_seeOrder(order)
+                reply_markup=markups.get_markup_seeOrder(order, seeOrder=order.get_status())
             )
         elif call_data.startswith("addItemFromOrder"):
             order = ordr.Order(call_data[16:])
@@ -1814,14 +1814,21 @@ async def process_callback(callback_query: types.CallbackQuery):
             for adm_msg in order.get_notif_adm_msg_list():
                 adm_id = adm_msg.split(":")[0]
                 msg_id = adm_msg.split(":")[1]
-                if str(chat_id) == str(adm_id):
-                    continue
+                # if str(chat_id) == str(adm_id):
+                #     continue
                 await bot.edit_message_text(
                     text=f"Новый заказ:\n{tt.get_order_template(order)}",
                     chat_id=adm_id,
                     message_id=msg_id,
                     reply_markup=markups.get_markup_seeNewOrder(order)
                 )
+                if order.get_id_user_msg() != "None":
+                    await bot.edit_message_text(
+                        text=f"{tt.get_order_for_user(order)}",
+                        chat_id=order.get_user_id(),
+                        message_id=order.get_id_user_msg(),
+                        reply_markup=markups.get_markup_viewNewOrderFromUser(order)
+                    )
         elif call_data.startswith("removeFromOrderFromOrder"):
             order_id_and_item_id = call_data[24:]
             order = ordr.Order(order_id_and_item_id.split("_")[0])
@@ -1842,16 +1849,24 @@ async def process_callback(callback_query: types.CallbackQuery):
             for adm_msg in order.get_notif_adm_msg_list():
                 adm_id = adm_msg.split(":")[0]
                 msg_id = adm_msg.split(":")[1]
-                if str(chat_id) == str(adm_id):
-                    continue
+                # if str(chat_id) == str(adm_id):
+                #     continue
                 await bot.edit_message_text(
                     text=f"Новый заказ:\n{tt.get_order_template(order)}",
                     chat_id=adm_id,
                     message_id=msg_id,
                     reply_markup=markups.get_markup_seeNewOrder(order)
                 )
+            if order.get_id_user_msg() != "None":
+                await bot.edit_message_text(
+                    text=f"{tt.get_order_for_user(order)}",
+                    chat_id=order.get_user_id(),
+                    message_id=order.get_id_user_msg(),
+                    reply_markup=markups.get_markup_viewNewOrderFromUser(order)
+                )
         elif call_data.startswith("changeOrderStatusProcessing"):
             order = ordr.Order(call_data[27:])
+            seeOrder = order.get_status()
             if order.get_status() == -1 or order.get_status() == -2:
                 # item_list = order.get_item_list_raw()
                 for item in itm.get_item_list():
@@ -1865,21 +1880,29 @@ async def process_callback(callback_query: types.CallbackQuery):
                 text=tt.get_order_template(order),
                 chat_id=chat_id,
                 message_id=callback_query.message.message_id,
-                reply_markup=markups.get_markup_seeOrder(order)
+                reply_markup=markups.get_markup_seeOrder(order, seeOrder=seeOrder)
             )
             for adm_msg in order.get_notif_adm_msg_list():
                 adm_id = adm_msg.split(":")[0]
                 msg_id = adm_msg.split(":")[1]
-                if str(chat_id) == str(adm_id):
-                    continue
+                # if str(chat_id) == str(adm_id):
+                #     continue
                 await bot.edit_message_text(
                     text=f"Новый заказ:\n{tt.get_order_template(order)}",
                     chat_id=adm_id,
                     message_id=msg_id,
                     reply_markup=markups.get_markup_seeNewOrder(order)
                 )
+            if order.get_id_user_msg() != "None":
+                await bot.edit_message_text(
+                    text=f"{tt.get_order_for_user(order)}",
+                    chat_id=order.get_user_id(),
+                    message_id=order.get_id_user_msg(),
+                    reply_markup=markups.get_markup_viewNewOrderFromUser(order)
+                )
         elif call_data.startswith("changeOrderStatusDelivery"):
             order = ordr.Order(call_data[25:])
+            seeOrder = order.get_status()
             if order.get_status() == -1 or order.get_status() == -2:
                 # item_list = order.get_item_list_raw()
                 for item in itm.get_item_list():
@@ -1893,21 +1916,27 @@ async def process_callback(callback_query: types.CallbackQuery):
                 text=tt.get_order_template(order),
                 chat_id=chat_id,
                 message_id=callback_query.message.message_id,
-                reply_markup=markups.get_markup_seeOrder(order)
+                reply_markup=markups.get_markup_seeOrder(order, seeOrder=seeOrder)
             )
             for adm_msg in order.get_notif_adm_msg_list():
                 adm_id = adm_msg.split(":")[0]
                 msg_id = adm_msg.split(":")[1]
-                if str(chat_id) == str(adm_id):
-                    continue
                 await bot.edit_message_text(
                     text=f"Новый заказ:\n{tt.get_order_template(order)}",
                     chat_id=adm_id,
                     message_id=msg_id,
                     reply_markup=markups.get_markup_seeNewOrder(order)
                 )
+            if order.get_id_user_msg() != "None":
+                await bot.edit_message_text(
+                    text=f"{tt.get_order_for_user(order)}",
+                    chat_id=order.get_user_id(),
+                    message_id=order.get_id_user_msg(),
+                    reply_markup=markups.get_markup_viewNewOrderFromUser(order)
+                )
         elif call_data.startswith("changeOrderStatusDone"):
             order = ordr.Order(call_data[21:])
+            seeOrder = order.get_status()
             if order.get_status() == -1 or order.get_status() == -2:
                 # item_list = order.get_item_list_raw()
                 for item in itm.get_item_list():
@@ -1923,21 +1952,27 @@ async def process_callback(callback_query: types.CallbackQuery):
                 text=tt.get_order_template(order),
                 chat_id=chat_id,
                 message_id=callback_query.message.message_id,
-                reply_markup=markups.get_markup_seeOrder(order)
+                reply_markup=markups.get_markup_seeOrder(order, seeOrder=seeOrder)
             )
             for adm_msg in order.get_notif_adm_msg_list():
                 adm_id = adm_msg.split(":")[0]
                 msg_id = adm_msg.split(":")[1]
-                if str(chat_id) == str(adm_id):
-                    continue
                 await bot.edit_message_text(
                     text=f"Новый заказ:\n{tt.get_order_template(order)}",
                     chat_id=adm_id,
                     message_id=msg_id,
                     reply_markup=markups.get_markup_seeNewOrder(order)
                 )
+            if order.get_id_user_msg() != "None":
+                await bot.edit_message_text(
+                    text=f"{tt.get_order_for_user(order)}",
+                    chat_id=order.get_user_id(),
+                    message_id=order.get_id_user_msg(),
+                    reply_markup=markups.get_markup_viewNewOrderFromUser(order)
+                )
         elif call_data.startswith("changeOrderStatusCancel"):
             order = ordr.Order(call_data[23:])
+            seeOrder = order.get_status()
             if order.get_status() != -2 and order.get_status() != -1:
                 # item_list = order.get_item_list_raw()
                 for item in itm.get_item_list():
@@ -1951,18 +1986,23 @@ async def process_callback(callback_query: types.CallbackQuery):
                 text=tt.get_order_template(order),
                 chat_id=chat_id,
                 message_id=callback_query.message.message_id,
-                reply_markup=markups.get_markup_seeOrder(order)
+                reply_markup=markups.get_markup_seeOrder(order, seeOrder=seeOrder)
             )
             for adm_msg in order.get_notif_adm_msg_list():
                 adm_id = adm_msg.split(":")[0]
                 msg_id = adm_msg.split(":")[1]
-                if str(chat_id) == str(adm_id):
-                    continue
                 await bot.edit_message_text(
                     text=f"Новый заказ:\n{tt.get_order_template(order)}",
                     chat_id=adm_id,
                     message_id=msg_id,
                     reply_markup=markups.get_markup_seeNewOrder(order)
+                )
+            if order.get_id_user_msg() != "None":
+                await bot.edit_message_text(
+                    text=f"{tt.get_order_for_user(order)}",
+                    chat_id=order.get_user_id(),
+                    message_id=order.get_id_user_msg(),
+                    reply_markup=markups.get_markup_viewNewOrderFromUser(order)
                 )
         elif call_data.startswith("sendMsgForOrder"):
             order = ordr.Order(call_data[15:])
@@ -2078,6 +2118,19 @@ async def process_callback(callback_query: types.CallbackQuery):
             await state.update_data(state_message=callback_query.message.message_id)
             await state.update_data(user_id=chat_id)
 
+        elif call_data == "feedbackNewOrder":
+            await bot.send_message(
+                chat_id=chat_id,
+                text=f"Напишите свой отзыв! {tt.or_press_cancel}",
+                reply_markup=markups.single_button(markups.btnBackFeedback),
+            )
+
+            # await state_handler.checkoutCart.email.set()
+            await state_handler.createFeedback.additional_message.set()
+            state = Dispatcher.get_current().current_state()
+            await state.update_data(state_message=callback_query.message.message_id)
+            await state.update_data(user_id=chat_id)
+
         # Profile
         elif call_data == "profile":
             await bot.edit_message_text(
@@ -2163,14 +2216,56 @@ async def process_callback(callback_query: types.CallbackQuery):
                 for adm_msg in order.get_notif_adm_msg_list():
                     adm_id = adm_msg.split(":")[0]
                     msg_id = adm_msg.split(":")[1]
-                    if str(chat_id) == str(adm_id):
-                        continue
+                    # if str(chat_id) == str(adm_id):
+                    #     continue
                     await bot.edit_message_text(
                         text=f"Новый заказ:\n{tt.get_order_template(order)}",
                         chat_id=adm_id,
                         message_id=msg_id,
                         reply_markup=markups.get_markup_seeNewOrder(order)
                     )
+                    if order.get_id_user_msg() != "None":
+                        await bot.edit_message_text(
+                            text=f"{tt.get_order_for_user(order)}",
+                            chat_id=order.get_user_id(),
+                            message_id=order.get_id_user_msg(),
+                            reply_markup=markups.get_markup_viewNewOrderFromUser(order)
+                        )
+        elif call_data.startswith("cancelUserNewOrder"):
+            order = ordr.Order(call_data[18:])
+            # item_list = order.get_item_list_raw()
+            if order.get_status() != -2:
+                for item in itm.get_item_list():
+                    count = order.get_count_item_list(item.get_id())
+                    if item.is_active() != 1 and item.get_amount() == 0 and count > 0:
+                        item.set_active(1)
+                    item.set_amount(item.get_amount() + count)
+                order.set_status(-2)
+                await bot.edit_message_text(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    text=tt.get_order_for_user(order),
+                    reply_markup=markups.get_markup_viewNewOrderFromUser(order),
+                )
+
+                for adm_msg in order.get_notif_adm_msg_list():
+                    adm_id = adm_msg.split(":")[0]
+                    msg_id = adm_msg.split(":")[1]
+                    # if str(chat_id) == str(adm_id):
+                    #     continue
+                    await bot.edit_message_text(
+                        text=f"Новый заказ:\n{tt.get_order_template(order)}",
+                        chat_id=adm_id,
+                        message_id=msg_id,
+                        reply_markup=markups.get_markup_seeNewOrder(order)
+                    )
+                    if order.get_id_user_msg() != "None":
+                        await bot.edit_message_text(
+                            text=f"{tt.get_order_for_user(order)}",
+                            chat_id=order.get_user_id(),
+                            message_id=order.get_id_user_msg(),
+                            reply_markup=markups.get_markup_viewNewOrderFromUser(order)
+                        )
         elif call_data.startswith("restoreOrder"):
             order = ordr.Order(call_data[12:])
             # item_list = order.get_item_list_raw()
@@ -2190,14 +2285,55 @@ async def process_callback(callback_query: types.CallbackQuery):
                 for adm_msg in order.get_notif_adm_msg_list():
                     adm_id = adm_msg.split(":")[0]
                     msg_id = adm_msg.split(":")[1]
-                    if str(chat_id) == str(adm_id):
-                        continue
+                    # if str(chat_id) == str(adm_id):
+                    #     continue
                     await bot.edit_message_text(
                         text=f"Новый заказ:\n{tt.get_order_template(order)}",
                         chat_id=adm_id,
                         message_id=msg_id,
                         reply_markup=markups.get_markup_seeNewOrder(order)
                     )
+                    if order.get_id_user_msg() != "None":
+                        await bot.edit_message_text(
+                            text=f"{tt.get_order_for_user(order)}",
+                            chat_id=order.get_user_id(),
+                            message_id=order.get_id_user_msg(),
+                            reply_markup=markups.get_markup_viewNewOrderFromUser(order)
+                        )
+        elif call_data.startswith("restoreNewOrder"):
+            order = ordr.Order(call_data[15:])
+            # item_list = order.get_item_list_raw()
+            if order.get_status() != 0:
+                for item in itm.get_item_list():
+                    count = order.get_count_item_list(item.get_id())
+                    if item.is_active() and item.get_amount() - count == 0:
+                        item.set_active(0)
+                    item.set_amount(item.get_amount() - count)
+                order.set_status(0)
+                await bot.edit_message_text(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    text=tt.get_order_for_user(order),
+                    reply_markup=markups.get_markup_viewNewOrderFromUser(order),
+                )
+                for adm_msg in order.get_notif_adm_msg_list():
+                    adm_id = adm_msg.split(":")[0]
+                    msg_id = adm_msg.split(":")[1]
+                    # if str(chat_id) == str(adm_id):
+                    #     continue
+                    await bot.edit_message_text(
+                        text=f"Новый заказ:\n{tt.get_order_template(order)}",
+                        chat_id=adm_id,
+                        message_id=msg_id,
+                        reply_markup=markups.get_markup_seeNewOrder(order)
+                    )
+                    if order.get_id_user_msg() != "None":
+                        await bot.edit_message_text(
+                            text=f"{tt.get_order_for_user(order)}",
+                            chat_id=order.get_user_id(),
+                            message_id=order.get_id_user_msg(),
+                            reply_markup=markups.get_markup_viewNewOrderFromUser(order)
+                        )
         elif call_data == "changeEnableNotif":
             user.set_notif_enable(0 if user.notif_on() else 1)
             await bot.edit_message_text(
@@ -3309,6 +3445,7 @@ async def addCustomCommandSetResponse(message: types.Message, state: FSMContext)
 # State callbacks
 @dp.callback_query_handler(state='*')
 async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
+    global order
     chat_id = callback_query.message.chat.id
     call_data = callback_query.data
     state = Dispatcher.get_current().current_state()
@@ -3560,6 +3697,12 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
                 reply_markup=markups.get_markup_faq(),
             )
             await state.finish()
+        elif call_data == "feedback_back":
+            await bot.delete_message(
+                chat_id=chat_id,
+                message_id=callback_query.message.message_id
+            )
+            await state.finish()
         elif call_data == "profile_back":
             await bot.edit_message_text(
                 chat_id=chat_id,
@@ -3629,7 +3772,8 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
                 text = f"{tt.line_separator}\nНе удалось оформить заказ!\n"
                 additional_message = data["additional_message"]
                 phone_number = data["phone_number"] if settings.is_phone_number_enabled() else None
-                home_adress = data["home_adress"] if settings.is_delivery_enabled() and user.is_cart_delivery() else None
+                home_adress = data[
+                    "home_adress"] if settings.is_delivery_enabled() and user.is_cart_delivery() else None
                 for item in itm.get_item_list():
                     if item.get_amount() - user.get_count_item_cart_for_id(str(item.get_id())) >= 0:
                         item.set_amount(item.get_amount() - user.get_count_item_cart_for_id(str(item.get_id())))
@@ -3641,13 +3785,16 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
 
                 text = text.__add__(
                     f"\n\n Пожалуйста измените количество выбранного товара или замените товар.\n{tt.line_separator}")
+
                 if is_check_order:
                     try:
 
                         order = ordr.create_order(order_id, user_id, item_list_comma, email, additional_message,
                                                   phone_number=phone_number, home_adress=home_adress)
+
                         user.clear_cart()
-                        text = f"Заказ с ID {order.get_order_id()} был успешно создан.\nСпасибо за заказ! Наш менеджер свяжется с вами в ближайшее время."
+                        # text = f"Заказ с ID {order.get_order_id()} был успешно создан.\nСпасибо за заказ! Наш менеджер свяжется с вами в ближайшее время."
+                        text = f"Заказ был успешно создан!\nНаш менеджер свяжется с вами в ближайшее время. \n{tt.get_order_for_user(order)}"
                         notif_adm_msg = ""
                         for user in usr.get_notif_list():
                             try:
@@ -3664,18 +3811,21 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
                                     print(f"DEBUG: FAIL MESSAGE TO [{user.get_id()}]")
                         # print(notif_adm_msg)
                         order.set_notif_adm_msg_str(notif_adm_msg)
+                        await bot.delete_message(
+                            message_id=callback_query.message.message_id,
+                            chat_id=chat_id
+                        )
+                        result = await bot.send_message(
+                            chat_id=chat_id,
+                            text=text,
+                            reply_markup=markups.get_markup_viewNewOrderFromUser(order),
+                        )
+                        order.set_id_user_msg(result.message_id)
                     except Exception as e:
                         logging.warning(f"SENT EXCEPTION(error create order): {e}")
                         text = tt.error
-                    await bot.delete_message(
-                        message_id=callback_query.message.message_id,
-                        chat_id=chat_id
-                    )
-                    await bot.send_message(
-                        chat_id=chat_id,
-                        text=text,
-                        reply_markup=markups.single_button(markups.btnBackCart),
-                    )
+
+
                 else:
                     await bot.delete_message(
                         message_id=callback_query.message.message_id,

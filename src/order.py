@@ -119,6 +119,9 @@ class Order:
     def get_notif_adm_msg_string(self):
         return self.__clist()[10]
 
+    def get_id_user_msg(self):
+        return self.__clist()[11]
+
     def get_notif_adm_msg_list(self):
         _str = self.get_notif_adm_msg_string()
         _list = _str.split(",")
@@ -126,6 +129,10 @@ class Order:
 
     def set_notif_adm_msg_str(self, value):
         c.execute(f"UPDATE orders SET notif_adm_msg=? WHERE order_id=?", [value, self.get_order_id()])
+        conn.commit()
+
+    def set_id_user_msg(self, value):
+        c.execute(f"UPDATE orders SET id_user_msg=? WHERE order_id=?", [value, self.get_order_id()])
         conn.commit()
 
     def get_manager(self):
@@ -165,7 +172,7 @@ def does_order_exist(order_id):
     c.execute(f"SELECT * FROM orders WHERE order_id=?", [order_id])
     return len(list(c)) == 1
     
-def create_order(order_id, user_id, item_list, email_adress, additional_message, phone_number="None", home_adress="None", manager="None", notif_adm_msg="None"):
-    c.execute(f"INSERT INTO orders VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [order_id, user_id, item_list, email_adress, phone_number, home_adress, additional_message, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 0, manager, notif_adm_msg])
+def create_order(order_id, user_id, item_list, email_adress, additional_message, phone_number="None", home_adress="None", manager="None", notif_adm_msg="None", id_user_msg="None"):
+    c.execute(f"INSERT INTO orders VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [order_id, user_id, item_list, email_adress, phone_number, home_adress, additional_message, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 0, manager, notif_adm_msg, id_user_msg])
     conn.commit()
     return Order(order_id)

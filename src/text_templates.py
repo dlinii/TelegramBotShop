@@ -62,6 +62,20 @@ def get_order_template(order):
     status = f"Статус заказа: {order.get_status_string()} - @{order.get_manager()}" if order.get_manager() != "None" else f"Статус заказа: {order.get_status_string()}"
     return f"{line_separator}\nID заказа: {order.get_order_id()}\nID пользователя: {order.get_user_id()}\nТовары:\n{item_list_amount_formatted}\nСумма: {order.get_item_list_price()}руб.\nПользователь: @{order.get_email_adress()}\n{phone_number}{home_adress}{additional_message}\n{status}\nДата: {order.get_date_string()}\n{line_separator}"
 
+def get_order_for_user(order):
+    if order.get_item_list_amount() is None:
+        item_list_amount_formatted = "-"
+    else:
+        item_list_amount_formatted = '\n'.join(
+            [f'\t· {category.Category(item[0].get_cat_id())} - {item[0].get_name()} ({item[1]} шт.)' for item in order.get_item_list_amount()])
+    phone_number = f"Номер телефона: {order.get_phone_number()}\n" if settings.is_phone_number_enabled() else ""
+    home_adress = f"Адрес доставки: {order.get_home_adress()}\n" if settings.is_delivery_enabled() else ""
+    username = f"\nПользователь: @{order.get_email_adress()}" if order.get_email_adress() != "None" else ""
+    additional_message = f"Комментарий к заказу: {order.get_additional_message()}\n" if order.get_additional_message() else ""
+    status = f"Статус заказа: {order.get_status_string()}. Ваш менеджер: @{order.get_manager()}" if order.get_manager() != "None" else f"Статус заказа: {order.get_status_string()}"
+
+    return f"{line_separator}\nID заказа: {order.get_order_id()}\nТовары:\n{item_list_amount_formatted}\nСумма: {order.get_item_list_price()}руб.{username}\n{phone_number}{home_adress}{additional_message}\n{status}\nДата: {order.get_date_string()}\n{line_separator}"
+
 
 def get_feedback_template(feedback):
     return f"{line_separator}\nID пользователя: {feedback.get_user_id()}\n{feedback.get_additional_message()}\nДата: {feedback.get_date_string()}\n{line_separator}"
@@ -95,6 +109,13 @@ bot_settings = "⚙ Настройки бота"
 
 # FAQ
 feedback = "💌 Оставить отзыв"
+feedback_for_store = "💌 Оставить отзыв магазину"
+feedback_for_manager = "Оцените работу менеджера:"
+feedback_for_manager_img_1 = "⭐️"
+feedback_for_manager_img_2 = "⭐️⭐️"
+feedback_for_manager_img_3 = "⭐️⭐️⭐️"
+feedback_for_manager_img_4 = "⭐️⭐️⭐️⭐️"
+feedback_for_manager_img_5 = "⭐️⭐️⭐️⭐️⭐️"
 contacts = "📞 Связаться"
 refund = "🎫 Политика возврата"
 
@@ -236,6 +257,7 @@ confirm = "✅ Да"
 deny = "❌ Нет"
 error = "Произошла ошибка!"
 or_press_back = "или нажмите на кнопку \"Назад\"."
+or_press_cancel = "или нажмите на кнопку \"Отмена\"."
 or_press_skip = "или нажмите на кнопку \"Пропустить\"."
 hide = "🙈 Скрыть"
 show = "🐵 Показать"

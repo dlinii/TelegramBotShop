@@ -65,6 +65,7 @@ btnBackBackups = types.InlineKeyboardButton(text=tt.back, callback_data="admin_b
 # /start menu
 btnBackFaq = types.InlineKeyboardButton(text=tt.back, callback_data="faq")
 btnBackFaqFeedback = types.InlineKeyboardButton(text=tt.back, callback_data="faq_back")
+btnBackFeedback = types.InlineKeyboardButton(text=tt.back, callback_data="feedback_back")
 btnBackProfile = types.InlineKeyboardButton(text=tt.back, callback_data="profile")
 btnBackProfileState = types.InlineKeyboardButton(text=tt.back, callback_data="profile_back")
 btnBackMyOrder = types.InlineKeyboardButton(text=tt.back, callback_data="myOrders")
@@ -157,6 +158,33 @@ def get_markup_viewMyOrder(order):
     markup.add(btnBackMyOrder)
     return markup
 
+def get_markup_viewNewOrderFromUser(order):
+    markup = types.InlineKeyboardMarkup()
+    match order.get_status():
+        case 0:
+            markup.add(types.InlineKeyboardButton(text=tt.cancel_order,
+                                                  callback_data=f"cancelUserNewOrder{order.get_order_id()}"))
+        case 2:
+            markup.add(types.InlineKeyboardButton(text=tt.feedback_for_store, callback_data="feedbackNewOrder"))
+            # markup.add(types.InlineKeyboardButton(text=tt.feedback_for_manager,
+            #                                       callback_data="None"))
+            #
+            # markup.add(types.InlineKeyboardButton(text=tt.feedback_for_manager_img_1, callback_data="None"))
+            #
+            # markup.add(types.InlineKeyboardButton(text=tt.feedback_for_manager_img_2, callback_data="None"))
+            #
+            # markup.add(types.InlineKeyboardButton(text=tt.feedback_for_manager_img_3, callback_data="None"))
+            #
+            # markup.add(types.InlineKeyboardButton(text=tt.feedback_for_manager_img_4, callback_data="None"))
+            #
+            # markup.add(types.InlineKeyboardButton(text=tt.feedback_for_manager_img_5, callback_data="None"))
+
+        case -1:
+            markup.add(types.InlineKeyboardButton(text=tt.feedback_for_store, callback_data="feedbackNewOrder"))
+        case -2:
+            markup.add(
+                types.InlineKeyboardButton(text=tt.restore_order, callback_data=f"restoreNewOrder{order.get_order_id()}"))
+    return markup
 
 def get_markup_cart(user):
     markup = types.InlineKeyboardMarkup()
@@ -707,8 +735,9 @@ def get_markup_cleanDatabaseMenu():
 
 
 # Manager tab
-def get_markup_seeOrder(order, user_id=None):
+def get_markup_seeOrder(order, user_id=None, seeOrder=None):
     markup = types.InlineKeyboardMarkup()
+    type_order = "Done"
     if order.get_status() != 0:
         markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.processing),
                                               callback_data=f"manager_changeOrderStatusProcessing{order.get_order_id()}"))
@@ -729,7 +758,24 @@ def get_markup_seeOrder(order, user_id=None):
         if order.get_email_adress() is None:
             markup.add(types.InlineKeyboardButton(text=tt.forward_msg,
                                                   callback_data=f"manager_forwardMsgForOrder{order.get_order_id()}"))
-    markup.add(btnBackSeeUserOrders(user_id) if user_id else btnBackOrders)
+    if user_id:
+        markup.add(btnBackSeeUserOrders(user_id))
+    elif seeOrder != "None":
+        match seeOrder:
+            case 0:
+                type_order = "Processing"
+            case 1:
+                type_order = "Delivery"
+            case 2:
+                type_order = "Done"
+            case -1:
+                type_order = "Cancelled"
+            case -2:
+                type_order = "CancelledUser"
+        markup.add(types.InlineKeyboardButton(text=tt.back, callback_data=f"manager_orders{type_order}"))
+    else:
+        markup.add(btnBackOrders)
+
     return markup
 
 
@@ -771,7 +817,15 @@ def get_markup_orders():
 def get_markup_ordersByOrderList(order_list):
     markup = types.InlineKeyboardMarkup()
     for order in order_list:
-        markup.add(types.InlineKeyboardButton(text=f"[{order.get_order_id()}]",
+        if order.get_manager() == "None" and order.get_additional_message() != "None":
+            text = f"№{order.get_order_id()} - {order.get_email_adress()} ({(order.get_additional_message()[:15] + '..') if len(order.get_additional_message()) > 15 else order.get_additional_message()})"
+        elif order.get_manager() == "None":
+            text = f"№{order.get_order_id()} - {order.get_email_adress()}"
+        elif order.get_manager() == order.get_email_adress():
+            text = f"№{order.get_order_id()} - {order.get_email_adress()} ({order.get_additional_message()})"
+        else:
+            text = f"№{order.get_order_id()} - {order.get_email_adress()} ({order.get_manager()})"
+        markup.add(types.InlineKeyboardButton(text=text,
                                               callback_data=f"manager_seeOrder{order.get_order_id()}"))
     markup.add(btnBackOrders)
     return markup

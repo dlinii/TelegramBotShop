@@ -73,7 +73,9 @@ CREATE TABLE "orders" (
 	"additional_message" TEXT,
 	"date" TEXT,
     "status" INTEGER,
-    "manager" INTEGER
+    "manager" INTEGER,
+	"notif_adm_msg"	TEXT,
+	"id_user_msg" INTEGER
     )
 """
 CREATE_USERS_TEXT = """
