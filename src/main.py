@@ -269,7 +269,7 @@ async def handle_text(msg):
                 text=commands.get_command_by_command(msg.text).get_response()
             )
         else:
-            await bot.send_message(msg.chat.id, 'Не могу понять команду :(')
+            await bot.send_message(msg.chat.id, 'Не могу понять команду. Нажмите /start, чтобы воспользоваться моим функционалом')
 
 
 @dp.callback_query_handler()
@@ -1820,7 +1820,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                     text=f"Новый заказ:\n{tt.get_order_template(order)}",
                     chat_id=adm_id,
                     message_id=msg_id,
-                    reply_markup=markups.get_markup_seeNewOrder(order)
+                    reply_markup=markups.get_markup_seeNewOrder(order, order.get_manager() == usr.get_username_g(adm_id))
                 )
                 if order.get_id_user_msg() != "None":
                     await bot.edit_message_text(
@@ -1855,7 +1855,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                     text=f"Новый заказ:\n{tt.get_order_template(order)}",
                     chat_id=adm_id,
                     message_id=msg_id,
-                    reply_markup=markups.get_markup_seeNewOrder(order)
+                    reply_markup=markups.get_markup_seeNewOrder(order, order.get_manager() == usr.get_username_g(adm_id))
                 )
             if order.get_id_user_msg() != "None":
                 await bot.edit_message_text(
@@ -1891,7 +1891,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                     text=f"Новый заказ:\n{tt.get_order_template(order)}",
                     chat_id=adm_id,
                     message_id=msg_id,
-                    reply_markup=markups.get_markup_seeNewOrder(order)
+                    reply_markup=markups.get_markup_seeNewOrder(order, True)
                 )
             if order.get_id_user_msg() != "None":
                 await bot.edit_message_text(
@@ -1900,6 +1900,33 @@ async def process_callback(callback_query: types.CallbackQuery):
                     message_id=order.get_id_user_msg(),
                     reply_markup=markups.get_markup_viewNewOrderFromUser(order)
                 )
+        elif call_data.startswith("changeOrderOthMng"):
+            order = ordr.Order(call_data[17:])
+            seeOrder = order.get_status()
+            await bot.edit_message_text(
+                text=f"Новый заказ:\n{tt.get_order_template(order)}",
+                chat_id=chat_id,
+                message_id=callback_query.message.message_id,
+                reply_markup=markups.get_markup_seeNewOrder(order, True)
+            )
+            # for adm_msg in order.get_notif_adm_msg_list():
+            #     adm_id = adm_msg.split(":")[0]
+            #     msg_id = adm_msg.split(":")[1]
+            #     # if str(chat_id) == str(adm_id):
+            #     #     continue
+            #     await bot.edit_message_text(
+            #         text=f"Новый заказ:\n{tt.get_order_template(order)}",
+            #         chat_id=adm_id,
+            #         message_id=msg_id,
+            #         reply_markup=markups.get_markup_seeNewOrder(order, True if (str(chat_id) == str(adm_id) or usr.get_username_g(adm_id) == order.get_manager()) else False)
+            #     )
+            # if order.get_id_user_msg() != "None":
+            #     await bot.edit_message_text(
+            #         text=f"{tt.get_order_for_user(order)}",
+            #         chat_id=order.get_user_id(),
+            #         message_id=order.get_id_user_msg(),
+            #         reply_markup=markups.get_markup_viewNewOrderFromUser(order)
+            #     )
         elif call_data.startswith("changeOrderStatusDelivery"):
             order = ordr.Order(call_data[25:])
             seeOrder = order.get_status()
@@ -1925,7 +1952,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                     text=f"Новый заказ:\n{tt.get_order_template(order)}",
                     chat_id=adm_id,
                     message_id=msg_id,
-                    reply_markup=markups.get_markup_seeNewOrder(order)
+                    reply_markup=markups.get_markup_seeNewOrder(order, order.get_manager() == usr.get_username_g(adm_id))
                 )
             if order.get_id_user_msg() != "None":
                 await bot.edit_message_text(
@@ -1961,7 +1988,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                     text=f"Новый заказ:\n{tt.get_order_template(order)}",
                     chat_id=adm_id,
                     message_id=msg_id,
-                    reply_markup=markups.get_markup_seeNewOrder(order)
+                    reply_markup=markups.get_markup_seeNewOrder(order, order.get_manager() == usr.get_username_g(adm_id))
                 )
             if order.get_id_user_msg() != "None":
                 await bot.edit_message_text(
@@ -1995,7 +2022,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                     text=f"Новый заказ:\n{tt.get_order_template(order)}",
                     chat_id=adm_id,
                     message_id=msg_id,
-                    reply_markup=markups.get_markup_seeNewOrder(order)
+                    reply_markup=markups.get_markup_seeNewOrder(order, order.get_manager() == usr.get_username_g(adm_id))
                 )
             if order.get_id_user_msg() != "None":
                 await bot.edit_message_text(
@@ -2119,7 +2146,7 @@ async def process_callback(callback_query: types.CallbackQuery):
             await state.update_data(user_id=chat_id)
 
         elif call_data == "feedbackNewOrder":
-            await bot.send_message(
+            result = await bot.send_message(
                 chat_id=chat_id,
                 text=f"Напишите свой отзыв! {tt.or_press_cancel}",
                 reply_markup=markups.single_button(markups.btnBackFeedback),
@@ -2128,7 +2155,7 @@ async def process_callback(callback_query: types.CallbackQuery):
             # await state_handler.checkoutCart.email.set()
             await state_handler.createFeedback.additional_message.set()
             state = Dispatcher.get_current().current_state()
-            await state.update_data(state_message=callback_query.message.message_id)
+            await state.update_data(state_message=result.message_id)
             await state.update_data(user_id=chat_id)
 
         # Profile
@@ -2222,7 +2249,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                         text=f"Новый заказ:\n{tt.get_order_template(order)}",
                         chat_id=adm_id,
                         message_id=msg_id,
-                        reply_markup=markups.get_markup_seeNewOrder(order)
+                        reply_markup=markups.get_markup_seeNewOrder(order, order.get_manager() == usr.get_username_g(adm_id))
                     )
                     if order.get_id_user_msg() != "None":
                         await bot.edit_message_text(
@@ -2257,7 +2284,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                         text=f"Новый заказ:\n{tt.get_order_template(order)}",
                         chat_id=adm_id,
                         message_id=msg_id,
-                        reply_markup=markups.get_markup_seeNewOrder(order)
+                        reply_markup=markups.get_markup_seeNewOrder(order, order.get_manager() == usr.get_username_g(adm_id))
                     )
                     if order.get_id_user_msg() != "None":
                         await bot.edit_message_text(
@@ -2291,7 +2318,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                         text=f"Новый заказ:\n{tt.get_order_template(order)}",
                         chat_id=adm_id,
                         message_id=msg_id,
-                        reply_markup=markups.get_markup_seeNewOrder(order)
+                        reply_markup=markups.get_markup_seeNewOrder(order, True)
                     )
                     if order.get_id_user_msg() != "None":
                         await bot.edit_message_text(
@@ -2325,7 +2352,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                         text=f"Новый заказ:\n{tt.get_order_template(order)}",
                         chat_id=adm_id,
                         message_id=msg_id,
-                        reply_markup=markups.get_markup_seeNewOrder(order)
+                        reply_markup=markups.get_markup_seeNewOrder(order, True)
                     )
                     if order.get_id_user_msg() != "None":
                         await bot.edit_message_text(
@@ -3347,7 +3374,6 @@ async def create_feedback(message: types.Message, state: FSMContext):
     await bot.send_message(
         chat_id=message.chat.id,
         text=text,
-        reply_markup=markups.single_button(markups.btnBackFaq),
     )
     await state.finish()
 
@@ -3801,7 +3827,7 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
                                 result = await bot.send_message(
                                     chat_id=user.get_id(),
                                     text=f"Новый заказ:\n{tt.get_order_template(order)}",
-                                    reply_markup=markups.get_markup_seeNewOrder(order)
+                                    reply_markup=markups.get_markup_seeNewOrder(order, True)
                                 )
                                 notif_adm_msg = notif_adm_msg.__add__(
                                     f"{user.get_id()}:{result.message_id}" if notif_adm_msg == "" else f",{user.get_id()}:{result.message_id}")

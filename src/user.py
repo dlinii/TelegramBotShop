@@ -142,6 +142,10 @@ def get_notif_list():
 def get_user_login(message):
     return message.from_user.username
 
+def get_username_g(user_id):
+    c.execute(f"SELECT * FROM users WHERE user_id=?", [user_id])
+    return list(c)[0][1]
+
 
 def get_user_list():
     c.execute("SELECT * FROM users")

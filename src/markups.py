@@ -779,28 +779,32 @@ def get_markup_seeOrder(order, user_id=None, seeOrder=None):
     return markup
 
 
-def get_markup_seeNewOrder(order):
+def get_markup_seeNewOrder(order, isUnlocked):
     markup = types.InlineKeyboardMarkup()
-    if order.get_status() != 0:
-        markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.processing),
-                                              callback_data=f"manager_changeOrderStatusProcessing{order.get_order_id()}"))
-    if order.get_status() != 1:
-        markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.delivery),
-                                              callback_data=f"manager_changeOrderStatusDelivery{order.get_order_id()}"))
-    if order.get_status() != 2:
-        markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.done),
-                                              callback_data=f"manager_changeOrderStatusDone{order.get_order_id()}"))
-    if order.get_status() != -1:
-        markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.cancelled),
-                                              callback_data=f"manager_changeOrderStatusCancel{order.get_order_id()}"))
-    if order.get_status() == 1:
-        markup.add(types.InlineKeyboardButton(text=tt.send_msg,
-                                              callback_data=f"manager_sendMsgForOrder{order.get_order_id()}"))
-        markup.add(types.InlineKeyboardButton(text=tt.change_order_item,
-                                              callback_data=f"manager_changeOrderItem{order.get_order_id()}"))
-        if order.get_email_adress() is None:
-            markup.add(types.InlineKeyboardButton(text=tt.forward_msg,
-                                                  callback_data=f"manager_forwardMsgForOrder{order.get_order_id()}"))
+    if isUnlocked:
+        if order.get_status() != 0:
+            markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.processing),
+                                                  callback_data=f"manager_changeOrderStatusProcessing{order.get_order_id()}"))
+        if order.get_status() != 1:
+            markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.delivery),
+                                                  callback_data=f"manager_changeOrderStatusDelivery{order.get_order_id()}"))
+        if order.get_status() != 2:
+            markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.done),
+                                                  callback_data=f"manager_changeOrderStatusDone{order.get_order_id()}"))
+        if order.get_status() != -1:
+            markup.add(types.InlineKeyboardButton(text=tt.change_order_status(tt.cancelled),
+                                                  callback_data=f"manager_changeOrderStatusCancel{order.get_order_id()}"))
+        if order.get_status() == 1:
+            markup.add(types.InlineKeyboardButton(text=tt.send_msg,
+                                                  callback_data=f"manager_sendMsgForOrder{order.get_order_id()}"))
+            markup.add(types.InlineKeyboardButton(text=tt.change_order_item,
+                                                  callback_data=f"manager_changeOrderItem{order.get_order_id()}"))
+            if order.get_email_adress() is None:
+                markup.add(types.InlineKeyboardButton(text=tt.forward_msg,
+                                                      callback_data=f"manager_forwardMsgForOrder{order.get_order_id()}"))
+    else:
+        markup.add(types.InlineKeyboardButton(text=tt.change_order_manager,
+                                              callback_data=f"manager_changeOrderOthMng{order.get_order_id()}"))
     return markup
 
 
