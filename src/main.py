@@ -1552,11 +1552,20 @@ async def process_callback(callback_query: types.CallbackQuery):
                 text="Резервная копия была обновлена!",
                 reply_markup=markups.single_button(markups.btnBackBackups)
             )
-            folder_path = "backups/" + datetime.date.today().strftime("%d-%m-%Y") + "/data.db"
+            folder_path = "backups/" + datetime.date.today().strftime("%d-%m-%Y")
             await bot.send_document(
                 chat_id=callback_query.message.chat.id,
-                document=open(folder_path, 'rb'),
+                document=open(folder_path + "/data.db", 'rb'),
                 caption="Лови, пупсик😘!"
+            )
+            await bot.send_document(
+                chat_id=settings.get_main_admin_id(),
+                document=open(folder_path + "/config.ini", 'rb'),
+                caption=datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+            )
+            await bot.send_document(
+                chat_id=settings.get_main_admin_id(),
+                document=open("logs/" + dateForLogs + ".log", 'rb')
             )
         elif call_data == "loadBackupMenu":
             await bot.edit_message_text(
@@ -3352,6 +3361,7 @@ async def create_feedback(message: types.Message, state: FSMContext):
     state = Dispatcher.get_current().current_state()
     data = await state.get_data()
     user_id = data["user_id"]
+    username_feedback = usr.get_username_g(user_id)
     # try:
     feedback.create_feedback(data["user_id"], message.text)
     text = f"Отзыв успешно отправлен"
@@ -3359,7 +3369,7 @@ async def create_feedback(message: types.Message, state: FSMContext):
         try:
             await bot.send_message(
                 chat_id=user.get_id(),
-                text=f"⚡Новый отзыв!⚡️\n{tt.line_separator}\n ID Пользователя: {user_id}\n\n \t {message.text}\n{tt.line_separator}\n"
+                text=f"⚡Новый отзыв!⚡️\n{tt.line_separator}\n От @{username_feedback}\n ID Пользователя: {user_id}\n\n \t {message.text}\n{tt.line_separator}\n"
             )
         except:
             logging.warning(f"FAIL MESSAGE TO [{user.get_id()}]")
@@ -3564,9 +3574,9 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
             await state.finish()
 
         elif call_data == "notifyEveryoneConfirm":
-            total = len(usr.get_user_list())
+            total = len(usr.get_buyers_list())
             fail = 0
-            for user in usr.get_user_list():
+            for user in usr.get_buyers_list():
                 try:
                     await bot.send_message(
                         chat_id=user.get_id(),

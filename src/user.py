@@ -8,6 +8,7 @@ conn = sqlite3.connect('data.db')
 c = conn.cursor()
 settings = Settings()
 
+
 class User:
     def __init__(self, user_id, username="None", first="None"):
         self.__user_id = user_id
@@ -15,23 +16,29 @@ class User:
         self.first = first
 
         if not does_user_exist(self.get_id()):
-            c.execute(f"INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [self.get_id(), self.__username() ,1 if str(self.get_id()) == settings.get_main_admin_id() else 0, 0, 0, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "None", 1, 0.0, self.__first()])
+            c.execute(f"INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                      [self.get_id(), self.__username(), 1 if str(self.get_id()) == settings.get_main_admin_id() else 0,
+                       0, 0, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "None", 1, 0.0, self.__first()])
             conn.commit()
 
     def get_id(self):
         return self.__user_id
+
     def __username(self):
         return self.username
+
     def get_username(self):
         return self.__clist()[1]
+
     def __first(self):
         return self.username
+
     def get_first(self):
         return self.__clist()[9]
+
     def set_first(self, value):
         c.execute(f"UPDATE users SET first=? WHERE user_id=?", [value, self.get_id()])
         conn.commit()
-
 
     def set_username(self, value):
         c.execute(f"UPDATE users SET username=? WHERE user_id=?", [value, self.get_id()])
@@ -53,8 +60,8 @@ class User:
 
     def set_manager(self, value):
         c.execute(f"UPDATE users SET is_manager=? WHERE user_id=?", [value, self.get_id()])
-        conn.commit() 
-        
+        conn.commit()
+
     def get_register_date(self):
         return datetime.strptime(self.__clist()[5], "%Y-%m-%d %H:%M:%S")
 
@@ -81,7 +88,7 @@ class User:
 
     def get_cart_comma(self):
         return self.__clist()[6]
-    
+
     def get_cart(self):
         cart = self.get_cart_comma()
         return [] if cart == "None" else list(map(itm.Item, cart.split(",")))
@@ -89,30 +96,33 @@ class User:
     def get_cart_str(self):
         cart = [item.get_id() for item in self.get_cart()]
         return cart
-    
+
     def get_cart_amount(self):
         cart = [item.get_id() for item in self.get_cart()]
         return [[itm.Item(item_id), cart.count(item_id)] for item_id in set(cart)]
-    
+
     def get_cart_price(self):
-        return sum([item_and_price[0].get_price() * item_and_price[1] for item_and_price in self.get_cart_amount()]) + (settings.get_delivery_price() if self.is_cart_delivery() else 0)
-    
+        return sum([item_and_price[0].get_price() * item_and_price[1] for item_and_price in self.get_cart_amount()]) + (
+            settings.get_delivery_price() if self.is_cart_delivery() else 0)
+
     def clear_cart(self):
         c.execute(f"UPDATE users SET cart=\"None\" WHERE user_id=?", [self.get_id()])
         self.set_cart_delivery(1)
         conn.commit()
-        
+
     def add_to_cart(self, item_id):
         cart = self.get_cart()
-        c.execute(f"UPDATE users SET cart=? WHERE user_id=?", [",".join([str(item.get_id()) for item in cart + [itm.Item(item_id)]]) if cart else item_id, self.get_id()])
+        c.execute(f"UPDATE users SET cart=? WHERE user_id=?",
+                  [",".join([str(item.get_id()) for item in cart + [itm.Item(item_id)]]) if cart else item_id,
+                   self.get_id()])
         conn.commit()
-        
+
     def remove_from_cart(self, item_id):
         cart = [item.get_id() for item in self.get_cart()]
         cart.remove(str(item_id))
         c.execute(f"UPDATE users SET cart=? WHERE user_id=?", [",".join(cart) if cart else "None", self.get_id()])
         conn.commit()
-        
+
     def is_cart_delivery(self):
         return self.__clist()[7] == 1
 
@@ -142,6 +152,7 @@ def get_notif_list():
 def get_user_login(message):
     return message.from_user.username
 
+
 def get_username_g(user_id):
     c.execute(f"SELECT * FROM users WHERE user_id=?", [user_id])
     return list(c)[0][1]
@@ -149,4 +160,9 @@ def get_username_g(user_id):
 
 def get_user_list():
     c.execute("SELECT * FROM users")
+    return list(map(User, [user[0] for user in list(c)]))
+
+
+def get_buyers_list():
+    c.execute("select u.* from users as u, orders as o where u.user_id = o.user_id and o.status = 2 group by u.user_id")
     return list(map(User, [user[0] for user in list(c)]))
