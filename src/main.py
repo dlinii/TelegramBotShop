@@ -1,5 +1,7 @@
 import asyncio
 import sqlite3
+import string
+
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher import FSMContext
@@ -15,6 +17,7 @@ from os.path import getsize, exists
 from shutil import copyfile
 import datetime
 import logging
+from settings import BAN_WORDS
 
 import markups
 import state_handler
@@ -29,6 +32,7 @@ import text_templates as tt
 from settings import Settings
 import commands
 import search
+import tn
 
 conn = sqlite3.connect("data.db")
 c = conn.cursor()
@@ -269,7 +273,25 @@ async def handle_text(msg):
                 text=commands.get_command_by_command(msg.text).get_response()
             )
         else:
-            await bot.send_message(msg.chat.id, 'Не могу понять команду. Нажмите /start, чтобы воспользоваться моим функционалом')
+            isBanWord = False
+            if msg.text:
+                message_words = set(msg.text.translate(str.maketrans('', '', string.punctuation)).split())
+                for word in message_words:
+                    for ban_word in BAN_WORDS:
+                        if word.lower() in ban_word:
+                            isBanWord = True
+            if isBanWord:
+                await bot.send_message(msg.chat.id,
+                                       'Ваше сообщение содежит нецензурную лексику. Мне пришлось уведомить Администратора о вашем поведении :(')
+                username = (f"@{user.get_username()}") if user.get_username() else user.get_id()
+                await bot.send_message(
+                    chat_id=settings.get_main_admin_id(),
+                    text=f"Пользователь {username} отправил сообщение с нецензурной лексикой: \n {msg.text}",
+                    reply_markup=markups.get_markup_userProfileFromBan(user.get_id())
+                )
+            else:
+                await bot.send_message(msg.chat.id,
+                                       'Не могу понять команду. Нажмите /start, чтобы воспользоваться моим функционалом')
 
 
 @dp.callback_query_handler()
@@ -481,6 +503,201 @@ async def process_callback(callback_query: types.CallbackQuery):
                     reply_markup=markups.single_button(markups.btnBackItemManagement),
                 )
                 await state_handler.addItem.name.set()
+        elif call_data == "addTN":
+            text = tt.create_TN
+            item_list = str(settings.get_temp_tn_item_list())
+            itm_lst = "None"
+            if item_list != "None":
+                itm_lst = tn.get_item_list_amount_conf(item_list)
+            markup = markups.get_markup_add_tn(itm_lst)
+            try:
+                await bot.edit_message_text(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    text=text,
+                    reply_markup=markup
+                )
+            except:
+                await bot.delete_message(
+                    message_id=callback_query.message.message_id,
+                    chat_id=chat_id
+                )
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                    reply_markup=markup
+                )
+        elif call_data.startswith("addCountItemForTN"):
+            item_id = call_data[17:]
+            item_list = str(settings.get_temp_tn_item_list())
+            text = tt.create_TN
+            item_list += f",{item_id}"
+            settings.set_temp_tn_item_list(item_list)
+            itm_lst = "None"
+            if item_list != "None":
+                itm_lst = tn.get_item_list_amount_conf(item_list)
+            markup = markups.get_markup_add_tn(itm_lst)
+            await bot.edit_message_text(
+                chat_id=chat_id,
+                message_id=callback_query.message.message_id,
+                text=text,
+                reply_markup=markup
+            )
+        elif call_data.startswith("removeCountItemForTN"):
+            item_id = call_data[20:]
+            item_list = str(settings.get_temp_tn_item_list())
+
+            text = tt.create_TN
+            item_list = tn.remove_from_tn_conf(item_list, item_id)
+            settings.set_temp_tn_item_list(item_list)
+            itm_lst = "None"
+            if item_list != "None":
+                itm_lst = tn.get_item_list_amount_conf(item_list)
+            markup = markups.get_markup_add_tn(itm_lst)
+            await bot.edit_message_text(
+                chat_id=chat_id,
+                message_id=callback_query.message.message_id,
+                text=text,
+                reply_markup=markup
+            )
+        elif call_data.startswith("addItemFromTN"):
+            await bot.edit_message_text(
+                chat_id=chat_id,
+                message_id=callback_query.message.message_id,
+                text="Выберите категорию товара, который вы хотите добавить в товарную накладную: ",
+                reply_markup=markups.get_markup_addItemToTNChooseCategory(category.get_cat_list()),
+            )
+        elif call_data.startswith("addItemToTNChooseItem"):
+            cat_id = call_data[21:]
+            cat = category.Category(cat_id)
+
+            text = f"Выберите товар, который вы хотите добавить в товарную накладную: "
+            markup = markups.get_markup_addItemToTNChooseItem(cat)
+            try:
+                await bot.edit_message_text(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    text=text,
+                    reply_markup=markup,
+                )
+            except:
+                await bot.delete_message(
+                    message_id=callback_query.message.message_id,
+                    chat_id=chat_id
+                )
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                    reply_markup=markup
+                )
+        elif call_data.startswith("viewItemFromAddItemToTN"):
+
+            item_id = call_data[23:]
+            item = itm.Item(item_id)
+            cat = category.Category(item.get_cat_id())
+            text = f"\nКатегория: {cat.get_name()}\n" + tt.get_item_card(item=item)
+            markup = markups.get_markup_addItemFromAddItemToTN(item)
+            await bot.delete_message(
+                message_id=callback_query.message.message_id,
+                chat_id=chat_id
+            )
+            if item.get_image_id() == "None" or not settings.is_item_image_enabled() or await item.is_hide_image():
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                    reply_markup=markup,
+                )
+            else:
+                await bot.send_photo(
+                    chat_id=chat_id,
+                    caption=text,
+                    photo=item.get_image(),
+                    reply_markup=markup
+                )
+
+        elif call_data.startswith("addItemFromAddItemToTN"):
+
+            item_id = call_data[22:]
+            text = tt.create_TN
+
+            item_list = str(settings.get_temp_tn_item_list())
+            if item_list != "None":
+                item_list += f",{item_id}"
+                settings.set_temp_tn_item_list(item_list)
+            else:
+                settings.set_temp_tn_item_list(item_id)
+            item_list = str(settings.get_temp_tn_item_list())
+            itm_lst = tn.get_item_list_amount_conf(item_list)
+            markup = markups.get_markup_add_tn(itm_lst)
+
+            await bot.delete_message(
+                message_id=callback_query.message.message_id,
+                chat_id=chat_id
+            )
+            await bot.send_message(
+                chat_id=chat_id,
+                text=text,
+                reply_markup=markup
+            )
+        elif call_data == "generateTN":
+            item_list = str(settings.get_temp_tn_item_list())
+            itm_lst = tn.get_item_list_amount_conf(item_list)
+            for itm_tn in itm_lst:
+                item = itm.Item(itm_tn[0].get_id())
+                item.set_amount(item.get_amount() + itm_tn[1])
+                item.set_active(1)
+                cat = category.Category(item.get_cat_id())
+                cat.set_active(1)
+            tn.create_tn(chat_id, item_list)
+            settings.set_temp_tn_item_list("None")
+            text = tt.create_TN_confirm
+
+            markup = markups.single_button(markups.btnBackItemManagement)
+            try:
+                await bot.edit_message_text(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    text=text,
+                    reply_markup=markup,
+                )
+            except:
+                await bot.delete_message(
+                    message_id=callback_query.message.message_id,
+                    chat_id=chat_id
+                )
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                    reply_markup=markup
+                )
+        elif call_data == "generateTextListItem":
+            cat_list = category.get_cat_list()
+            item_list = itm.get_item_list()
+            text = ""
+            for cat_itm in cat_list:
+                text += f"🔥 {cat_itm.get_name()} 🔥\n"
+                for item in item_list:
+                    if cat_itm.get_id() == item.get_cat_id():
+                        text += f"➖ {item.get_name()} ({item.get_amount()} шт.)\n"
+
+            markup = markups.single_button(markups.btnBackItemManagement)
+            try:
+                await bot.edit_message_text(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    text=text,
+                    reply_markup=markup,
+                )
+            except:
+                await bot.delete_message(
+                    message_id=callback_query.message.message_id,
+                    chat_id=chat_id
+                )
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                    reply_markup=markup
+                )
         elif call_data == "editItemChooseCategory":
             await bot.edit_message_text(
                 chat_id=chat_id,
@@ -863,6 +1080,13 @@ async def process_callback(callback_query: types.CallbackQuery):
             await bot.edit_message_text(
                 chat_id=chat_id,
                 message_id=callback_query.message.message_id,
+                text=tt.get_profile_template(user),
+                reply_markup=markups.get_markup_seeUserProfile(user),
+            )
+        elif call_data.startswith("userProfileFromBan"):
+            user = usr.User(int(call_data[18:]))
+            await bot.send_message(
+                chat_id=chat_id,
                 text=tt.get_profile_template(user),
                 reply_markup=markups.get_markup_seeUserProfile(user),
             )
@@ -1829,7 +2053,8 @@ async def process_callback(callback_query: types.CallbackQuery):
                     text=f"Новый заказ:\n{tt.get_order_template(order)}",
                     chat_id=adm_id,
                     message_id=msg_id,
-                    reply_markup=markups.get_markup_seeNewOrder(order, order.get_manager() == usr.get_username_g(adm_id))
+                    reply_markup=markups.get_markup_seeNewOrder(order,
+                                                                order.get_manager() == usr.get_username_g(adm_id))
                 )
                 if order.get_id_user_msg() != "None":
                     await bot.edit_message_text(
@@ -1864,7 +2089,8 @@ async def process_callback(callback_query: types.CallbackQuery):
                     text=f"Новый заказ:\n{tt.get_order_template(order)}",
                     chat_id=adm_id,
                     message_id=msg_id,
-                    reply_markup=markups.get_markup_seeNewOrder(order, order.get_manager() == usr.get_username_g(adm_id))
+                    reply_markup=markups.get_markup_seeNewOrder(order,
+                                                                order.get_manager() == usr.get_username_g(adm_id))
                 )
             if order.get_id_user_msg() != "None":
                 await bot.edit_message_text(
@@ -1961,7 +2187,8 @@ async def process_callback(callback_query: types.CallbackQuery):
                     text=f"Новый заказ:\n{tt.get_order_template(order)}",
                     chat_id=adm_id,
                     message_id=msg_id,
-                    reply_markup=markups.get_markup_seeNewOrder(order, order.get_manager() == usr.get_username_g(adm_id))
+                    reply_markup=markups.get_markup_seeNewOrder(order,
+                                                                order.get_manager() == usr.get_username_g(adm_id))
                 )
             if order.get_id_user_msg() != "None":
                 await bot.edit_message_text(
@@ -1997,7 +2224,8 @@ async def process_callback(callback_query: types.CallbackQuery):
                     text=f"Новый заказ:\n{tt.get_order_template(order)}",
                     chat_id=adm_id,
                     message_id=msg_id,
-                    reply_markup=markups.get_markup_seeNewOrder(order, order.get_manager() == usr.get_username_g(adm_id))
+                    reply_markup=markups.get_markup_seeNewOrder(order,
+                                                                order.get_manager() == usr.get_username_g(adm_id))
                 )
             if order.get_id_user_msg() != "None":
                 await bot.edit_message_text(
@@ -2031,7 +2259,8 @@ async def process_callback(callback_query: types.CallbackQuery):
                     text=f"Новый заказ:\n{tt.get_order_template(order)}",
                     chat_id=adm_id,
                     message_id=msg_id,
-                    reply_markup=markups.get_markup_seeNewOrder(order, order.get_manager() == usr.get_username_g(adm_id))
+                    reply_markup=markups.get_markup_seeNewOrder(order,
+                                                                order.get_manager() == usr.get_username_g(adm_id))
                 )
             if order.get_id_user_msg() != "None":
                 await bot.edit_message_text(
@@ -2258,7 +2487,8 @@ async def process_callback(callback_query: types.CallbackQuery):
                         text=f"Новый заказ:\n{tt.get_order_template(order)}",
                         chat_id=adm_id,
                         message_id=msg_id,
-                        reply_markup=markups.get_markup_seeNewOrder(order, order.get_manager() == usr.get_username_g(adm_id))
+                        reply_markup=markups.get_markup_seeNewOrder(order,
+                                                                    order.get_manager() == usr.get_username_g(adm_id))
                     )
                     if order.get_id_user_msg() != "None":
                         await bot.edit_message_text(
@@ -2293,7 +2523,8 @@ async def process_callback(callback_query: types.CallbackQuery):
                         text=f"Новый заказ:\n{tt.get_order_template(order)}",
                         chat_id=adm_id,
                         message_id=msg_id,
-                        reply_markup=markups.get_markup_seeNewOrder(order, order.get_manager() == usr.get_username_g(adm_id))
+                        reply_markup=markups.get_markup_seeNewOrder(order,
+                                                                    order.get_manager() == usr.get_username_g(adm_id))
                     )
                     if order.get_id_user_msg() != "None":
                         await bot.edit_message_text(
@@ -3109,7 +3340,7 @@ async def refreshMessagesSetUserID(message: types.Message, state: FSMContext):
     )
     result = await bot.send_message(
         chat_id=message.chat.id,
-        text=f"Введите ID сообщения, с которого пересылать {tt.or_press_back}",
+        text=f"Введите ID сообщения, с которого пересылать {tt.or_press_back} \n Текущий ID сообщения: {message.message_id + 1}",
         reply_markup=markups.single_button(markups.btnBackUserManagement),
     )
     await state.update_data(state_message=result.message_id)
@@ -3258,7 +3489,7 @@ async def changeDeliveryPriceSetPrice(message: types.Message, state: FSMContext)
     state = Dispatcher.get_current().current_state()
     data = await state.get_data()
     try:
-        text = f"Стоимость доставки была изменена с {'{:.2f}'.format(float(settings.get_delivery_price()))}руб. на {'{:.2f}'.format(float(message.text))}руб."
+        text = f"Стоимость доставки была изменена с {'{:.2f}'.format(float(settings.get_delivery_price()))}р. на {'{:.2f}'.format(float(message.text))}руб."
         settings.set_delivery_price(float(message.text))
     except Exception as e:
         logging.warning(f"SENT EXCEPTION(error change delivery price): {e}")

@@ -38,7 +38,7 @@ def get_item_card(item=None, name=None, price=None, desc=None, amount=None):
         desc = item.get_desc()
         amount = item.get_amount()
 
-    return f"{line_separator}\n{name} - {'{:.2f}'.format(price)} руб.\nВ наличии: {amount} шт.\n{line_separator}\n{desc}"
+    return f"{line_separator}\n{name} - {'{:.2f}'.format(price)} р.\nВ наличии: {amount} шт.\n{line_separator}\n{desc}"
 
 
 def get_order_confirmation_template(item_amount_dict, cart_price, additional_message, phone_number=None,
@@ -47,7 +47,7 @@ def get_order_confirmation_template(item_amount_dict, cart_price, additional_mes
     phone_number = f"Номер телефона: {phone_number}\n" if phone_number else ""
     home_adress = f"Адрес доставки: {home_adress}\n" if home_adress else ""
     additional_message = f"Комментарий к заказу: {additional_message}\n" if additional_message else ""
-    return f"{line_separator}\nТовары:\n{item_amount_dict_formatted}\nСумма: {cart_price}руб.\n{phone_number}{home_adress}{additional_message} \n{line_separator}\nВы уверены, что хотите оформить заказ?"
+    return f"{line_separator}\nТовары:\n{item_amount_dict_formatted}\nСумма: {cart_price}р.\n{phone_number}{home_adress}{additional_message} \n{line_separator}\nВы уверены, что хотите оформить заказ?"
 
 
 def get_order_template(order):
@@ -60,7 +60,7 @@ def get_order_template(order):
     home_adress = f"Адрес доставки: {order.get_home_adress()}\n" if settings.is_delivery_enabled() else ""
     additional_message = f"Комментарий к заказу: {order.get_additional_message()}\n" if order.get_additional_message() else ""
     status = f"Статус заказа: {order.get_status_string()} - @{order.get_manager()}" if order.get_manager() != "None" else f"Статус заказа: {order.get_status_string()}"
-    return f"{line_separator}\nID заказа: {order.get_order_id()}\nID пользователя: {order.get_user_id()}\nТовары:\n{item_list_amount_formatted}\nСумма: {order.get_item_list_price()}руб.\nПользователь: @{order.get_email_adress()}\n{phone_number}{home_adress}{additional_message}\n{status}\nДата: {order.get_date_string()}\n{line_separator}"
+    return f"{line_separator}\nID заказа: {order.get_order_id()}\nID пользователя: {order.get_user_id()}\nТовары:\n{item_list_amount_formatted}\nСумма: {order.get_item_list_price()}р.\nПользователь: @{order.get_email_adress()}\n{phone_number}{home_adress}{additional_message}\n{status}\nДата: {order.get_date_string()}\n{line_separator}"
 
 def get_order_for_user(order):
     if order.get_item_list_amount() is None:
@@ -74,7 +74,7 @@ def get_order_for_user(order):
     additional_message = f"Комментарий к заказу: {order.get_additional_message()}\n" if order.get_additional_message() else ""
     status = f"Статус заказа: {order.get_status_string()}. Ваш менеджер: @{order.get_manager()}" if order.get_manager() != "None" else f"Статус заказа: {order.get_status_string()}"
 
-    return f"{line_separator}\nID заказа: {order.get_order_id()}\nТовары:\n{item_list_amount_formatted}\nСумма: {order.get_item_list_price()}руб.{username}\n{phone_number}{home_adress}{additional_message}\n{status}\nДата: {order.get_date_string()}\n{line_separator}"
+    return f"{line_separator}\nID заказа: {order.get_order_id()}\nТовары:\n{item_list_amount_formatted}\nСумма: {order.get_item_list_price()}р.{username}\n{phone_number}{home_adress}{additional_message}\n{status}\nДата: {order.get_date_string()}\n{line_separator}"
 
 
 def get_feedback_template(feedback):
@@ -97,6 +97,7 @@ def get_sales_stats(users_list):
 admin_panel = "🔴 Админ панель"
 faq = "ℹ️ FAQ"
 profile = "📁 Профиль"
+open_profile = "📁 Открыть профиль"
 catalogue = "🗄️ Каталог"
 cart = "🛒 Корзина"
 support_menu = "☎ Меню тех. поддержки"
@@ -135,16 +136,17 @@ cart_is_empty = "Корзина пуста."
 pickup = "✅Самовывоз"
 
 
-def delivery_on(price): return f"✅ Доставка - {price}руб."
+def delivery_on(price): return f"✅ Доставка - {price}р."
 
 
-def delivery_off(price): return f"❌ Доставка - {price}руб."
+def delivery_off(price): return f"❌ Доставка - {price}р."
 
 
 cart_checkout = "Оформить заказ"
 change_order_item = "📝 Редактировать заказ"
 change_order_manager = "🔐 Изменить статус"
-add_item_from_order = "🆕 Добавить товар"
+add_item_from_order = "🛒 Добавить товар"
+add_new_item_from_tn = "🆕 Новый товар"
 clear_cart = "Очистить корзину"
 processing = "Обрабатывается"
 delivery = "Принят на рассмотрение"
@@ -160,6 +162,11 @@ add_item = "🗃️ Добавить товар"
 edit_cat = "✏️ Редактировать категорию"
 edit_item = "✏️ Редактировать товар"
 add_image_cat = "📁 Добавить фото каталога"
+create_TN = "🚛 Товарная накладная"
+create_TN_generate = "🚛 Сформировать"
+generate_text_list_item = "📊 Наличие товаров"
+create_TN_confirm = "Товарная накладная сформирована. Товар добавлен"
+add_to_tn = "🛒 Добавить в товарную накладную"
 delete_image_cat = "🗑️ Удалить фото каталога"
 change_name = "📋 Изменить название"
 change_image = "🖼️ Изменить изображение"
@@ -240,7 +247,7 @@ enable_delivery = "❌ Доставка"
 disable_delivery = "✅ Доставка"
 
 
-def delivery_price(price): return f"🚚 Стоимость доставки: {price}руб."
+def delivery_price(price): return f"🚚 Стоимость доставки: {price}р."
 
 
 enable_captcha = "❌ CAPTCHA при заказе"

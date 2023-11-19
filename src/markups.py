@@ -6,6 +6,8 @@ import text_templates as tt
 from settings import Settings
 import commands
 import category
+import item
+import tn
 
 settings = Settings()
 
@@ -158,6 +160,7 @@ def get_markup_viewMyOrder(order):
     markup.add(btnBackMyOrder)
     return markup
 
+
 def get_markup_viewNewOrderFromUser(order):
     markup = types.InlineKeyboardMarkup()
     match order.get_status():
@@ -183,8 +186,10 @@ def get_markup_viewNewOrderFromUser(order):
             markup.add(types.InlineKeyboardButton(text=tt.feedback_for_store, callback_data="feedbackNewOrder"))
         case -2:
             markup.add(
-                types.InlineKeyboardButton(text=tt.restore_order, callback_data=f"restoreNewOrder{order.get_order_id()}"))
+                types.InlineKeyboardButton(text=tt.restore_order,
+                                           callback_data=f"restoreNewOrder{order.get_order_id()}"))
     return markup
+
 
 def get_markup_cart(user):
     markup = types.InlineKeyboardMarkup()
@@ -193,7 +198,7 @@ def get_markup_cart(user):
         cat = category.Category(item_and_amount[0].get_cat_id())
         cat_name = cat.get_name() if len(cat.get_name()) < 15 else (cat.get_name()[:12] + "...")
         item_name = item_and_amount[0].get_name() if len(item_and_amount[0].get_name()) < 24 else (
-                    item_and_amount[0].get_name()[:21] + "...")
+                item_and_amount[0].get_name()[:21] + "...")
         text = f"{cat_name} - {item_and_amount[0].get_name()} ({item_and_amount[1]}шт.)"
         if len(text) > 47:
             text = f"{cat_name} - {item_name} ({item_and_amount[1]}шт.)"
@@ -201,7 +206,7 @@ def get_markup_cart(user):
             text=text,
             callback_data=f"viewItem{item_and_amount[0].get_id()}"))
 
-        markup.add(types.InlineKeyboardButton(text=f"{item_and_amount[0].get_price() * item_and_amount[1]}руб.",
+        markup.add(types.InlineKeyboardButton(text=f"{item_and_amount[0].get_price() * item_and_amount[1]}р.",
                                               callback_data="None"), types.InlineKeyboardButton(text=tt.plus,
                                                                                                 callback_data=f"addToCartFromCart{item_and_amount[0].get_id()}"),
                    types.InlineKeyboardButton(text=tt.minus,
@@ -213,7 +218,7 @@ def get_markup_cart(user):
 
     markup.add(types.InlineKeyboardButton(text=tt.clear_cart, callback_data="clearCart"))
     markup.add(
-        types.InlineKeyboardButton(text=f"Всего: {'{:.2f}'.format(user.get_cart_price())}руб.", callback_data="None"))
+        types.InlineKeyboardButton(text=f"Всего: {'{:.2f}'.format(user.get_cart_price())}р.", callback_data="None"))
     markup.add(types.InlineKeyboardButton(text=tt.cart_checkout, callback_data="checkoutCart"))
     return markup
 
@@ -231,7 +236,7 @@ def get_markup_change_order_item(order):
             if len(text) > 47:
                 text = f"{cat_name} - {item_name} ({item_and_amount[1]}шт.)"
             markup.add(types.InlineKeyboardButton(text=text, callback_data=f"viewItem{item_and_amount[0].get_id()}"))
-            markup.add(types.InlineKeyboardButton(text=f"{item_and_amount[0].get_price() * item_and_amount[1]}руб.",
+            markup.add(types.InlineKeyboardButton(text=f"{item_and_amount[0].get_price() * item_and_amount[1]}р.",
                                                   callback_data="None"), types.InlineKeyboardButton(text=tt.plus,
                                                                                                     callback_data=f"manager_addToOrderFromOrder{order_id_and_item_id}"),
                        types.InlineKeyboardButton(text=tt.minus,
@@ -243,12 +248,77 @@ def get_markup_change_order_item(order):
     markup.add(types.InlineKeyboardButton(text=tt.add_item_from_order,
                                           callback_data=f"manager_addItemFromOrder{order.get_order_id()}"))
     if order.get_item_list_amount() != "None":
-        markup.add(types.InlineKeyboardButton(text=f"Всего: {'{:.2f}'.format(order.get_item_list_price())}руб.",
+        markup.add(types.InlineKeyboardButton(text=f"Всего: {'{:.2f}'.format(order.get_item_list_price())}р.",
                                               callback_data="None"))
 
-    markup.add(types.InlineKeyboardButton(text=tt.back, callback_data=(f"manager_orderChanged{order.get_order_id()}" if order.get_item_list_amount() != "None" else f"manager_changeOrderItem{order.get_order_id()}")))
+    markup.add(types.InlineKeyboardButton(text=tt.back, callback_data=(
+        f"manager_orderChanged{order.get_order_id()}" if order.get_item_list_amount() != "None" else f"manager_changeOrderItem{order.get_order_id()}")))
     return markup
 
+
+def get_markup_add_tn(item_list):
+    markup = types.InlineKeyboardMarkup()
+    if item_list != "None":
+        for itm in item_list:
+            # product = item.Item(itm)
+            # order_id_and_item_id = f"{order.get_order_id()}_{str(item_and_amount[0].get_id())}"
+            cat = category.Category(itm[0].get_cat_id())
+            cat_name = cat.get_name() if len(cat.get_name()) < 15 else (cat.get_name()[:12] + "...")
+            item_name = itm[0].get_name() if len(itm[0].get_name()) < 24 else (
+                    itm[0].get_name()[:21] + "...")
+            text = f"{cat_name} - {itm[0].get_name()} ({itm[1]}шт.)"
+            if len(text) > 47:
+                text = f"{cat_name} - {item_name} ({itm[1]}шт.)"
+            # markup.add(types.InlineKeyboardButton(text=text, callback_data=f"viewItem{itm[0].get_id()}"))
+            markup.add(types.InlineKeyboardButton(text=text, callback_data="None"))
+            markup.add(types.InlineKeyboardButton(text=f"{itm[0].get_price() * itm[1]}р.",
+                                                  callback_data="None"), types.InlineKeyboardButton(text=tt.plus,
+                                                                                                    callback_data=f"admin_addCountItemForTN{str(itm[0].get_id())}"),
+                       types.InlineKeyboardButton(text=tt.minus,
+                                                  callback_data=f"admin_removeCountItemForTN{str(itm[0].get_id())}"))
+    else:
+        markup.add(types.InlineKeyboardButton(text=f"Товаров нет...",
+                                              callback_data="None"))
+
+    markup.add(types.InlineKeyboardButton(text=tt.add_item_from_order,
+                                          callback_data=f"admin_addItemFromTN"), types.InlineKeyboardButton(text=tt.add_new_item_from_tn,
+                                          callback_data=f"admin_addItem"))
+    if item_list != "None":
+        markup.add(
+            types.InlineKeyboardButton(text=f"Всего: {'{:.2f}'.format(tn.get_item_list_price_conf(item_list))}р.",
+                                       callback_data="None"))
+        markup.add(types.InlineKeyboardButton(text=tt.create_TN_generate,
+                                          callback_data=f"admin_generateTN"))
+
+    markup.add(types.InlineKeyboardButton(text=tt.back, callback_data=f"admin_itemManagement"))
+    return markup
+
+
+def get_markup_addItemToTNChooseCategory(cat_list):
+    markup = types.InlineKeyboardMarkup()
+    for cat in cat_list:
+        markup.add(types.InlineKeyboardButton(text=f"[{cat.get_id()}] {cat.get_name()}",
+                                              callback_data=f"admin_addItemToTNChooseItem{cat.get_id()}"))
+    # markup.add(btnBackItemManagement)
+    markup.add(types.InlineKeyboardButton(text=tt.back, callback_data=f"admin_addTN"))
+
+    return markup
+
+def get_markup_addItemToTNChooseItem(cat):
+    markup = types.InlineKeyboardMarkup()
+    for item in cat.get_item_list():
+        if item.is_active():
+            markup.add(types.InlineKeyboardButton(text=f"[{item.get_id()}] {item.get_name()}",
+                                                  callback_data=f"admin_viewItemFromAddItemToTN{item.get_id()}"))
+    markup.add(types.InlineKeyboardButton(text=tt.back, callback_data=f"admin_addItemToTNChooseItem{cat.get_id()}"))
+    return markup
+
+def get_markup_addItemFromAddItemToTN(item):
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton(text=tt.add_to_tn,
+                                          callback_data=f"admin_addItemFromAddItemToTN{item.get_id()}"))
+    markup.add(types.InlineKeyboardButton(text=tt.back, callback_data=f"admin_addTN"))
+    return markup
 
 def get_markup_captcha():
     markup = types.InlineKeyboardMarkup()
@@ -294,7 +364,7 @@ def get_markup_viewCat(item_list):
     markup = types.InlineKeyboardMarkup()
     for item in item_list:
         if item.is_active():
-            markup.add(types.InlineKeyboardButton(text=f"{item.get_name()} - {item.get_price()} руб.",
+            markup.add(types.InlineKeyboardButton(text=f"{item.get_name()} - {item.get_price()} р.",
                                                   callback_data=f"viewItem{item.get_id()}"))
     markup.add(btnBackCatalogue)
     return markup
@@ -325,6 +395,8 @@ def get_markup_itemManagement():
                types.InlineKeyboardButton(text=tt.edit_item, callback_data="admin_editItemChooseCategory"))
     markup.add(types.InlineKeyboardButton(text=tt.add_image_cat, callback_data="admin_addImageCtg"),
                types.InlineKeyboardButton(text=tt.delete_image_cat, callback_data="admin_deleteImageCtg"))
+    markup.add(types.InlineKeyboardButton(text=tt.create_TN, callback_data="admin_addTN"),
+               types.InlineKeyboardButton(text=tt.generate_text_list_item, callback_data="admin_generateTextListItem"))
     markup.add(btnBackAdmin)
     return markup
 
@@ -361,7 +433,10 @@ def get_markup_addItemSetCat(cat_list):
 
 btnSkipAddItemSetImage = types.InlineKeyboardButton(text=tt.skip, callback_data="admin_skipSetAddItemSetImage")
 btnSkipAddCatSetImage = types.InlineKeyboardButton(text=tt.skip, callback_data="admin_skipSetAddCatSetImage")
-
+def get_markup_userProfileFromBan(user_id):
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton(text=tt.open_profile, callback_data=f"admin_userProfileFromBan{user_id}"))
+    return markup
 
 def get_markup_addItemConfirmation():
     markup = types.InlineKeyboardMarkup()

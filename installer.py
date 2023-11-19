@@ -116,6 +116,15 @@ CREATE TABLE "catalogue" (
     PRIMARY KEY("id")
 )
 """
+CREATE_TN_TEXT = """
+CREATE TABLE "tn" (
+	"tn_id" INTEGER NOT NULL,
+    "manager" INTEGER,
+	"item_list" TEXT,
+	"date" TEXT,
+    PRIMARY KEY("tn_id")
+    )
+"""
 CREATE_INDEX_FOR_CATALOGUE = """
 CREATE INDEX "idx_ctg_img" ON "catalogue" (
 	"image_id"	ASC
@@ -139,6 +148,7 @@ def create_db():
     c.execute(CREATE_COMMANDS_TEXT)
     c.execute(CREATE_FEEDBACK_TEXT)
     c.execute(CREATE_CATALOGUE_TEXT)
+    c.execute(CREATE_TN_TEXT)
     c.execute(CREATE_INDEX_FOR_CATALOGUE)
     c.execute(CREATE_INDEX_FOR_CATS)
     conn.commit()
