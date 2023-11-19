@@ -2,12 +2,12 @@ import pymorphy2
 from pyparsing import opAssoc
 import item as itm
 
-m = pymorphy2.MorphAnalyzer()
+# m = pymorphy2.MorphAnalyzer()
 
 excluded_words = ["без", "в", "для", "до", "за", "из", "к", "под", "а", "о", "над", "на", "о", "об", "от", "перед", "по", "под", "при", "про", "с", "у"]
 
 def get_normal_forms(word):
-    return set(p.normal_form for p in m.parse(word))
+    return None
     
 
 class Query:
