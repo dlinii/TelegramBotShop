@@ -307,9 +307,8 @@ def get_markup_addItemToTNChooseCategory(cat_list):
 def get_markup_addItemToTNChooseItem(cat):
     markup = types.InlineKeyboardMarkup()
     for product in cat.get_item_list():
-        if product.is_active():
-            markup.add(types.InlineKeyboardButton(text=f"[{product.get_id()}] {product.get_name()}",
-                                                  callback_data=f"admin_viewItemFromAddItemToTN{product.get_id()}"))
+        markup.add(types.InlineKeyboardButton(text=f"[{product.get_id()}] {product.get_name()}",
+                                              callback_data=f"admin_viewItemFromAddItemToTN{product.get_id()}"))
     markup.add(types.InlineKeyboardButton(text=tt.back, callback_data=f"admin_addItemFromTN"))
     return markup
 
