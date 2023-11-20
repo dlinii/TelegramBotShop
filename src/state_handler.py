@@ -145,3 +145,11 @@ class changeProfilePrice(StatesGroup):
     # Required
     price = State()
 
+
+class changeOthProfilePrice(StatesGroup):
+    # Data
+    state_message = State()
+    user_id = State()
+
+    # Required
+    price = State()

@@ -1216,6 +1216,65 @@ async def process_callback(callback_query: types.CallbackQuery):
                 text=text,
                 reply_markup=markup,
             )
+        elif call_data.startswith("changeNotif"):
+            editUser = usr.User(int(call_data[11:]))
+            editUser.set_notif_enable(0 if editUser.notif_on() else 1)
+            markup = markups.get_markup_seeUserProfile(editUser)
+            text = tt.get_profile_template(editUser)
+            await bot.edit_message_text(
+                chat_id=chat_id,
+                message_id=callback_query.message.message_id,
+                text=text,
+                reply_markup=markup,
+            )
+        elif call_data.startswith("changePriceManager"):
+            editUser = usr.User(int(call_data[18:]))
+            text = f"Введите новую сумму на руках {tt.or_press_back}"
+            markup = markups.single_button(markups.btnBackViewProfile(editUser.get_id()))
+
+            try:
+                await bot.edit_message_text(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    text=text,
+                    reply_markup=markup,
+                )
+            except:
+                await bot.delete_message(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id
+                )
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                    reply_markup=markup
+                )
+            await state_handler.changeOthProfilePrice.price.set()
+            state = Dispatcher.get_current().current_state()
+            await state.update_data(user_id=editUser.get_id())
+            await state.update_data(state_message=callback_query.message.message_id)
+        elif call_data.startswith("backViewProfile"):
+            editUser = usr.User(int(call_data[15:]))
+            markup = markups.get_markup_seeUserProfile(editUser)
+            text = tt.get_profile_template(editUser)
+            try:
+                await bot.edit_message_text(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    text=text,
+                    reply_markup=markup,
+                )
+
+            except:
+                await bot.delete_message(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id
+                )
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                    reply_markup=markup
+                )
         elif call_data == "notifyEveryone":
             await bot.edit_message_text(
                 chat_id=chat_id,
@@ -2948,7 +3007,7 @@ async def changeCatName(message: types.Message, state: FSMContext):
 
 
 @dp.message_handler(state=state_handler.changeProfilePrice.price)
-async def changeCatName(message: types.Message, state: FSMContext):
+async def changeProfilePrice(message: types.Message, state: FSMContext):
     data = await state.get_data()
     user = usr.User(data["user_id"])
     price = float(message.text)
@@ -2971,6 +3030,29 @@ async def changeCatName(message: types.Message, state: FSMContext):
     )
     await state.finish()
 
+@dp.message_handler(state=state_handler.changeOthProfilePrice.price)
+async def changeOthProfilePrice(message: types.Message, state: FSMContext):
+    data = await state.get_data()
+    user = usr.User(data["user_id"])
+    price = float(message.text)
+
+    try:
+        text = f"Сумма на руках была изменена с \"{user.get_price()}р.\" на \"{price}р.\"."
+        user.set_price(price)
+    except Exception as e:
+        logging.warning(f"SENT EXCEPTION(error change user price): {e}")
+        text = tt.error
+
+    await bot.delete_message(
+        message_id=data["state_message"],
+        chat_id=message.chat.id
+    )
+    await bot.send_message(
+        chat_id=message.chat.id,
+        text=text,
+        reply_markup=markups.single_button(markups.btnBackViewProfile(data["user_id"])),
+    )
+    await state.finish()
 
 @dp.message_handler(content_types=['photo'], state=state_handler.changeCatImage.image)
 async def changeCatImage(msg: types.Message, state: FSMContext):
@@ -3947,6 +4029,32 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
                 reply_markup=markups.get_markup_customCommands()
             )
             await state.finish()
+        elif call_data.startswith("backViewProfile"):
+            await state.finish()
+            editUser = usr.User(int(call_data[15:]))
+            markup = markups.get_markup_seeUserProfile(editUser)
+            text = tt.get_profile_template(editUser)
+            try:
+                await bot.edit_message_text(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    text=text,
+                    reply_markup=markup,
+                )
+
+            except:
+                await bot.delete_message(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id
+                )
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                    reply_markup=markup
+                )
+
+
+
         else:
             await state.finish()
     else:
@@ -3980,6 +4088,7 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
                 reply_markup=markups.get_markup_profile(user),
             )
             await state.finish()
+
         elif call_data == "skipComment":
             state = Dispatcher.get_current().current_state()
             data = await state.get_data()

@@ -78,7 +78,7 @@ def btnBackViewCat(cat_id): return types.InlineKeyboardButton(text=tt.back, call
 
 
 def btnBackViewItem(item_id): return types.InlineKeyboardButton(text=tt.back, callback_data=f"viewItem{item_id}")
-
+def btnBackViewProfile(user_id): return types.InlineKeyboardButton(text=tt.back, callback_data=f"admin_backViewProfile{user_id}")
 
 btnBackCart = types.InlineKeyboardButton(text=tt.back, callback_data="cart")
 btnBackCartDel = types.InlineKeyboardButton(text=tt.back, callback_data="cartDel")
@@ -536,6 +536,10 @@ def get_markup_seeUserProfile(user):
                                           callback_data=f"admin_changeUserManager{user.get_id()}"))
     markup.add(types.InlineKeyboardButton(text=tt.remove_admin_role if user.is_admin() else tt.add_admin_role,
                                           callback_data=f"admin_changeUserAdmin{user.get_id()}"))
+
+    markup.add(types.InlineKeyboardButton(text=tt.disable_notif if user.notif_on() else tt.enable_notif,
+                                          callback_data=f"admin_changeNotif{user.get_id()}"))
+    markup.add(types.InlineKeyboardButton(text=tt.change_price_manager, callback_data=f"admin_changePriceManager{user.get_id()}"))
     markup.add(btnBackUserManagement)
     return markup
 
