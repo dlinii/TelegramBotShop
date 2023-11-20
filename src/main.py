@@ -2056,7 +2056,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                     chat_id=adm_id,
                     message_id=msg_id,
                     reply_markup=markups.get_markup_seeNewOrder(order,
-                                                                order.get_manager() == usr.get_username_g(adm_id))
+                                                                order.get_manager() == usr.get_username_g(adm_id) and order.get_status() != 2)
                 )
                 if order.get_id_user_msg() != "None":
                     await bot.edit_message_text(
@@ -2092,7 +2092,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                     chat_id=adm_id,
                     message_id=msg_id,
                     reply_markup=markups.get_markup_seeNewOrder(order,
-                                                                order.get_manager() == usr.get_username_g(adm_id))
+                                                                order.get_manager() == usr.get_username_g(adm_id) and order.get_status() != 2)
                 )
             if order.get_id_user_msg() != "None":
                 await bot.edit_message_text(
@@ -2190,7 +2190,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                     chat_id=adm_id,
                     message_id=msg_id,
                     reply_markup=markups.get_markup_seeNewOrder(order,
-                                                                order.get_manager() == usr.get_username_g(adm_id))
+                                                                order.get_manager() == usr.get_username_g(adm_id) and order.get_status() != 2)
                 )
             if order.get_id_user_msg() != "None":
                 await bot.edit_message_text(
@@ -2227,7 +2227,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                     chat_id=adm_id,
                     message_id=msg_id,
                     reply_markup=markups.get_markup_seeNewOrder(order,
-                                                                order.get_manager() == usr.get_username_g(adm_id))
+                                                                order.get_manager() == usr.get_username_g(adm_id) and order.get_status() != 2)
                 )
             if order.get_id_user_msg() != "None":
                 await bot.edit_message_text(
@@ -2262,7 +2262,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                     chat_id=adm_id,
                     message_id=msg_id,
                     reply_markup=markups.get_markup_seeNewOrder(order,
-                                                                order.get_manager() == usr.get_username_g(adm_id))
+                                                                order.get_manager() == usr.get_username_g(adm_id) and order.get_status() != 2)
                 )
             if order.get_id_user_msg() != "None":
                 await bot.edit_message_text(
@@ -2490,7 +2490,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                         chat_id=adm_id,
                         message_id=msg_id,
                         reply_markup=markups.get_markup_seeNewOrder(order,
-                                                                    order.get_manager() == usr.get_username_g(adm_id))
+                                                                    order.get_manager() == usr.get_username_g(adm_id) and order.get_status() != 2)
                     )
                     if order.get_id_user_msg() != "None":
                         await bot.edit_message_text(
@@ -2526,7 +2526,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                         chat_id=adm_id,
                         message_id=msg_id,
                         reply_markup=markups.get_markup_seeNewOrder(order,
-                                                                    order.get_manager() == usr.get_username_g(adm_id))
+                                                                    order.get_manager() == usr.get_username_g(adm_id) and order.get_status() != 2)
                     )
                     if order.get_id_user_msg() != "None":
                         await bot.edit_message_text(
