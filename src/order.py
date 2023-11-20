@@ -155,10 +155,10 @@ def get_status_dict():
         }
 
 def get_order_list(status=None):
-    # if status:
-    c.execute(f"SELECT * FROM orders WHERE status=?", [status])
-    # else:
-    #     c.execute(f"SELECT * FROM orders")
+    if status == 2:
+        c.execute(f"SELECT * FROM orders WHERE status=? limit 50", [status])
+    else:
+        c.execute(f"SELECT * FROM orders WHERE status=?", [status])
     return list(map(Order, [order[0] for order in list(c)]))
 
 def get_order_list_manager(username):
