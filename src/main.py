@@ -675,10 +675,12 @@ async def process_callback(callback_query: types.CallbackQuery):
             item_list = itm.get_item_list()
             text = ""
             for cat_itm in cat_list:
-                text += f"🔥 {cat_itm.get_name()} 🔥\n"
-                for item in item_list:
-                    if cat_itm.get_id() == item.get_cat_id():
-                        text += f"➖ {item.get_name()} ({item.get_amount()} шт.)\n"
+                if cat_itm.is_active():
+                    text += f"🔥 {cat_itm.get_name()} 🔥\n"
+                    for item in item_list:
+                        if cat_itm.get_id() == item.get_cat_id():
+                            if item.is_active():
+                                text += f"➖ {item.get_name()} ({item.get_amount()} шт.)\n"
 
             markup = markups.single_button(markups.btnBackItemManagement)
             try:
