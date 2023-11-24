@@ -675,7 +675,7 @@ async def process_callback(callback_query: types.CallbackQuery):
             text = ""
             for cat_itm in cat_list:
                 if cat_itm.is_active():
-                    text += f"🔥 {cat_itm.get_name()} 🔥\n"
+                    text += f"\n🔥 {cat_itm.get_name()} 🔥\n"
                     for item in item_list:
                         if cat_itm.get_id() == item.get_cat_id():
                             if item.is_active():
