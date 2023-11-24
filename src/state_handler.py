@@ -25,6 +25,7 @@ class addItem(StatesGroup):
     cat_id = State()
     desc = State()
     confirmation = State()
+    strong = State()
     
     # Additional
     image = State()

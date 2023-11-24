@@ -72,7 +72,6 @@ async def create_backup():
         document=open("logs/" + dateForLogs + ".log", 'rb')
     )
     logging.info("backup created")
-    print("Backup created!")
 
 
 def clean_backups(days_ago=0):
@@ -680,7 +679,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                     for item in item_list:
                         if cat_itm.get_id() == item.get_cat_id():
                             if item.is_active():
-                                text += f"➖ {item.get_name()} ({item.get_amount()} шт.)\n"
+                                text += f"➖ {item.get_name()} {item.get_strong()} mg ({item.get_amount()} шт.)\n"
 
             markup = markups.single_button(markups.btnBackItemManagement)
             try:
@@ -1830,7 +1829,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                 reply_markup=markups.get_markup_backups()
             )
         elif call_data == "updateBackup":
-            create_backup()
+            await create_backup()
             await bot.edit_message_text(
                 chat_id=callback_query.message.chat.id,
                 message_id=callback_query.message.message_id,
@@ -3872,7 +3871,7 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
         elif call_data == "addItemConfirm":
             try:
                 itm.create_item(name=data["name"], price=data["price"], cat_id=data["cat_id"], desc=data["desc"],
-                                image_id=data["image"] if settings.is_item_image_enabled() else "None")
+                                image_id=data["image"] if settings.is_item_image_enabled() else "None", strong=0)
                 text = f"Товар {data['name']} был создан."
             except Exception as e:
                 logging.warning(f"SENT EXCEPTION(error create item): {e}")

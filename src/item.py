@@ -95,6 +95,12 @@ class Item:
         c.execute(f"DELETE FROM items WHERE id=?", [self.get_id()])
         conn.commit()
 
+    def get_strong(self):
+        return int(self.__clist()[9])
+
+    def set_strong(self, value):
+        c.execute(f"UPDATE items SET strong=? WHERE id=?", [value, self.get_id()])
+        conn.commit()
 
 def get_item_list():
     c.execute("SELECT * FROM items")
@@ -102,8 +108,8 @@ def get_item_list():
 
 def get_len_item():
     return len(get_item_list())
-def create_item(name, price, cat_id, desc, image_id="None", active=True):
-    c.execute(f"INSERT INTO items(name, price, cat_id, desc, active, amount, image_id, hide_image) VALUES(?, ?, ?, ?, ?, 0, ?, 0)", [name, price, cat_id, desc, 1 if active else 0, image_id])
+def create_item(name, price, cat_id, desc, image_id="None", active=True, strong=-1):
+    c.execute(f"INSERT INTO items(name, price, cat_id, desc, active, amount, image_id, hide_image, strong) VALUES(?, ?, ?, ?, ?, 0, ?, 0, ?)", [name, price, cat_id, desc, 1 if active else 0, image_id, strong])
     conn.commit()
     return get_item_list()[-1]
 

@@ -15,7 +15,7 @@ class TestItem(unittest.TestCase):
             "cat_id": randint(1, 100),
             "desc": get_random_string(10, 255),
         }
-        self.item_random = itm.create_item(self.test_data_random["name"], self.test_data_random["price"], self.test_data_random["cat_id"], self.test_data_random["desc"], active=False)
+        self.item_random = itm.create_item(self.test_data_random["name"], self.test_data_random["price"], self.test_data_random["cat_id"], self.test_data_random["desc"], active=False, strong=0)
         
         self.test_data = {
             "name": "Test Item Name",
@@ -23,7 +23,7 @@ class TestItem(unittest.TestCase):
             "cat_id": cat.get_cat_list()[0].get_id(),
             "desc": "Test Item's description here. Blah-blah-blah..."
         }
-        self.item = itm.create_item(self.test_data["name"], self.test_data["price"], self.test_data["cat_id"], self.test_data["desc"], active=False)
+        self.item = itm.create_item(self.test_data["name"], self.test_data["price"], self.test_data["cat_id"], self.test_data["desc"], active=False, strong=0)
         
 
     def tearDown(self):

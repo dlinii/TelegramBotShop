@@ -59,6 +59,7 @@ CREATE TABLE "items" (
 	"amount" INTEGER,
 	"image_id" INTEGER,
     "hide_image" INTEGER,
+    "strong" INTEGER,
 	PRIMARY KEY("id")
 )
 """
