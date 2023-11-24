@@ -681,7 +681,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                             if item.is_active():
                                 strong = ""
                                 if item.get_strong() != -1:
-                                    strong = item.get_strong() + " mg"
+                                    strong = str(item.get_strong()) + " mg"
                                 text += f"➖ {item.get_name()} {strong} ({item.get_amount()} шт.)\n"
 
             markup = markups.single_button(markups.btnBackItemManagement)

@@ -39,7 +39,7 @@ def get_item_card(item=None, name=None, price=None, desc=None, amount=None, stro
         amount = item.get_amount()
         strong = ""
         if item.get_strong() != -1:
-            strong = item.get_strong() + " mg"
+            strong = str(item.get_strong()) + " mg"
 
     return f"{line_separator}\n{name} - {'{:.2f}'.format(price)} р.\nВ наличии: {amount} шт.\n{strong}\n{line_separator}\n{desc}"
 
@@ -51,7 +51,7 @@ def get_order_confirmation_template(item_amount_dict, cart_price, additional_mes
     for item in item_amount_dict:
         strong = ""
         if item[0].get_strong() != -1:
-            strong = item[0].get_strong() + " mg"
+            strong = str(item[0].get_strong()) + " mg"
         item_amount_dict_formatted += f'\n\t· {category.Category(item[0].get_cat_id())} - {item[0].get_name()} {strong} ({item[1]} шт.)'
     # item_amount_dict_formatted = '\n'.join([f'\t· {category.Category(item[0].get_cat_id())} - {item[0].get_name()} {strong} ({item[1]} шт.)' for item in item_amount_dict])
     phone_number = f"Номер телефона: {phone_number}\n" if phone_number else ""
@@ -61,15 +61,15 @@ def get_order_confirmation_template(item_amount_dict, cart_price, additional_mes
 
 
 def get_order_template(order):
+    item_list_amount_formatted = ""
     if order.get_item_list_amount() is None:
         item_list_amount_formatted = "-"
     else:
-        item_amount_dict_formatted = ""
         for item in order.get_item_list_amount():
             strong = ""
             if item[0].get_strong() != -1:
-                strong = item[0].get_strong() + " mg"
-            item_amount_dict_formatted += f'\n\t· {category.Category(item[0].get_cat_id())} - {item[0].get_name()} {strong} ({item[1]} шт.)'
+                strong = str(item[0].get_strong()) + " mg"
+            item_list_amount_formatted += f'\n\t· {category.Category(item[0].get_cat_id())} - {item[0].get_name()} {strong} ({item[1]} шт.)'
         # item_list_amount_formatted = '\n'.join(
         #     [f'\t· {category.Category(item[0].get_cat_id())} - {item[0].get_name()} {item[0].get_strong()} mg ({item[1]} шт.)' for item in order.get_item_list_amount()])
     phone_number = f"Номер телефона: {order.get_phone_number()}\n" if settings.is_phone_number_enabled() else ""
@@ -82,12 +82,12 @@ def get_order_for_user(order):
     if order.get_item_list_amount() is None:
         item_list_amount_formatted = "-"
     else:
-        item_amount_dict_formatted = ""
+        item_list_amount_formatted = ""
         for item in order.get_item_list_amount():
             strong = ""
             if item[0].get_strong() != -1:
-                strong = item[0].get_strong() + " mg"
-            item_amount_dict_formatted += f'\n\t· {category.Category(item[0].get_cat_id())} - {item[0].get_name()} {strong} ({item[1]} шт.)'
+                strong = str(item[0].get_strong()) + " mg"
+            item_list_amount_formatted += f'\n\t· {category.Category(item[0].get_cat_id())} - {item[0].get_name()} {strong} ({item[1]} шт.)'
         # item_list_amount_formatted = '\n'.join(
         #     [f'\t· {category.Category(item[0].get_cat_id())} - {item[0].get_name()} {item[0].get_strong()} mg ({item[1]} шт.)' for item in order.get_item_list_amount()])
     phone_number = f"Номер телефона: {order.get_phone_number()}\n" if settings.is_phone_number_enabled() else ""
