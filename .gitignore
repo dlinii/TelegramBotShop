@@ -8,3 +8,17 @@ ideas.txt
 /tmp
 DOCS/overview.md
 src/modules/
+/images/
+/logs/
+/backups/
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/.gitignore
+/.idea/dataSources.xml
+/.idea/encodings.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/sqldialects.xml
+/.idea/TelegramBotShop.iml
+/.idea/vcs.xml
+/data.db
