@@ -39,6 +39,11 @@ class changeItemImage(StatesGroup):
     state_message = State()
     item_id = State()
     image = State()
+
+class changeItemStrong(StatesGroup):
+    state_message = State()
+    item_id = State()
+    strong = State()
 class addCtgImage(StatesGroup):
     state_message = State()
     image = State()

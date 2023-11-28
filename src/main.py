@@ -142,9 +142,10 @@ async def welcome(message: types.Message):
     if user.is_cart_delivery():
         markupMain = markups.get_markup_main()
         if user.is_manager() or user.is_admin():
-            markupMain.row(markups.btnOrders)
+            markupMain.row(markups.btnOrders, markups.btnManager)
         if user.is_admin():
             markupMain.row(markups.btnAdminPanel)
+        markupMain.row(markups.btnForFooter1, markups.btnForFooter2)
 
         try:
             if settings.is_sticker_enabled():
@@ -238,6 +239,12 @@ async def handle_text(msg):
                 text=tt.get_profile_template(user),
                 reply_markup=markups.get_markup_profile(user),
             )
+        elif msg.text == tt.buttonManager:
+            await bot.send_message(
+                chat_id=msg.chat.id,
+                text=tt.item_management,
+                reply_markup=markups.get_markup_itemManagement(),
+            )
         elif msg.text == tt.catalogue:
             ctg = catalogue.get_images_list()
 
@@ -303,28 +310,318 @@ async def process_callback(callback_query: types.CallbackQuery):
     if settings.is_debug():
         print(f"DEBUG: CALL [{chat_id}] {call_data}")
 
-    # Admin calls
-    if call_data.startswith("admin_") and user.is_admin():
-        call_data = call_data[6:]
 
-        if call_data == "adminPanel":
-            await bot.edit_message_text(
-                chat_id=chat_id,
-                message_id=callback_query.message.message_id,
-                text=tt.admin_panel,
-                reply_markup=markups.get_markup_admin(),
-            )
+    if call_data.startswith("manager_") and (user.is_admin() or user.is_manager()):
+        call_data = call_data[8:]
 
-        # Admin tabs
+
+        # Manager tabs
         # Item management
-        elif call_data == "itemManagement":
+        if call_data.startswith("editItemName"):
+            item = itm.Item(call_data[12:])
+            text = f"Введите новое название для \"{item.get_name()}\" {tt.or_press_back}"
+            markup = markups.single_button(markups.btnBackEditItem(item.get_id()))
+
+            if item.get_image_id() == "None" or not settings.is_item_image_enabled() or await item.is_hide_image():
+                await bot.edit_message_text(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    text=text,
+                    reply_markup=markup,
+                )
+            else:
+                await bot.delete_message(
+                    message_id=callback_query.message.message_id,
+                    chat_id=chat_id
+                )
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                    reply_markup=markup
+                )
+
+            await state_handler.changeItemName.name.set()
+            state = Dispatcher.get_current().current_state()
+            await state.update_data(item_id=item.get_id())
+            await state.update_data(state_message=callback_query.message.message_id)
+        elif call_data.startswith("editItemDesc"):
+            item = itm.Item(call_data[12:])
+            text = f"Введите новое описание для \"{item.get_name()}\" {tt.or_press_back}"
+            markup = markups.single_button(markups.btnBackEditItem(item.get_id()))
+
+            if item.get_image_id() == "None" or not settings.is_item_image_enabled():
+                await bot.edit_message_text(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    text=text,
+                    reply_markup=markup,
+                )
+            else:
+                await bot.delete_message(
+                    message_id=callback_query.message.message_id,
+                    chat_id=chat_id
+                )
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                    reply_markup=markup
+                )
+            await state_handler.changeItemDesc.desc.set()
+            state = Dispatcher.get_current().current_state()
+            await state.update_data(item_id=item.get_id())
+            await state.update_data(state_message=callback_query.message.message_id)
+        elif call_data.startswith("editItemPrice"):
+            item = itm.Item(call_data[13:])
+            text = f"Введите новую цену для \"{item.get_name()}\" {tt.or_press_back}"
+            markup = markups.single_button(markups.btnBackEditItem(item.get_id()))
+
+            if item.get_image_id() == "None" or not settings.is_item_image_enabled() or await item.is_hide_image():
+                try:
+                    await bot.edit_message_text(
+                        chat_id=chat_id,
+                        message_id=callback_query.message.message_id,
+                        text=text,
+                        reply_markup=markup,
+                    )
+                except:
+                    await bot.delete_message(
+                        chat_id=chat_id,
+                        message_id=callback_query.message.message_id
+                    )
+                    await bot.send_message(
+                        chat_id=chat_id,
+                        text=text,
+                        reply_markup=markup
+                    )
+            else:
+                await bot.delete_message(
+                    message_id=callback_query.message.message_id,
+                    chat_id=chat_id
+                )
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                    reply_markup=markup
+                )
+
+            await state_handler.changeItemPrice.price.set()
+            state = Dispatcher.get_current().current_state()
+            await state.update_data(item_id=item.get_id())
+            await state.update_data(state_message=callback_query.message.message_id)
+        elif call_data.startswith("editItemStrong"):
+            item = itm.Item(call_data[14:])
+            text = f"Введите новую крепость для \"{item.get_name()}\" {tt.or_press_back}"
+            markup = markups.single_button(markups.btnBackEditItem(item.get_id()))
+
+            if item.get_image_id() == "None" or not settings.is_item_image_enabled() or await item.is_hide_image():
+                try:
+                    await bot.edit_message_text(
+                        chat_id=chat_id,
+                        message_id=callback_query.message.message_id,
+                        text=text,
+                        reply_markup=markup,
+                    )
+                except:
+                    await bot.delete_message(
+                        chat_id=chat_id,
+                        message_id=callback_query.message.message_id
+                    )
+                    await bot.send_message(
+                        chat_id=chat_id,
+                        text=text,
+                        reply_markup=markup
+                    )
+            else:
+                await bot.delete_message(
+                    message_id=callback_query.message.message_id,
+                    chat_id=chat_id
+                )
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                    reply_markup=markup
+                )
+
+            await state_handler.changeItemStrong.strong.set()
+            state = Dispatcher.get_current().current_state()
+            await state.update_data(item_id=item.get_id())
+            await state.update_data(state_message=callback_query.message.message_id)
+        elif call_data.startswith("editItemCat"):
+            item = itm.Item(call_data[11:])
+            text = f"Выберите новую категорию для \"{item.get_name()}\" {tt.or_press_back}"
+            markup = markups.get_markup_editItemCat(item_id=item.get_id(), cat_list=category.get_cat_list())
+
+            if item.get_image_id() == "None" or not settings.is_item_image_enabled():
+                await bot.edit_message_text(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    text=text,
+                    reply_markup=markup,
+                )
+            else:
+                await bot.delete_message(
+                    message_id=callback_query.message.message_id,
+                    chat_id=chat_id
+                )
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                    reply_markup=markup
+                )
+
+            await state_handler.changeItemCat.cat.set()
+            state = Dispatcher.get_current().current_state()
+            await state.update_data(item_id=item.get_id())
+        elif call_data.startswith("editItemStock"):
+            item = itm.Item(call_data[13:])
+            text = f"Введите новое количество товара для \"{item.get_name()}\" {tt.or_press_back}"
+            markup = markups.single_button(markups.btnBackEditItem(item.get_id()))
+
+            if item.get_image_id() == "None" or not settings.is_item_image_enabled():
+                await bot.edit_message_text(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    text=text,
+                    reply_markup=markup,
+                )
+            else:
+                await bot.delete_message(
+                    message_id=callback_query.message.message_id,
+                    chat_id=chat_id
+                )
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                    reply_markup=markup
+                )
+
+            await state_handler.changeItemStock.stock.set()
+            state = Dispatcher.get_current().current_state()
+            await state.update_data(item_id=item.get_id())
+            await state.update_data(state_message=callback_query.message.message_id)
+        elif call_data.startswith("editItemHideImage"):
+            item = itm.Item(call_data[17:])
+            cat = category.Category(item.get_cat_id())
+
+            try:
+                item.set_hide_image(0 if await item.is_hide_image() else 1)
+                text = tt.get_item_card(item) + f"\nКатегория: {cat.get_name()}"
+            except Exception as e:
+                logging.warning(f"SENT EXCEPTION(error \"item.set_hide_image\"): {e}")
+                text = tt.error
+            markup = await markups.get_markup_editItem(item)
+
+            if item.get_image_id() == "None" or not settings.is_item_image_enabled() or await item.is_hide_image():
+                try:
+                    await bot.edit_message_text(
+                        chat_id=chat_id,
+                        message_id=callback_query.message.message_id,
+                        text=text,
+                        reply_markup=markup,
+                    )
+                except:
+                    await bot.delete_message(
+                        message_id=callback_query.message.message_id,
+                        chat_id=chat_id
+                    )
+                    await bot.send_message(
+                        text=text,
+                        chat_id=chat_id,
+                        reply_markup=markup
+                    )
+            else:
+                await bot.delete_message(
+                    message_id=callback_query.message.message_id,
+                    chat_id=chat_id
+                )
+                await bot.send_photo(
+                    chat_id=chat_id,
+                    caption=text,
+                    photo=item.get_image(),
+                    reply_markup=markup
+                )
+
+        elif call_data.startswith("editItemHide"):
+            item = itm.Item(call_data[12:])
+            cat = category.Category(item.get_cat_id())
+
+            try:
+                item.set_active(0 if item.is_active() else 1)
+                text = tt.get_item_card(item) + f"\nКатегория: {cat.get_name()}"
+            except Exception as e:
+                logging.warning(f"SENT EXCEPTION(error \"item.set_active\"): {e}")
+                text = tt.error
+            markup = await markups.get_markup_editItem(item)
+
+            if item.get_image_id() == "None" or not settings.is_item_image_enabled() or await item.is_hide_image():
+                await bot.edit_message_text(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    text=text,
+                    reply_markup=markup,
+                )
+            else:
+                await bot.delete_message(
+                    message_id=callback_query.message.message_id,
+                    chat_id=chat_id
+                )
+                await bot.send_photo(
+                    chat_id=chat_id,
+                    caption=text,
+                    photo=item.get_image(),
+                    reply_markup=markup
+                )
+
+
+
+        elif call_data.startswith("editItemDelete"):
+            item = itm.Item(call_data[14:])
+            cat = category.Category(item.get_cat_id())
+            try:
+                text = f"Товар \"{item.get_name()}\" был удалён."
+                item.delete()
+                markup = markups.single_button(markups.btnBackEditItemChooseItem(cat.get_id()))
+            except Exception as e:
+                logging.warning(f"SENT EXCEPTION(error delete item): {e}")
+                text = tt.error
+                markup = markups.single_button(markups.btnBackEditItem(item.get_id()))
+
             try:
                 await bot.edit_message_text(
                     chat_id=chat_id,
                     message_id=callback_query.message.message_id,
-                    text=tt.item_management,
-                    reply_markup=markups.get_markup_itemManagement(),
+                    text=text,
+                    reply_markup=markup,
                 )
+            except:
+                await bot.delete_message(
+                    message_id=callback_query.message.message_id,
+                    chat_id=chat_id
+                )
+                await bot.send_photo(
+                    chat_id=chat_id,
+                    caption=text,
+                    photo=item.get_image(),
+                    reply_markup=markup
+                )
+
+        elif call_data.startswith("editItemImage"):
+            item = itm.Item(call_data[13:])
+            text = f"Отправьте изображение для товара {tt.or_press_back}"
+            markup = markups.single_button(markups.btnBackEditItem(item.get_id()))
+
+            await state_handler.changeItemImage.image.set()
+            state = Dispatcher.get_current().current_state()
+            await state.update_data(item_id=item.get_id())
+
+            try:
+                await bot.edit_message_text(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    text=text,
+                    reply_markup=markup,
+                )
+                await state.update_data(state_message=callback_query.message.message_id)
             except:
                 await bot.delete_message(
                     message_id=callback_query.message.message_id,
@@ -332,29 +629,10 @@ async def process_callback(callback_query: types.CallbackQuery):
                 )
                 await bot.send_message(
                     chat_id=chat_id,
-                    text=tt.item_management,
-                    reply_markup=markups.get_markup_itemManagement(),
+                    text=text,
+                    reply_markup=markup
                 )
-        elif call_data == "addCat":
-            await bot.edit_message_text(
-                chat_id=chat_id,
-                message_id=callback_query.message.message_id,
-                text=f"Введите название новой категории {tt.or_press_back}",
-                reply_markup=markups.single_button(markups.btnBackItemManagement),
-            )
-            await state_handler.addCat.name.set()
-            state = Dispatcher.get_current().current_state()
-            await state.update_data(state_message=callback_query.message.message_id)
-        elif call_data == "editCatChooseCategory":
-            await bot.delete_message(
-                message_id=callback_query.message.message_id,
-                chat_id=chat_id
-            )
-            await bot.send_message(
-                chat_id=chat_id,
-                text=f"Выберите категорию, которую хотите изменить {tt.or_press_back}",
-                reply_markup=markups.get_markup_editCatChooseCategory(category.get_cat_list()),
-            )
+
         elif call_data == "deleteImageCtg":
             ctg_img = catalogue.get_images_list()
             ctg = catalogue.get_ctg_list()
@@ -367,7 +645,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                 )
                 await bot.send_message(
                     chat_id=chat_id,
-                    text="Выбирете номер изображения для удаления",
+                    text="Выберете номер изображения для удаления",
                     reply_markup=markups.get_markup_catalogue_img(ctg),
                 )
             else:
@@ -405,103 +683,9 @@ async def process_callback(callback_query: types.CallbackQuery):
                     text=text,
                     reply_markup=markup
                 )
-        elif call_data.startswith("editCatDelete"):
-            cat = category.Category(call_data[13:])
-            try:
-                text = f"Категория {cat.get_name()} была успешно удалена."
-                cat.delete()
-            except Exception as e:
-                logging.warning(f"SENT EXCEPTION(error delete cat): {e}")
-                text = f"Произошла ошибка!"
-            await bot.delete_message(
-                message_id=callback_query.message.message_id,
-                chat_id=chat_id
-            )
-            await bot.send_message(
-                chat_id=chat_id,
-                text=text,
-                reply_markup=markups.single_button(markups.btnBackEditCatChooseCategory),
-            )
-        elif call_data.startswith("editCatName"):
-            cat = category.Category(call_data[11:])
 
-            await bot.delete_message(
-                message_id=callback_query.message.message_id,
-                chat_id=chat_id
-            )
-            await bot.send_message(
-                chat_id=chat_id,
-                text=f"Введите новое название для категории \"{cat.get_name()}\" {tt.or_press_back}",
-                reply_markup=markups.single_button(markups.btnBackEditCat(cat.get_id()))
-            )
-            await state_handler.changeCatName.name.set()
-            state = Dispatcher.get_current().current_state()
-            await state.update_data(cat_id=cat.get_id())
-            await state.update_data(state_message=callback_query.message.message_id)
 
-        elif call_data.startswith("editCatImage"):
-            cat = category.Category(call_data[12:])
-            text = f"Отправьте изображение для категории {cat.get_name()} {tt.or_press_back}"
-            markup = markups.single_button(markups.btnBackEditCat(cat.get_id()))
 
-            await state_handler.changeCatImage.image.set()
-            state = Dispatcher.get_current().current_state()
-            await state.update_data(cat_id=cat.get_id())
-            await state.update_data(state_message=callback_query.message.message_id + 1)
-
-            try:
-                await bot.edit_message_text(
-                    chat_id=chat_id,
-                    message_id=callback_query.message.message_id,
-                    text=text,
-                    reply_markup=markup,
-                )
-                await state.update_data(state_message=callback_query.message.message_id)
-            except:
-                await bot.delete_message(
-                    message_id=callback_query.message.message_id,
-                    chat_id=chat_id
-                )
-                await bot.send_message(
-                    chat_id=chat_id,
-                    text=text,
-                    reply_markup=markup
-                )
-        elif call_data.startswith("editCat"):
-            cat = category.Category(call_data[7:])
-            await bot.delete_message(
-                message_id=callback_query.message.message_id,
-                chat_id=chat_id
-            )
-            if cat.get_image() == "None":
-                await bot.send_message(
-                    chat_id=chat_id,
-                    text=tt.get_category_data(cat),
-                    reply_markup=markups.get_markup_editCat(cat.get_id()),
-                )
-            else:
-                await bot.send_photo(
-                    chat_id=chat_id,
-                    photo=cat.get_image(),
-                    caption=tt.get_category_data(cat),
-                    reply_markup=markups.get_markup_editCat(cat.get_id()),
-                )
-        elif call_data == "addItem":
-            if not category.get_cat_list():
-                await bot.edit_message_text(
-                    text=f"Создайте категорию перед добавлением товара!",
-                    chat_id=chat_id,
-                    message_id=callback_query.message.message_id,
-                    reply_markup=markups.single_button(markups.btnBackItemManagement)
-                )
-            else:
-                await bot.edit_message_text(
-                    chat_id=chat_id,
-                    message_id=callback_query.message.message_id,
-                    text=f"Введите название нового товара или нажмите на кнопку \"Назад\".",
-                    reply_markup=markups.single_button(markups.btnBackItemManagement),
-                )
-                await state_handler.addItem.name.set()
         elif call_data == "addTN":
             text = tt.create_TN
             item_list = str(settings.get_temp_tn_item_list())
@@ -680,9 +864,13 @@ async def process_callback(callback_query: types.CallbackQuery):
                         if cat_itm.get_id() == item.get_cat_id():
                             if item.is_active():
                                 strong = ""
+                                alphabet = set('абвгдеёжзийклмнопрстуфхцчшщъыьэюя')
                                 if item.get_strong() != -1:
                                     strong = str(item.get_strong()) + " mg"
-                                text += f"➖ {item.get_name()} {strong} ({item.get_amount()} шт.)\n"
+                                if alphabet.isdisjoint(item.get_name().lower()):
+                                    text += f"➖ {item.get_name()} {strong} ({item.get_amount()} шт.)\n{item.get_desc()}\n"
+                                else:
+                                    text += f"➖ {item.get_name()} {strong} ({item.get_amount()} шт.)\n"
 
             markup = markups.single_button(markups.btnBackItemManagement)
             try:
@@ -702,17 +890,109 @@ async def process_callback(callback_query: types.CallbackQuery):
                     text=text,
                     reply_markup=markup
                 )
-        elif call_data == "editItemChooseCategory":
+        elif call_data == "itemManagement":
+            try:
+                await bot.edit_message_text(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    text=tt.item_management,
+                    reply_markup=markups.get_markup_itemManagement(),
+                )
+            except:
+                await bot.delete_message(
+                    message_id=callback_query.message.message_id,
+                    chat_id=chat_id
+                )
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=tt.item_management,
+                    reply_markup=markups.get_markup_itemManagement(),
+                )
+
+
+        elif call_data == "addCat":
             await bot.edit_message_text(
                 chat_id=chat_id,
                 message_id=callback_query.message.message_id,
-                text="Выберите категорию товара, который вы хотите редактировать: ",
-                reply_markup=markups.get_markup_editItemChooseCategory(category.get_cat_list()),
+                text=f"Введите название новой категории {tt.or_press_back}",
+                reply_markup=markups.single_button(markups.btnBackItemManagement),
             )
-        elif call_data.startswith("editItemChooseItem"):
-            cat = category.Category(call_data[18:])
-            text = f"Выберите товар, который вы хотите редактировать: "
-            markup = markups.get_markup_editItemChooseItem(cat.get_item_list())
+            await state_handler.addCat.name.set()
+            state = Dispatcher.get_current().current_state()
+            await state.update_data(state_message=callback_query.message.message_id)
+        elif call_data == "addItem":
+            if not category.get_cat_list():
+                await bot.edit_message_text(
+                    text=f"Создайте категорию перед добавлением товара!",
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    reply_markup=markups.single_button(markups.btnBackItemManagement)
+                )
+            else:
+                await bot.edit_message_text(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    text=f"Введите название нового товара или нажмите на кнопку \"Назад\".",
+                    reply_markup=markups.single_button(markups.btnBackItemManagement),
+                )
+                await state_handler.addItem.name.set()
+        elif call_data == "editCatChooseCategory":
+            await bot.delete_message(
+                message_id=callback_query.message.message_id,
+                chat_id=chat_id
+            )
+            await bot.send_message(
+                chat_id=chat_id,
+                text=f"Выберите категорию, которую хотите изменить {tt.or_press_back}",
+                reply_markup=markups.get_markup_editCatChooseCategory(category.get_cat_list()),
+            )
+        elif call_data.startswith("editCat"):
+            cat = category.Category(call_data[7:])
+            await bot.delete_message(
+                message_id=callback_query.message.message_id,
+                chat_id=chat_id
+            )
+            if cat.get_image() == "None":
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=tt.get_category_data(cat),
+                    reply_markup=markups.get_markup_editCat(cat.get_id()),
+                )
+            else:
+                await bot.send_photo(
+                    chat_id=chat_id,
+                    photo=cat.get_image(),
+                    caption=tt.get_category_data(cat),
+                    reply_markup=markups.get_markup_editCat(cat.get_id()),
+                )
+
+        elif call_data.startswith("editCatName"):
+            cat = category.Category(call_data[11:])
+
+            await bot.delete_message(
+                message_id=callback_query.message.message_id,
+                chat_id=chat_id
+            )
+            await bot.send_message(
+                chat_id=chat_id,
+                text=f"Введите новое название для категории \"{cat.get_name()}\" {tt.or_press_back}",
+                reply_markup=markups.single_button(markups.btnBackEditCat(cat.get_id()))
+            )
+            await state_handler.changeCatName.name.set()
+            state = Dispatcher.get_current().current_state()
+            await state.update_data(cat_id=cat.get_id())
+            await state.update_data(state_message=callback_query.message.message_id)
+
+        elif call_data.startswith("editCatImage"):
+            cat = category.Category(call_data[12:])
+            text = f"Отправьте изображение для категории {cat.get_name()} {tt.or_press_back}"
+            markup = markups.single_button(markups.btnBackEditCat(cat.get_id()))
+
+            await state_handler.changeCatImage.image.set()
+            state = Dispatcher.get_current().current_state()
+            await state.update_data(cat_id=cat.get_id())
+            await state.update_data(state_message=callback_query.message.message_id + 1)
+
             try:
                 await bot.edit_message_text(
                     chat_id=chat_id,
@@ -720,6 +1000,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                     text=text,
                     reply_markup=markup,
                 )
+                await state.update_data(state_message=callback_query.message.message_id)
             except:
                 await bot.delete_message(
                     message_id=callback_query.message.message_id,
@@ -730,224 +1011,6 @@ async def process_callback(callback_query: types.CallbackQuery):
                     text=text,
                     reply_markup=markup
                 )
-
-        elif call_data.startswith("editItemName"):
-            item = itm.Item(call_data[12:])
-            text = f"Введите новое название для \"{item.get_name()}\" {tt.or_press_back}"
-            markup = markups.single_button(markups.btnBackEditItem(item.get_id()))
-
-            if item.get_image_id() == "None" or not settings.is_item_image_enabled() or await item.is_hide_image():
-                await bot.edit_message_text(
-                    chat_id=chat_id,
-                    message_id=callback_query.message.message_id,
-                    text=text,
-                    reply_markup=markup,
-                )
-            else:
-                await bot.delete_message(
-                    message_id=callback_query.message.message_id,
-                    chat_id=chat_id
-                )
-                await bot.send_message(
-                    chat_id=chat_id,
-                    text=text,
-                    reply_markup=markup
-                )
-
-            await state_handler.changeItemName.name.set()
-            state = Dispatcher.get_current().current_state()
-            await state.update_data(item_id=item.get_id())
-            await state.update_data(state_message=callback_query.message.message_id)
-        elif call_data.startswith("editItemDesc"):
-            item = itm.Item(call_data[12:])
-            text = f"Введите новое описание для \"{item.get_name()}\" {tt.or_press_back}"
-            markup = markups.single_button(markups.btnBackEditItem(item.get_id()))
-
-            if item.get_image_id() == "None" or not settings.is_item_image_enabled():
-                await bot.edit_message_text(
-                    chat_id=chat_id,
-                    message_id=callback_query.message.message_id,
-                    text=text,
-                    reply_markup=markup,
-                )
-            else:
-                await bot.delete_message(
-                    message_id=callback_query.message.message_id,
-                    chat_id=chat_id
-                )
-                await bot.send_message(
-                    chat_id=chat_id,
-                    text=text,
-                    reply_markup=markup
-                )
-            await state_handler.changeItemDesc.desc.set()
-            state = Dispatcher.get_current().current_state()
-            await state.update_data(item_id=item.get_id())
-            await state.update_data(state_message=callback_query.message.message_id)
-        elif call_data.startswith("editItemPrice"):
-            item = itm.Item(call_data[13:])
-            text = f"Введите новую цену для \"{item.get_name()}\" {tt.or_press_back}"
-            markup = markups.single_button(markups.btnBackEditItem(item.get_id()))
-
-            if item.get_image_id() == "None" or not settings.is_item_image_enabled() or await item.is_hide_image():
-                try:
-                    await bot.edit_message_text(
-                        chat_id=chat_id,
-                        message_id=callback_query.message.message_id,
-                        text=text,
-                        reply_markup=markup,
-                    )
-                except:
-                    await bot.delete_message(
-                        chat_id=chat_id,
-                        message_id=callback_query.message.message_id
-                    )
-                    await bot.send_message(
-                        chat_id=chat_id,
-                        text=text,
-                        reply_markup=markup
-                    )
-            else:
-                await bot.delete_message(
-                    message_id=callback_query.message.message_id,
-                    chat_id=chat_id
-                )
-                await bot.send_message(
-                    chat_id=chat_id,
-                    text=text,
-                    reply_markup=markup
-                )
-
-            await state_handler.changeItemPrice.price.set()
-            state = Dispatcher.get_current().current_state()
-            await state.update_data(item_id=item.get_id())
-            await state.update_data(state_message=callback_query.message.message_id)
-        elif call_data.startswith("editItemCat"):
-            item = itm.Item(call_data[11:])
-            text = f"Выберите новую категорию для \"{item.get_name()}\" {tt.or_press_back}"
-            markup = markups.get_markup_editItemCat(item_id=item.get_id(), cat_list=category.get_cat_list())
-
-            if item.get_image_id() == "None" or not settings.is_item_image_enabled():
-                await bot.edit_message_text(
-                    chat_id=chat_id,
-                    message_id=callback_query.message.message_id,
-                    text=text,
-                    reply_markup=markup,
-                )
-            else:
-                await bot.delete_message(
-                    message_id=callback_query.message.message_id,
-                    chat_id=chat_id
-                )
-                await bot.send_message(
-                    chat_id=chat_id,
-                    text=text,
-                    reply_markup=markup
-                )
-
-            await state_handler.changeItemCat.cat.set()
-            state = Dispatcher.get_current().current_state()
-            await state.update_data(item_id=item.get_id())
-        elif call_data.startswith("editItemStock"):
-            item = itm.Item(call_data[13:])
-            text = f"Введите новое количество товара для \"{item.get_name()}\" {tt.or_press_back}"
-            markup = markups.single_button(markups.btnBackEditItem(item.get_id()))
-
-            if item.get_image_id() == "None" or not settings.is_item_image_enabled():
-                await bot.edit_message_text(
-                    chat_id=chat_id,
-                    message_id=callback_query.message.message_id,
-                    text=text,
-                    reply_markup=markup,
-                )
-            else:
-                await bot.delete_message(
-                    message_id=callback_query.message.message_id,
-                    chat_id=chat_id
-                )
-                await bot.send_message(
-                    chat_id=chat_id,
-                    text=text,
-                    reply_markup=markup
-                )
-
-            await state_handler.changeItemStock.stock.set()
-            state = Dispatcher.get_current().current_state()
-            await state.update_data(item_id=item.get_id())
-            await state.update_data(state_message=callback_query.message.message_id)
-        elif call_data.startswith("editItemHideImage"):
-            item = itm.Item(call_data[17:])
-            cat = category.Category(item.get_cat_id())
-
-            try:
-                item.set_hide_image(0 if await item.is_hide_image() else 1)
-                text = tt.get_item_card(item) + f"\nКатегория: {cat.get_name()}"
-            except Exception as e:
-                logging.warning(f"SENT EXCEPTION(error \"item.set_hide_image\"): {e}")
-                text = tt.error
-            markup = await markups.get_markup_editItem(item)
-
-            if item.get_image_id() == "None" or not settings.is_item_image_enabled() or await item.is_hide_image():
-                try:
-                    await bot.edit_message_text(
-                        chat_id=chat_id,
-                        message_id=callback_query.message.message_id,
-                        text=text,
-                        reply_markup=markup,
-                    )
-                except:
-                    await bot.delete_message(
-                        message_id=callback_query.message.message_id,
-                        chat_id=chat_id
-                    )
-                    await bot.send_message(
-                        text=text,
-                        chat_id=chat_id,
-                        reply_markup=markup
-                    )
-            else:
-                await bot.delete_message(
-                    message_id=callback_query.message.message_id,
-                    chat_id=chat_id
-                )
-                await bot.send_photo(
-                    chat_id=chat_id,
-                    caption=text,
-                    photo=item.get_image(),
-                    reply_markup=markup
-                )
-
-        elif call_data.startswith("editItemHide"):
-            item = itm.Item(call_data[12:])
-            cat = category.Category(item.get_cat_id())
-
-            try:
-                item.set_active(0 if item.is_active() else 1)
-                text = tt.get_item_card(item) + f"\nКатегория: {cat.get_name()}"
-            except Exception as e:
-                logging.warning(f"SENT EXCEPTION(error \"item.set_active\"): {e}")
-                text = tt.error
-            markup = await markups.get_markup_editItem(item)
-
-            if item.get_image_id() == "None" or not settings.is_item_image_enabled() or await item.is_hide_image():
-                await bot.edit_message_text(
-                    chat_id=chat_id,
-                    message_id=callback_query.message.message_id,
-                    text=text,
-                    reply_markup=markup,
-                )
-            else:
-                await bot.delete_message(
-                    message_id=callback_query.message.message_id,
-                    chat_id=chat_id
-                )
-                await bot.send_photo(
-                    chat_id=chat_id,
-                    caption=text,
-                    photo=item.get_image(),
-                    reply_markup=markup
-                )
-
         elif call_data.startswith("editHideCat"):
             cat = category.Category(call_data[11:])
 
@@ -976,19 +1039,34 @@ async def process_callback(callback_query: types.CallbackQuery):
                     caption=text,
                     reply_markup=markup,
                 )
-
-        elif call_data.startswith("editItemDelete"):
-            item = itm.Item(call_data[14:])
-            cat = category.Category(item.get_cat_id())
+        elif call_data.startswith("editCatDelete"):
+            cat = category.Category(call_data[13:])
             try:
-                text = f"Товар \"{item.get_name()}\" был удалён."
-                item.delete()
-                markup = markups.single_button(markups.btnBackEditItemChooseItem(cat.get_id()))
+                text = f"Категория {cat.get_name()} была успешно удалена."
+                cat.delete()
             except Exception as e:
-                logging.warning(f"SENT EXCEPTION(error delete item): {e}")
-                text = tt.error
-                markup = markups.single_button(markups.btnBackEditItem(item.get_id()))
-
+                logging.warning(f"SENT EXCEPTION(error delete cat): {e}")
+                text = f"Произошла ошибка!"
+            await bot.delete_message(
+                message_id=callback_query.message.message_id,
+                chat_id=chat_id
+            )
+            await bot.send_message(
+                chat_id=chat_id,
+                text=text,
+                reply_markup=markups.single_button(markups.btnBackEditCatChooseCategory),
+            )
+        elif call_data == "editItemChooseCategory":
+            await bot.edit_message_text(
+                chat_id=chat_id,
+                message_id=callback_query.message.message_id,
+                text="Выберите категорию товара, который вы хотите редактировать: ",
+                reply_markup=markups.get_markup_editItemChooseCategory(category.get_cat_list()),
+            )
+        elif call_data.startswith("editItemChooseItem"):
+            cat = category.Category(call_data[18:])
+            text = f"Выберите товар, который вы хотите редактировать: "
+            markup = markups.get_markup_editItemChooseItem(cat.get_item_list())
             try:
                 await bot.edit_message_text(
                     chat_id=chat_id,
@@ -996,35 +1074,6 @@ async def process_callback(callback_query: types.CallbackQuery):
                     text=text,
                     reply_markup=markup,
                 )
-            except:
-                await bot.delete_message(
-                    message_id=callback_query.message.message_id,
-                    chat_id=chat_id
-                )
-                await bot.send_photo(
-                    chat_id=chat_id,
-                    caption=text,
-                    photo=item.get_image(),
-                    reply_markup=markup
-                )
-
-        elif call_data.startswith("editItemImage"):
-            item = itm.Item(call_data[13:])
-            text = f"Отправьте изображение для товара {tt.or_press_back}"
-            markup = markups.single_button(markups.btnBackEditItem(item.get_id()))
-
-            await state_handler.changeItemImage.image.set()
-            state = Dispatcher.get_current().current_state()
-            await state.update_data(item_id=item.get_id())
-
-            try:
-                await bot.edit_message_text(
-                    chat_id=chat_id,
-                    message_id=callback_query.message.message_id,
-                    text=text,
-                    reply_markup=markup,
-                )
-                await state.update_data(state_message=callback_query.message.message_id)
             except:
                 await bot.delete_message(
                     message_id=callback_query.message.message_id,
@@ -1035,7 +1084,6 @@ async def process_callback(callback_query: types.CallbackQuery):
                     text=text,
                     reply_markup=markup
                 )
-
         elif call_data.startswith("editItem"):
             item = itm.Item(call_data[8:])
             cat = category.Category(item.get_cat_id())
@@ -1061,6 +1109,16 @@ async def process_callback(callback_query: types.CallbackQuery):
                     reply_markup=markup
                 )
 
+    # Admin calls
+    elif call_data.startswith("admin_") and user.is_admin():
+        call_data = call_data[6:]
+        if call_data == "adminPanel":
+            await bot.edit_message_text(
+                chat_id=chat_id,
+                message_id=callback_query.message.message_id,
+                text=tt.admin_panel,
+                reply_markup=markups.get_markup_admin(),
+            )
         # User management
         elif call_data == "userManagement":
             await bot.edit_message_text(
@@ -1120,6 +1178,7 @@ async def process_callback(callback_query: types.CallbackQuery):
                         markupMain.row(markups.btnOrders)
                     if editUser.is_admin():
                         markupMain.row(markups.btnAdminPanel)
+                    markupMain.row(markups.btnForFooter1, markups.btnForFooter2)
                     text = f"Вас убрали из черного списка."
                 else:
                     markupMain = types.ReplyKeyboardMarkup(resize_keyboard=True)
@@ -1158,6 +1217,8 @@ async def process_callback(callback_query: types.CallbackQuery):
                         markupMain.row(markups.btnOrders)
                     if editUser.is_admin():
                         markupMain.row(markups.btnAdminPanel)
+
+                    markupMain.row(markups.btnForFooter1, markups.btnForFooter2)
                 else:
                     markupMain = types.ReplyKeyboardMarkup(resize_keyboard=True)
                     markupMain.add(types.KeyboardButton(tt.faq))
@@ -1195,6 +1256,8 @@ async def process_callback(callback_query: types.CallbackQuery):
                                 markupMain.row(markups.btnOrders)
                             if editUser.is_admin():
                                 markupMain.row(markups.btnAdminPanel)
+
+                            markupMain.row(markups.btnForFooter1, markups.btnForFooter2)
                         else:
                             markupMain = types.ReplyKeyboardMarkup(resize_keyboard=True)
                             markupMain.add(types.KeyboardButton(tt.faq))
@@ -1948,8 +2011,6 @@ async def process_callback(callback_query: types.CallbackQuery):
                 text=tt.get_order_template(order),
                 reply_markup=markups.get_markup_manageOrder(order),
             )
-    elif call_data.startswith("manager_") and (user.is_admin() or user.is_manager()):
-        call_data = call_data[8:]
 
         if call_data == "orders":
             await bot.edit_message_text(
@@ -2117,7 +2178,8 @@ async def process_callback(callback_query: types.CallbackQuery):
                     chat_id=adm_id,
                     message_id=msg_id,
                     reply_markup=markups.get_markup_seeNewOrder(order,
-                                                                order.get_manager() == usr.get_username_g(adm_id) and order.get_status() != 2)
+                                                                order.get_manager() == usr.get_username_g(
+                                                                    adm_id) and order.get_status() != 2)
                 )
                 if order.get_id_user_msg() != "None":
                     await bot.edit_message_text(
@@ -2153,7 +2215,8 @@ async def process_callback(callback_query: types.CallbackQuery):
                     chat_id=adm_id,
                     message_id=msg_id,
                     reply_markup=markups.get_markup_seeNewOrder(order,
-                                                                order.get_manager() == usr.get_username_g(adm_id) and order.get_status() != 2)
+                                                                order.get_manager() == usr.get_username_g(
+                                                                    adm_id) and order.get_status() != 2)
                 )
             if order.get_id_user_msg() != "None":
                 await bot.edit_message_text(
@@ -2251,7 +2314,8 @@ async def process_callback(callback_query: types.CallbackQuery):
                     chat_id=adm_id,
                     message_id=msg_id,
                     reply_markup=markups.get_markup_seeNewOrder(order,
-                                                                order.get_manager() == usr.get_username_g(adm_id) and order.get_status() != 2)
+                                                                order.get_manager() == usr.get_username_g(
+                                                                    adm_id) and order.get_status() != 2)
                 )
             if order.get_id_user_msg() != "None":
                 await bot.edit_message_text(
@@ -2288,7 +2352,8 @@ async def process_callback(callback_query: types.CallbackQuery):
                     chat_id=adm_id,
                     message_id=msg_id,
                     reply_markup=markups.get_markup_seeNewOrder(order,
-                                                                order.get_manager() == usr.get_username_g(adm_id) and order.get_status() != 2)
+                                                                order.get_manager() == usr.get_username_g(
+                                                                    adm_id) and order.get_status() != 2)
                 )
             if order.get_id_user_msg() != "None":
                 await bot.edit_message_text(
@@ -2323,7 +2388,8 @@ async def process_callback(callback_query: types.CallbackQuery):
                     chat_id=adm_id,
                     message_id=msg_id,
                     reply_markup=markups.get_markup_seeNewOrder(order,
-                                                                order.get_manager() == usr.get_username_g(adm_id) and order.get_status() != 2)
+                                                                order.get_manager() == usr.get_username_g(
+                                                                    adm_id) and order.get_status() != 2)
                 )
             if order.get_id_user_msg() != "None":
                 await bot.edit_message_text(
@@ -2413,6 +2479,8 @@ async def process_callback(callback_query: types.CallbackQuery):
             #     message_id=callback_query.message.message_id,
             #     reply_markup=markups.get_markup_seeOrder(order)
             # )
+
+
 
     # User calls
     else:
@@ -2551,7 +2619,8 @@ async def process_callback(callback_query: types.CallbackQuery):
                         chat_id=adm_id,
                         message_id=msg_id,
                         reply_markup=markups.get_markup_seeNewOrder(order,
-                                                                    order.get_manager() == usr.get_username_g(adm_id) and order.get_status() != 2)
+                                                                    order.get_manager() == usr.get_username_g(
+                                                                        adm_id) and order.get_status() != 2)
                     )
                     if order.get_id_user_msg() != "None":
                         await bot.edit_message_text(
@@ -2587,7 +2656,8 @@ async def process_callback(callback_query: types.CallbackQuery):
                         chat_id=adm_id,
                         message_id=msg_id,
                         reply_markup=markups.get_markup_seeNewOrder(order,
-                                                                    order.get_manager() == usr.get_username_g(adm_id) and order.get_status() != 2)
+                                                                    order.get_manager() == usr.get_username_g(
+                                                                        adm_id) and order.get_status() != 2)
                     )
                     if order.get_id_user_msg() != "None":
                         await bot.edit_message_text(
@@ -3032,6 +3102,7 @@ async def changeProfilePrice(message: types.Message, state: FSMContext):
     )
     await state.finish()
 
+
 @dp.message_handler(state=state_handler.changeOthProfilePrice.price)
 async def changeOthProfilePrice(message: types.Message, state: FSMContext):
     data = await state.get_data()
@@ -3055,6 +3126,7 @@ async def changeOthProfilePrice(message: types.Message, state: FSMContext):
         reply_markup=markups.single_button(markups.btnBackViewProfile(data["user_id"])),
     )
     await state.finish()
+
 
 @dp.message_handler(content_types=['photo'], state=state_handler.changeCatImage.image)
 async def changeCatImage(msg: types.Message, state: FSMContext):
@@ -3111,10 +3183,10 @@ async def addItemSetPrice(message: types.Message, state: FSMContext):
         await state.update_data(price=float(message.text))
         await bot.send_message(
             chat_id=message.chat.id,
-            text=f"Выберите категорию для \"{data['name']}\" {tt.or_press_back}",
-            reply_markup=markups.get_markup_addItemSetCat(category.get_cat_list()),
+            text=f"Введите крепость {tt.or_press_back}",
+            reply_markup=markups.single_button(markups.btnBackItemManagement),
         )
-        await state_handler.addItem.cat_id.set()
+        await state_handler.addItem.strong.set()
     except Exception as e:
         logging.warning(f"SENT EXCEPTION(error state_handler.addItem.price): {e}")
         await bot.send_message(
@@ -3124,6 +3196,30 @@ async def addItemSetPrice(message: types.Message, state: FSMContext):
         )
         await state.finish()
 
+
+@dp.message_handler(state=state_handler.addItem.strong)
+async def addItemSetPrice(message: types.Message, state: FSMContext):
+    try:
+        data = await state.get_data()
+        state = Dispatcher.get_current().current_state()
+        await state.update_data(strong=int(message.text))
+        data = await state.get_data()
+        print(int(message.text))
+        print(data['strong'])
+        await bot.send_message(
+            chat_id=message.chat.id,
+            text=f"Выберите категорию для \"{data['name']}\" {tt.or_press_back}",
+            reply_markup=markups.get_markup_addItemSetCat(category.get_cat_list()),
+        )
+        await state_handler.addItem.cat_id.set()
+    except Exception as e:
+        logging.warning(f"SENT EXCEPTION(error state_handler.addItem.strong): {e}")
+        await bot.send_message(
+            chat_id=message.chat.id,
+            text=tt.error,
+            reply_markup=markups.single_button(markups.btnBackItemManagement),
+        )
+        await state.finish()
 
 @dp.message_handler(state=state_handler.addItem.desc)
 async def addItemSetDesc(message: types.Message, state: FSMContext):
@@ -3139,7 +3235,7 @@ async def addItemSetDesc(message: types.Message, state: FSMContext):
         markup = markups.get_markup_addItemConfirmation()
         cat = category.Category(data["cat_id"])
         text = tt.get_item_card(name=data["name"], price=data["price"], desc=data["desc"],
-                                amount=0) + f"\nКатегория: {cat.get_name()}\n\nВы уверены, что хотите добавить \"{data['name']}\" в каталог?"
+                                amount=0, strong=data['strong']) + f"\nКатегория: {cat.get_name()}\n\nВы уверены, что хотите добавить \"{data['name']}\" в каталог?"
         await state_handler.addItem.confirmation.set()
     await bot.send_message(
         chat_id=message.chat.id,
@@ -3163,7 +3259,7 @@ async def addItemSetImage(message: types.Message, state: FSMContext):
 
     cat = category.Category(data["cat_id"])
     text = tt.get_item_card(name=data["name"], price=data["price"], desc=data["desc"],
-                            amount=0) + f"\nКатегория: {cat.get_name()}\n\nВы уверены, что хотите добавить \"{data['name']}\" в каталог?"
+                            amount=0, strong=data["strong"]) + f"\nКатегория: {cat.get_name()}\n\nВы уверены, что хотите добавить \"{data['name']}\" в каталог?"
     await bot.send_photo(
         chat_id=message.chat.id,
         photo=open(f"images/{image_id}", "rb"),
@@ -3194,6 +3290,33 @@ async def editItemSetPrice(message: types.Message, state: FSMContext):
     try:
         text = f"Ценя для \"{item.get_name()}\" была изменена с {item.get_price()} на {'{:.2f}'.format(float(message.text))}."
         item.set_price(float(message.text))
+    except Exception as e:
+        logging.warning(f"SENT EXCEPTION(error change item price): {e}")
+        text = tt.error
+
+    try:
+        await bot.delete_message(
+            message_id=data["state_message"],
+            chat_id=message.chat.id
+        )
+    except:
+        logging.warning(f"[{message.chat.id}] FAILED TO DELETE MESSAGE WITH ID {data['state_message']}")
+        if settings.is_debug():
+            print(f"DEBUG: [{message.chat.id}] FAILED TO DELETE MESSAGE WITH ID {data['state_message']}")
+    await bot.send_message(
+        chat_id=message.chat.id,
+        text=text,
+        reply_markup=markups.single_button(markups.btnBackEditItem(item.get_id())),
+    )
+
+@dp.message_handler(state=state_handler.changeItemStrong.strong)
+async def editItemSetPrice(message: types.Message, state: FSMContext):
+    state = Dispatcher.get_current().current_state()
+    data = await state.get_data()
+    item = itm.Item(data["item_id"])
+    try:
+        text = f"Крепость для \"{item.get_name()}\" была изменена с {item.get_strong()} на {int(message.text)}."
+        item.set_strong(int(message.text))
     except Exception as e:
         logging.warning(f"SENT EXCEPTION(error change item price): {e}")
         text = tt.error
@@ -3821,76 +3944,11 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
         call_data = call_data[6:]
 
         # Callbacks
-        if call_data.startswith("addItemSetCat"):
-            await state.update_data(cat_id=int(call_data[13:]))
 
-            finish = False
-            if len(category.Category(call_data[13:]).get_item_list()) > 85:
-                text = tt.error
-                finish = True
-            else:
-                text = f"Введите описание для \"{data['name']}\" {tt.or_press_back}"
-            await bot.edit_message_text(
-                chat_id=chat_id,
-                message_id=callback_query.message.message_id,
-                text=text,
-                reply_markup=markups.single_button(markups.btnBackItemManagement),
-            )
-            if finish:
-                await state.finish()
-            else:
-                await state_handler.addItem.desc.set()
-        elif call_data == "skipSetAddItemSetImage":
-            await state.update_data(image="None")
-            cat = category.Category(data["cat_id"])
-            text = tt.get_item_card(name=data["name"], price=data["price"], desc=data["desc"],
-                                    amount=0) + f"\nКатегория: {cat.get_name()}\n\nВы уверены, что хотите добавить \"{data['name']}\" в каталог?"
-            await bot.edit_message_text(
-                chat_id=chat_id,
-                message_id=callback_query.message.message_id,
-                text=text,
-                reply_markup=markups.get_markup_addItemConfirmation()
-            )
-            await state_handler.addItem.confirmation.set()
-        elif call_data == "skipSetAddCatSetImage":
-            await state.update_data(image="None")
-            try:
-                # category.create_cat(data["name"])
-                text = tt.get_category_was_created_successfuly(data["name"])
-            except Exception as e:
-                logging.warning(f"SENT EXCEPTION(error skipSetAddCatSetImage): {e}")
-                text = tt.error
 
-            await bot.delete_message(
-                message_id=data["state_message"],
-                chat_id=chat_id
-            )
-            await bot.send_message(
-                chat_id=chat_id,
-                text=text,
-                reply_markup=markups.single_button(markups.btnBackItemManagement),
-            )
-            await state.finish()
-        elif call_data == "addItemConfirm":
-            try:
-                itm.create_item(name=data["name"], price=data["price"], cat_id=data["cat_id"], desc=data["desc"],
-                                image_id=data["image"] if settings.is_item_image_enabled() else "None", strong=0)
-                text = f"Товар {data['name']} был создан."
-            except Exception as e:
-                logging.warning(f"SENT EXCEPTION(error create item): {e}")
-                text = tt.error
-            await bot.delete_message(
-                message_id=callback_query.message.message_id,
-                chat_id=chat_id
-            )
-            await bot.send_message(
-                chat_id=chat_id,
-                text=text,
-                reply_markup=markups.single_button(markups.btnBackItemManagement),
-            )
-            await state.finish()
 
-        elif call_data == "notifyEveryoneConfirm":
+
+        if call_data == "notifyEveryoneConfirm":
             total = len(usr.get_buyers_list())
             fail = 0
             for user in usr.get_buyers_list():
@@ -3933,63 +3991,27 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
             await state.finish()
 
         # "go-backs"
-        elif call_data == "itemManagement":
-            try:
-                await bot.edit_message_text(
-                    chat_id=chat_id,
-                    message_id=callback_query.message.message_id,
-                    text=tt.item_management,
-                    reply_markup=markups.get_markup_itemManagement(),
-                )
-            except:
-                await bot.delete_message(
-                    message_id=callback_query.message.message_id,
-                    chat_id=chat_id
-                )
-                await bot.send_message(
-                    chat_id=chat_id,
-                    text=tt.item_management,
-                    reply_markup=markups.get_markup_itemManagement(),
-                )
-            await state.finish()
-        elif call_data.startswith("editBackCat"):
-            cat = category.Category(call_data[11:])
-            await bot.delete_message(
-                message_id=callback_query.message.message_id,
-                chat_id=chat_id
-            )
-            await bot.send_photo(
-                chat_id=chat_id,
-                photo=cat.get_image(),
-                caption=tt.get_category_data(cat),
-                reply_markup=markups.get_markup_editCat(cat.get_id()),
-            )
-            await state.finish()
-        elif call_data.startswith("editItem"):
-            item = itm.Item(call_data[8:])
-            cat = category.Category(item.get_cat_id())
-            text = tt.get_item_card(item=item) + f"\nКатегория: {cat.get_name()}"
-            markup = await markups.get_markup_editItem(item)
+        # elif call_data == "itemManagement":
+        #     try:
+        #         await bot.edit_message_text(
+        #             chat_id=chat_id,
+        #             message_id=callback_query.message.message_id,
+        #             text=tt.item_management,
+        #             reply_markup=markups.get_markup_itemManagement(),
+        #         )
+        #     except:
+        #         await bot.delete_message(
+        #             message_id=callback_query.message.message_id,
+        #             chat_id=chat_id
+        #         )
+        #         await bot.send_message(
+        #             chat_id=chat_id,
+        #             text=tt.item_management,
+        #             reply_markup=markups.get_markup_itemManagement(),
+        #         )
+        #     await state.finish()
 
-            if item.get_image_id() == "None" or not settings.is_item_image_enabled() and await item.is_hide_image():
-                await bot.edit_message_text(
-                    chat_id=chat_id,
-                    message_id=callback_query.message.message_id,
-                    text=text,
-                    reply_markup=markup,
-                )
-            else:
-                await bot.delete_message(
-                    message_id=callback_query.message.message_id,
-                    chat_id=chat_id
-                )
-                await bot.send_photo(
-                    chat_id=chat_id,
-                    caption=text,
-                    photo=item.get_image(),
-                    reply_markup=markup
-                )
-            await state.finish()
+
         elif call_data == "userManagement":
             await bot.edit_message_text(
                 chat_id=chat_id,
@@ -4059,7 +4081,137 @@ async def cancelState(callback_query: types.CallbackQuery, state: FSMContext):
 
         else:
             await state.finish()
+    elif call_data[:8] == "manager_":
+        call_data = call_data[8:]
+        if call_data == "itemManagement":
+            try:
+                await bot.edit_message_text(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    text=tt.item_management,
+                    reply_markup=markups.get_markup_itemManagement(),
+                )
+            except:
+                await bot.delete_message(
+                    message_id=callback_query.message.message_id,
+                    chat_id=chat_id
+                )
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=tt.item_management,
+                    reply_markup=markups.get_markup_itemManagement(),
+                )
+            await state.finish()
+
+        elif call_data == "skipSetAddCatSetImage":
+            await state.update_data(image="None")
+            try:
+                # category.create_cat(data["name"])
+                text = tt.get_category_was_created_successfuly(data["name"])
+            except Exception as e:
+                logging.warning(f"SENT EXCEPTION(error skipSetAddCatSetImage): {e}")
+                text = tt.error
+
+            await bot.delete_message(
+                message_id=data["state_message"],
+                chat_id=chat_id
+            )
+            await bot.send_message(
+                chat_id=chat_id,
+                text=text,
+                reply_markup=markups.single_button(markups.btnBackItemManagement),
+            )
+            await state.finish()
+        elif call_data.startswith("addItemSetCat"):
+            await state.update_data(cat_id=int(call_data[13:]))
+
+            finish = False
+            if len(category.Category(call_data[13:]).get_item_list()) > 85:
+                text = tt.error
+                finish = True
+            else:
+                text = f"Введите описание для \"{data['name']}\" {tt.or_press_back}"
+            await bot.edit_message_text(
+                chat_id=chat_id,
+                message_id=callback_query.message.message_id,
+                text=text,
+                reply_markup=markups.single_button(markups.btnBackItemManagement),
+            )
+            if finish:
+                await state.finish()
+            else:
+                await state_handler.addItem.desc.set()
+        elif call_data.startswith("editItem"):
+            item = itm.Item(call_data[8:])
+            cat = category.Category(item.get_cat_id())
+            text = tt.get_item_card(item=item) + f"\nКатегория: {cat.get_name()}"
+            markup = await markups.get_markup_editItem(item)
+
+            if item.get_image_id() == "None" or not settings.is_item_image_enabled() and await item.is_hide_image():
+                await bot.edit_message_text(
+                    chat_id=chat_id,
+                    message_id=callback_query.message.message_id,
+                    text=text,
+                    reply_markup=markup,
+                )
+            else:
+                await bot.delete_message(
+                    message_id=callback_query.message.message_id,
+                    chat_id=chat_id
+                )
+                await bot.send_photo(
+                    chat_id=chat_id,
+                    caption=text,
+                    photo=item.get_image(),
+                    reply_markup=markup
+                )
+            await state.finish()
+        elif call_data == "skipSetAddItemSetImage":
+            await state.update_data(image="None")
+            cat = category.Category(data["cat_id"])
+            text = tt.get_item_card(name=data["name"], price=data["price"], desc=data["desc"],
+                                    amount=0, strong=data["strong"]) + f"\nКатегория: {cat.get_name()}\n\nВы уверены, что хотите добавить \"{data['name']}\" в каталог?"
+            await bot.edit_message_text(
+                chat_id=chat_id,
+                message_id=callback_query.message.message_id,
+                text=text,
+                reply_markup=markups.get_markup_addItemConfirmation()
+            )
+            await state_handler.addItem.confirmation.set()
+        elif call_data == "addItemConfirm":
+            data = await state.get_data()
+            try:
+                itm.create_item(name=data["name"], price=data["price"], cat_id=data["cat_id"], desc=data["desc"],
+                                image_id=data["image"] if settings.is_item_image_enabled() else "None", strong=data["strong"])
+                text = f"Товар {data['name']} был создан."
+            except Exception as e:
+                logging.warning(f"SENT EXCEPTION(error create item): {e}")
+                text = tt.error
+            await bot.delete_message(
+                message_id=callback_query.message.message_id,
+                chat_id=chat_id
+            )
+            await bot.send_message(
+                chat_id=chat_id,
+                text=text,
+                reply_markup=markups.single_button(markups.btnBackItemManagement),
+            )
+            await state.finish()
+        elif call_data.startswith("editBackCat"):
+            cat = category.Category(call_data[11:])
+            await bot.delete_message(
+                message_id=callback_query.message.message_id,
+                chat_id=chat_id
+            )
+            await bot.send_photo(
+                chat_id=chat_id,
+                photo=cat.get_image(),
+                caption=tt.get_category_data(cat),
+                reply_markup=markups.get_markup_editCat(cat.get_id()),
+            )
+            await state.finish()
     else:
+
         if call_data == "catalogue":
             await bot.edit_message_text(
                 chat_id=chat_id,

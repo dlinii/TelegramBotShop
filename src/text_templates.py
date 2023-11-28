@@ -32,16 +32,20 @@ def get_category_data(cat):
 
 
 def get_item_card(item=None, name=None, price=None, desc=None, amount=None, strong=None):
+    strongTxt = ""
     if item:
         name = item.get_name()
         price = item.get_price()
         desc = item.get_desc()
         amount = item.get_amount()
-        strong = ""
-        if item.get_strong() != -1:
-            strong = str(item.get_strong()) + " mg"
+        strong = item.get_strong()
+        if strong != -1:
+            strongTxt = str(strong) + " mg"
+    else:
+        if strong != -1:
+            strongTxt = str(strong) + " mg"
 
-    return f"{line_separator}\n{name} - {'{:.2f}'.format(price)} р.\nВ наличии: {amount} шт.\n{strong}\n{line_separator}\n{desc}"
+    return f"{line_separator}\n{name} - {'{:.2f}'.format(price)} р.\nВ наличии: {amount} шт.\n{strongTxt}\n{line_separator}\n{desc}"
 
 
 def get_order_confirmation_template(item_amount_dict, cart_price, additional_message, phone_number=None,
@@ -197,6 +201,7 @@ show_image = "🐵 Показать изображение"
 change_desc = "📝 Изменить описание"
 change_price = "🏷️ Изменить цену"
 change_item_cat = "🛍️ Изменить категорию"
+change_strong = "🦾 Изменить крепость"
 change_stock = "📦 Изменить кол-во"
 
 # User management
@@ -204,6 +209,7 @@ user_profile = "📁Профиль пользователя"
 notify_everyone = "🔔Оповещение всем пользователям"
 refresh_messages = "↩️Переслать сообщения"
 orders = "📁 Заказы"
+buttonManager = "⚙️ Другое"
 remove_black_list = "👮‍♂️ Убрать из черного списка"
 add_black_list = "👮🏿‍♂️ Добавить в черный список"
 remove_manager_role = "👨‍💼 Убрать роль менеджера"
