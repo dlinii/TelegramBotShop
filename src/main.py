@@ -3190,12 +3190,9 @@ async def addItemSetPrice(message: types.Message, state: FSMContext):
 @dp.message_handler(state=state_handler.addItem.strong)
 async def addItemSetPrice(message: types.Message, state: FSMContext):
     try:
-        data = await state.get_data()
         state = Dispatcher.get_current().current_state()
         await state.update_data(strong=int(message.text))
         data = await state.get_data()
-        print(int(message.text))
-        print(data['strong'])
         await bot.send_message(
             chat_id=message.chat.id,
             text=f"Выберите категорию для \"{data['name']}\" {tt.or_press_back}",
